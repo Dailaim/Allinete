@@ -1,18 +1,14 @@
-# Qwik City App ⚡️
+# Alinette
 
-- [Qwik Docs](https://qwik.builder.io/)
-- [Discord](https://qwik.builder.io/chat)
-- [Qwik GitHub](https://github.com/BuilderIO/qwik)
-- [@QwikDev](https://twitter.com/QwikDev)
-- [Vite](https://vitejs.dev/)
+## Descripción
 
----
+Alinette es un proyecto desarrollado con Qwik, una alternativa a React, y utiliza Tailwind para el diseño. La gestión de paquetes se realiza con pnpm.
 
-## Project Structure
+El frontend del proyecto se basa en el diseño proporcionado en Figma: [Figma Design](https://www.figma.com/community/file/1235568124083139608).
 
-This project is using Qwik with [QwikCity](https://qwik.builder.io/qwikcity/overview/). QwikCity is just an extra set of tools on top of Qwik to make it easier to build a full site, including directory-based routing, layouts, and more.
+## Estructura del Proyecto
 
-Inside your project, you'll see the following directory structure:
+El proyecto sigue una estructura organizada para facilitar el desarrollo. A continuación, se presenta la estructura de directorios:
 
 ```
 ├── public/
@@ -20,46 +16,73 @@ Inside your project, you'll see the following directory structure:
 └── src/
     ├── components/
     │   └── ...
-    └── routes/
+    ├── routes/
+    │   └── ...
+    └── server/
+        ├── api/
+        │   └── ...
+        ├── database/
+        │   └── ...
         └── ...
 ```
 
-- `src/routes`: Provides the directory-based routing, which can include a hierarchy of `layout.tsx` layout files, and an `index.tsx` file as the page. Additionally, `index.ts` files are endpoints. Please see the [routing docs](https://qwik.builder.io/qwikcity/routing/overview/) for more info.
+- **public:** Contiene activos estáticos como imágenes.
 
-- `src/components`: Recommended directory for components.
+- **src/components:** Directorio recomendado para almacenar componentes.
 
-- `public`: Any static assets, like images, can be placed in the public directory. Please see the [Vite public directory](https://vitejs.dev/guide/assets.html#the-public-directory) for more info.
+- **src/routes:** Proporciona enrutamiento basado en directorios, que puede incluir una jerarquía de archivos `layout.tsx` y un archivo `index.tsx` como la página. Además, los archivos `index.ts` son puntos finales. Consulta la documentación de enrutamiento para obtener más información.
 
-## Add Integrations and deployment
+- **src/server:** Contiene el servidor, la lógica del backend y la base de datos.
 
-Use the `pnpm qwik add` command to add additional integrations. Some examples of integrations includes: Cloudflare, Netlify or Express Server, and the [Static Site Generator (SSG)](https://qwik.builder.io/qwikcity/guides/static-site-generation/).
+    - **api:** Carpeta para almacenar los módulos relacionados con la lógica del servidor.
 
-```shell
-pnpm qwik add # or `pnpm qwik add`
+    - **database:** Carpeta para gestionar la lógica de la base de datos.
+
+## Storybook
+
+El proyecto incluye Storybook para el desarrollo y la visualización de componentes. Ejecuta el siguiente comando para iniciar Storybook:
+
+```bash
+npm run storybook # o `pnpm run storybook`
 ```
 
-## Development
+## Backend con Server Functions
 
-Development mode uses [Vite's development server](https://vitejs.dev/). The `dev` command will server-side render (SSR) the output during development.
+El backend del proyecto está construido con Server Functions, que sigue un estilo similar a trpc. Obtén más información [aquí](https://qwik.builder.io/docs/server$/).
 
-```shell
-npm start # or `pnpm start`
+## Comandos
+
+### Desarrollo
+
+El modo de desarrollo utiliza el servidor de desarrollo de Vite y realiza la renderización del lado del servidor (SSR) durante el desarrollo. Ejecuta el siguiente comando para iniciar el servidor de desarrollo:
+
+```bash
+pnpm start # o `pnpm start`
 ```
 
-> Note: during dev mode, Vite may request a significant number of `.js` files. This does not represent a Qwik production build.
+### Vista Previa
 
-## Preview
+El comando de vista previa crea una compilación de producción de los módulos del cliente y del servidor. Además, ejecuta un servidor local para previsualizar la compilación de producción. Ten en cuenta que este servidor de vista previa es solo para conveniencia y no debe utilizarse como un servidor de producción.
 
-The preview command will create a production build of the client modules, a production build of `src/entry.preview.tsx`, and run a local server. The preview server is only for convenience to preview a production build locally and should not be used as a production server.
-
-```shell
-pnpm preview # or `pnpm preview`
+```bash
+pnpm preview # o `pnpm preview`
 ```
 
-## Production
+### Producción
 
-The production build will generate client and server modules by running both client and server build commands. The build command will use Typescript to run a type check on the source code.
+La compilación de producción generará módulos cliente y servidor mediante los comandos de compilación tanto del cliente como del servidor. Además, el comando de compilación ejecutará una verificación de tipo con TypeScript en el código fuente.
 
-```shell
-pnpm build # or `pnpm build`
+```bash
+pnpm build # o `pnpm build`
 ```
+
+## Integraciones y Implementación
+
+Utiliza el siguiente comando para agregar integraciones adicionales con el proyecto:
+
+```bash
+pnpm qwik add # o `pnpm qwik add`
+```
+
+Algunos ejemplos de integraciones incluyen Cloudflare, Netlify o Express Server, y el Generador de Sitios Estáticos (SSG).
+
