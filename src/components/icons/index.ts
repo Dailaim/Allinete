@@ -7,6 +7,7 @@ import { SVGEye } from "./eye";
 import SVGGoogleColor from "./google.svg?component";
 import { SVGMenu, SVGMenuWithName } from "./menu";
 import { SVGSearch, SVGSearchWithName } from "./search";
+import { SVGStar, SVGStarUnderline } from "./star";
 import { SVGSussesCircle } from "./sussesCircle";
 
 export {
@@ -25,4 +26,6 @@ export {
 	SVGMenuWithName,
 	SVGDangerCircle,
 	SVGSussesCircle,
+	SVGStar,
+	SVGStarUnderline,
 };

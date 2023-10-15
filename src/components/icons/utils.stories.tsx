@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "storybook-framework-qwik";
+
 import {
 	SVGArrowRight,
 	SVGCircleArrowLeft,
@@ -6,6 +7,8 @@ import {
 	SVGDangerCircle,
 	SVGEye,
 	SVGGoogleColor,
+	SVGStar,
+	SVGStarUnderline,
 	SVGSussesCircle,
 } from "./index";
 import type { SVGProps } from "./props";
@@ -73,4 +76,14 @@ export const DangerCircle: Story = {
 export const SussesCircle: Story = {
 	args: {},
 	render: ({ ...props }) => <SVGSussesCircle {...props} />,
+};
+
+export const Star: Story = {
+	args: {},
+	render: ({ ...props }) => <SVGStar {...props} />,
+};
+
+export const StarUnderline: Story = {
+	args: {},
+	render: ({ ...props }) => <SVGStarUnderline {...props} />,
 };

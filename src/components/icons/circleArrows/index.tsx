@@ -1,8 +1,9 @@
 import { component$ } from "@builder.io/qwik";
-import { SVGProps } from "../props";
+import type { SVGProps } from "../props";
 
 export const SVGCircleArrowLeft = component$<SVGProps>((props) => {
 	return (
+		// biome-ignore lint/a11y/noSvgWithoutTitle: <explanation>
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
 			width="40"
@@ -29,6 +30,7 @@ export const SVGCircleArrowLeft = component$<SVGProps>((props) => {
 
 export const SVGCircleArrowRight = component$<SVGProps>((props) => {
 	return (
+		// biome-ignore lint/a11y/noSvgWithoutTitle: <explanation>
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
 			width="40"
