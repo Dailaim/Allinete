@@ -11,12 +11,13 @@ module.exports = {
 				merriweather: ["Merriweather", "serif"],
 				mulish: ["Mulish", "sans-serif"],
 				poppins: ["Poppins", "sans-serif"],
+				montserrat: ["Montserrat", "sans-serif"],
 			},
 
 			colors: {
 				"blue-gray": "#697586",
 				gray: "#dfe1e3",
-				"off-white": "#F9F9FC",
+				"off-white": "#f9fafc",
 				purple: { DEFAULT: "#b0a6bd", 400: "#dfdbe5", 200: "#efedf2" },
 				pink: {
 					DEFAULT: "#f5a3b7",

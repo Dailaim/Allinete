@@ -1,5 +1,4 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Poppins&display=swap');
 /**
  * Tailwind CSS imports
  * View the full documentation at https://tailwindcss.com
@@ -22,21 +21,12 @@ html {
   -moz-tab-size: 4;
   -o-tab-size: 4;
   tab-size: 4;
-  font-family:
-    ui-sans-serif,
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Roboto,
-    "Helvetica Neue",
-    Arial,
-    "Noto Sans",
-    sans-serif,
-    "Apple Color Emoji",
-    "Segoe UI Emoji",
-    "Segoe UI Symbol",
-    "Noto Color Emoji";
+ 
+}
+:root{
+  /* create var for using in swiper bullets */
+  /* the color is equal to tailwind config */
+  --purple-color:#b0a6bd;
 }
 
 body {
@@ -44,4 +34,14 @@ body {
   line-height: inherit;
   font-family: 'Poppins', sans-serif;
   font-weight: 400;
+  @apply bg-off-white;
+  scrollbar-width: none;
 }
+
+.btn-primary{
+@apply rounded focus:border-t-2 text-sm capitalize border-black p-2.5;
+@apply hover:bg-black hover:text-white;
+@apply transition-all duration-200 ease-in-out;
+
+}
+
