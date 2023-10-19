@@ -15,6 +15,7 @@ const config: StorybookConfig = {
     // ...rootMain.stories,
     "../src/components/**/*.stories.mdx",
     "../src/components/**/*.stories.@(js|jsx|ts|tsx)",
+    "../src/routes/**/*.stories.@(js|jsx|ts|tsx)"
   ],
 
   viteFinal: async (config: any) => {

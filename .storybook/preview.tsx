@@ -13,6 +13,9 @@ export const parameters: Parameters = {
 		showRoots: true,
 	},
 	docs: {
-		iframeHeight: "200px",
+		story: {
+			iframeHeight: "200px",
+			class: "bg-off-white",
+		},
 	},
 };
