@@ -178,8 +178,8 @@ export default component$(() => {
 
 					<div class="hidden lg:block sticky ">
 						<form class="space-y-10  ">
-							{filters.map((section) => (
-								<Fragment key={section.name}>
+							{filters.map((section, index) => (
+								<Fragment key={section.name + index}>
 									<div>
 										<fieldset>
 											<legend class="block font-medium text-neutral title text-2xl">
@@ -223,8 +223,8 @@ export default component$(() => {
 					</h2>
 
 					<div class="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:gap-x-8 xl:grid-cols-3">
-						{products.map((product) => (
-							<a href={product.href} key={product.id}>
+						{products.map((product, index) => (
+							<a href={product.href} key={product.id + index}>
 								<div class="card glass shadow-xl h-full max-h-[34rem]">
 									<figure>
 										<img
