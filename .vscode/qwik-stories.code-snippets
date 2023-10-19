@@ -1,0 +1,41 @@
+{
+	// Place your área de trabajo de front snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and 
+	// description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope 
+	// is left empty or omitted, the snippet gets applied to all languages. The prefix is what is 
+	// used to trigger the snippet and the body will be expanded and inserted. Possible variables are: 
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. 
+	// Placeholders with the same ids are connected.
+	"story": {
+		"scope": "javascriptreact,typescriptreact",
+		"prefix": "qstory",
+		"body": [
+			"import type { Meta, StoryObj } from 'storybook-framework-qwik';",
+			"import { $2, type $3 } from './$1';"
+      "",
+      "const meta: Meta<$3> = {",
+      " component: $2,",
+      "  title: 'Components/$4',",
+      "};",
+      "",
+      "type Story = StoryObj<$3>;",
+      "",
+      "export default meta;",
+      "",
+      "export const Default: Story = {",
+      "",
+      "  render: ({ ...props }) => <$2 {...props}></$2>,",
+      "};"
+		],
+		"description": "Create a story for a component in Qwik"
+	},
+  "variant": {
+		"scope": "javascriptreact,typescriptreact",
+		"prefix": "qsvariant",
+		"body": [
+      "export const $1: Story = {"
+      "  render: ({ ...props }) => <$2 {...props}></$2>,"
+      "};"
+		],
+		"description": "Create a story variant for a component in Qwik"
+	}
+}
