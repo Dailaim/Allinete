@@ -1,7 +1,7 @@
 import { Slot, component$ } from "@builder.io/qwik";
 import type { RequestHandler } from "@builder.io/qwik-city";
 import { Footer } from "~/components/common/footer";
-import { Navbar } from "~/components/common/navbar";
+import { Navbar } from "~/components/navbar";
 
 export const onGet: RequestHandler = async ({ cacheControl }) => {
 	// Control caching for this request for best performance and to reduce hosting costs:
