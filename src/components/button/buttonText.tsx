@@ -1,8 +1,8 @@
 import { type HtmlHTMLAttributes, Slot, component$ } from "@builder.io/qwik";
 
-export type ButtonProps = HtmlHTMLAttributes<HTMLButtonElement>;
+export type ButtonTextProps = HtmlHTMLAttributes<HTMLButtonElement>;
 
-export const ButtonText = component$<ButtonProps>(
+export const ButtonText = component$<ButtonTextProps>(
 	({ class: ClassName, ...props }) => {
 		return (
 			<button

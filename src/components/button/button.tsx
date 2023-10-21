@@ -1,4 +1,5 @@
-import { type HtmlHTMLAttributes, Slot, component$ } from "@builder.io/qwik";
+import { Slot, component$ } from "@builder.io/qwik";
+import { LinkOrButton } from "./LinkOrButton";
 
 export const variants = {
 	primary: "bg-pink text-white",
@@ -6,18 +7,17 @@ export const variants = {
 	default: "backdrop-blur-[2px] bg-pink-light bg-opacity-20 text-black",
 };
 
-export interface ButtonProps extends HtmlHTMLAttributes<HTMLButtonElement> {
+export type ButtonProps = LinkOrButton & {
 	variant?: keyof typeof variants;
-}
+};
 
 export const Button = component$<ButtonProps>(
 	({ variant = "default", class: ClassName, ...props }) => {
 		return (
-			// biome-ignore lint/a11y/useButtonType: <explanation>
-			<button
+			<LinkOrButton
 				{...props}
 				class={[
-					"rounded focus:border-t-2 border-black px-5 ",
+					"rounded focus:border-t-2 text-sm capitalize border-black p-2.5 inline-flex justify-center items-center",
 					//TODO: fix this
 					// " hover:bg-gradient-to-r hover:from-neutral-800 hover:via-neutral-700 hover:to-zinc-800 hover:text-white",
 
@@ -31,7 +31,7 @@ export const Button = component$<ButtonProps>(
 				]}
 			>
 				<Slot />
-			</button>
+			</LinkOrButton>
 		);
 	},
 );

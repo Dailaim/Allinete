@@ -11,10 +11,10 @@ export const ButtonForm = component$<ButtonProps>(
 			<button
 				{...props}
 				class={[
-					"rounded text-white bg-gray hover:bg-pink px-5 transition-all duration-200 ease-in-out",
+					"rounded text-white bg-black/30 hover:bg-pink px-5 transition-all duration-200 ease-in-out",
 					//@ts-ignore
 					{
-						"bg-opacity-90 hover:bg-opacity-100 ": props.glass,
+						"bg-opacity-35 hover:bg-opacity-90 ": props.glass,
 					},
 					//@ts-ignore
 					ClassName,
