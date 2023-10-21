@@ -10,7 +10,7 @@ import inputCSS from "./input.css?inline";
 export type InputProps = HTMLAttributes<HTMLInputElement> & {
 	cardProps?: HTMLAttributes<HTMLDivElement>;
 };
-
+// FIX add input name and label
 export const Input = component$<InputProps>(
 	({ class: ClassName, placeholder = "", cardProps, ...props }) => {
 		useStylesScoped$(inputCSS);
@@ -25,7 +25,6 @@ export const Input = component$<InputProps>(
 						cardProps?.class,
 					]}
 				>
-					{/* @ts-ignore */}
 					<input
 						type="text"
 						id={linkID}

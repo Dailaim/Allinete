@@ -7,8 +7,9 @@ import {
 	SVGDangerCircle,
 	SVGEye,
 	SVGGoogleColor,
+	SVGHeart,
+	SVGHeartGlitter,
 	SVGStar,
-	SVGStarUnderline,
 	SVGSussesCircle,
 } from "./index";
 import type { SVGProps } from "./props";
@@ -79,11 +80,15 @@ export const SussesCircle: Story = {
 };
 
 export const Star: Story = {
-	args: {},
+	args: {
+		underline: false,
+	},
 	render: ({ ...props }) => <SVGStar {...props} />,
 };
 
-export const StarUnderline: Story = {
-	args: {},
-	render: ({ ...props }) => <SVGStarUnderline {...props} />,
+export const Heart: Story = {
+	args: {
+		glitter: false,
+	},
+	render: ({ ...props }) => <SVGHeart {...props} />,
 };
