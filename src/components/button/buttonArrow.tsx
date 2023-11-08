@@ -1,8 +1,9 @@
-import { type HtmlHTMLAttributes, Slot, component$ } from "@builder.io/qwik";
+import { Slot, component$ } from "@builder.io/qwik";
 import { SVGArrowRight } from "../icons";
+import type { ButtonTextProps } from "./buttonText";
 import { ButtonText } from "./buttonText";
 
-export type ButtonProps = HtmlHTMLAttributes<HTMLButtonElement>;
+export type ButtonProps = ButtonTextProps;
 
 export const ButtonArrow = component$<ButtonProps>(
 	({ class: ClassName, ...props }) => {
