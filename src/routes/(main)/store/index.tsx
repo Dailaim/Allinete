@@ -1,5 +1,11 @@
-import { Fragment, component$, useSignal } from "@builder.io/qwik";
-import { InPlus } from "@qwikest/icons/iconoir";
+import { Fragment, component$ } from "@builder.io/qwik";
+import { Button } from "~/components/button";
+import { Card } from "~/components/card/card";
+import { InputCheck, InputRadio } from "~/components/inputCheck";
+import {
+	VerticalMenu,
+	VerticalTap,
+} from "~/components/vertical-tap/vertical-tap";
 
 export interface IndexProps {
 	count: number;
@@ -149,35 +155,59 @@ const products = [
 
 export default component$(() => {
 	return (
-		<main class="mx-auto  container px-3">
-			<div class=" pt-10">
-				<h1 class="text-4xl font-bold tracking-tight text-accent-content title">
-					New Arrivals
-				</h1>
-				<p class="mt-4 text-base ">
-					Checkout out the latest release of Basic Tees, new and improved with
-					four openings!
-				</p>
-			</div>
+		<main class="mx-auto  container px-3 lg:pt-10">
 			<div class="divider" />
 			<div class="pb-24  lg:grid lg:grid-cols-3 lg:gap-x-8 xl:grid-cols-4">
 				<aside>
 					<h2 class="sr-only">Filters</h2>
 
-					<button
-						type="button"
-						class="inline-flex items-center lg:hidden"
-						/* onClick$={() => setMobileFiltersOpen(true)} */
-					>
-						<span class="text-sm font-medium text-gray-700">Filters</span>
-						<InPlus
-							class="ml-1 h-5 w-5 flex-shrink-0 text-gray-400"
-							aria-hidden="true"
-						/>
-					</button>
+					<div class="hidden lg:block">
+						<div>
+							<div class="bg-white rounded shadow-sm px-5 pt-2.5 pb-8 flex flex-col gap-5 text-blue-gray">
+								<h2 class="text-black text-2xl font-semibold">
+									Double-Cleanse
+								</h2>
+								<p>Cleansing Balms</p>
+								<p>Oil Cleansers</p>
+								<p>Water Cleansers</p>
+							</div>
 
-					<div class="hidden lg:block sticky ">
-						<form class="space-y-10  ">
+							<div class="bg-white rounded shadow-sm px-5 pt-2.5 pb-8 mt-4 flex flex-col gap-5 text-blue-gray">
+								<h2 class="text-black text-2xl font-semibold">Filters</h2>
+								<VerticalMenu class="divide-y divide-gray text-sm">
+									<VerticalTap title="Product Type">
+										<InputCheck label="Cleanser" />
+										<InputCheck label="Toner" />
+										<InputCheck label="Serum" />
+										<InputCheck label="Moisturizer" />
+									</VerticalTap>
+									<VerticalTap title="Ingredient Type">
+										<InputCheck label="Cleanser" />
+										<InputCheck label="Toner" />
+										<InputCheck label="Serum" />
+									</VerticalTap>
+									<VerticalTap title="skin type" defaultOpen>
+										<InputCheck label="Cleanser" />
+										<InputCheck label="Toner" />
+										<InputCheck label="Serum" />
+									</VerticalTap>
+									<VerticalTap title="price range" defaultOpen>
+										<InputRadio name="price" label="Under $25" />
+										<InputRadio name="price" label="$25 - $50" />
+										<InputRadio name="price" label="$50 - $100" />
+
+										{/* <InputRadio name="price" label="">
+											<div class="flex  items-center pb-5 gap-2.5">
+												<Input label="$ Min" class="w-4/5" />
+												<Input label="$ Max" class="w-4/5" />
+											</div>
+										</InputRadio> */}
+									</VerticalTap>
+								</VerticalMenu>
+								<Button variant="secondary">Apply</Button>
+							</div>
+						</div>
+						{/* <form class="space-y-10  ">
 							{filters.map((section, index) => (
 								<Fragment key={section.name + index}>
 									<div>
@@ -191,7 +221,7 @@ export default component$(() => {
 														<input
 															id={`${section.id}-${optionIdx}`}
 															name={`${section.id}[]`}
-															/* defaultValue={option.value} */
+															///* defaultValue={option.value} * /
 															value={option.value}
 															type="checkbox"
 															class="h-4 w-4 rounded checkbox checkbox-primary checkbox-lg"
@@ -210,82 +240,38 @@ export default component$(() => {
 									<div class="divider" />
 								</Fragment>
 							))}
-						</form>
+						</form> */}
 					</div>
 				</aside>
 
 				<section
 					aria-labelledby="product-heading"
-					class="mt-6 lg:col-span-2 lg:mt-0 xl:col-span-3"
+					class=" lg:col-span-2 lg:mt-0 xl:col-span-3"
 				>
-					<h2 id="product-heading" class="sr-only">
-						Products
-					</h2>
+					<div class="uppercase text-purple hidden lg:flex justify-between lg:mb-6">
+						<h4 class="">46 product</h4>
 
-					<div class="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:gap-x-8 xl:grid-cols-3">
+						<div class="flex gap-2">
+							<h4>sort by</h4>
+
+							<select class="text-black text-sm rounded pe-8 ps-4 py-0 border-0 bg-white appearance-none  shadow-sm ring-1 ring-inset ring-white/30 placeholder:text-purple focus:ring-2 focus:ring-inset focus:ring-pink  form-select">
+								<option value="featured">Featured</option>
+								<option value="price">Price: Low to High</option>
+								<option value="price-desc">Price: High to Low</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="grid grid-cols-1  justify-items-center gap-5 xs:grid-cols-2  md:grid-cols-3  2xl:grid-cols-4">
 						{products.map((product, index) => (
-							<a href={product.href} key={product.id + index}>
-								<div class="card glass shadow-xl h-full max-h-[34rem]">
-									<figure>
-										<img
-											width="1280"
-											height="1648"
-											src={product.imageSrc}
-											alt={product.imageAlt}
-										/>
-									</figure>
-									<div class="card-body">
-										{/* <h2 class="card-title">
-											Shoes!
-											<div class="badge badge-secondary">NEW</div>
-										</h2>
-										<p>If a dog chews shoes whose shoes does he choose?</p>
-										<div class="card-actions justify-end">
-											<div class="badge badge-outline badge-primary">
-												Fashion
-											</div>
-											<div class="badge badge-primary badge-outline">
-												Products
-											</div>
-										</div> */}
-										<h2 class=" card-title line-clamp-1 text-neutral-focus">
-											{product.name}
-											<div class="ms-3 badge badge-secondary">NEW</div>
-										</h2>
-										<p class="line-clamp-2">{product.description}</p>
-										<div class="flex flex-1 flex-col justify-end">
-											<p class=" text-neutral ">{product.options}</p>
-
-											<div class="flex items-end  justify-between">
-												<span>
-													{!product.off && <p class=" text-xs opacity-0">1 </p>}
-													<p
-														class={{
-															"text-base-content": true,
-															"line-through text-xs": product.off,
-														}}
-													>
-														${product.price}
-													</p>
-
-													{product.off && (
-														<p class="text-base text-base-content">
-															${product.off}{" "}
-															<span class="text-primary-focus mx-2">
-																{calcOff(product.price, product.off)}% OFF
-															</span>
-														</p>
-													)}
-												</span>
-
-												<div class="badge badge-outline mb-1 badge-primary mx-2">
-													Fashion
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</a>
+							<Fragment key={`${index}articulo card`}>
+								<Card
+									class="w-auto max-w-xs shadow-sm"
+									name="All-Around Safe Block Essence Sun SPF45+"
+									description="All Around Safe Block Sun Milk SPF50+/PA+++"
+									image="https://cdn.builder.io/api/v1/image/assets/TEMP/f2594f36-3e5a-4ae9-9521-e00524c7e7a4?apiKey=2abb4ac878e0419aae6d537936d6d30b&width=800"
+								/>
+							</Fragment>
 						))}
 					</div>
 				</section>
