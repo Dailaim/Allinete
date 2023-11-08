@@ -184,7 +184,7 @@ export const MenuMobile = component$<{
 
 export const NavbarDesktop = component$(() => {
 	return (
-		<div class="hidden  justify-between items-center container py-4 lg:flex mx-auto  uppercase">
+		<div class="hidden px-5 2xl:px-0 justify-between items-center container py-4 lg:flex mx-auto  uppercase">
 			<Link href="/" class="text-2xl font-medium text-pink">
 				Alinette
 			</Link>
