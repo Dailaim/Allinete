@@ -13,6 +13,9 @@ module.exports = {
 				poppins: ["Poppins", "sans-serif"],
 				montserrat: ["Montserrat", "sans-serif"],
 			},
+			screens: {
+				xs: "360px",
+			},
 
 			colors: {
 				"blue-gray": "#697586",
@@ -41,5 +44,6 @@ module.exports = {
 	},
 	plugins: [
 		/* require("daisyui") */
+		require("@tailwindcss/forms"),
 	],
 };
