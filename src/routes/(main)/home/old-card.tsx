@@ -16,7 +16,7 @@ interface CardProps {
 	description: string;
 }
 
-export const Card = component$<CardProps>(({ title, link, description }) => {
+export const OldCard = component$<CardProps>(({ title, link, description }) => {
 	return (
 		<Link
 			href={link}
