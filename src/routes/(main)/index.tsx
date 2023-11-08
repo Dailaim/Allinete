@@ -157,6 +157,7 @@ export default component$(() => {
 									<div class="flex flex-col items-stretch justify-center w-[48%] max-md:w-full max-md:ml-0">
 										<div class="flex-col  justify-center relative flex grow mt-2 pr-5 pb-6 max-md:mt-6">
 											<img
+												alt=""
 												width="614"
 												height="644"
 												loading="lazy"
@@ -164,6 +165,7 @@ export default component$(() => {
 												class="absolute z-[-1] h-full w-full object-cover object-center inset-0"
 											/>
 											<img
+												alt=""
 												width="614"
 												height="644"
 												loading="lazy"
@@ -192,7 +194,7 @@ export default component$(() => {
 						</div>
 					</div>
 				</section>
-				<section class="container mx-auto px-6 2xl:px-0">
+				<section class="container mx-auto px-6 2xl:px-0 mb-10">
 					<Topic
 						subTitle="see all"
 						titleClass="max-w-min sm:max-w-max"
@@ -205,7 +207,7 @@ export default component$(() => {
 					</Topic>
 					<div class="grid  grid-cols-2  lg:grid-cols-4 lg:grid-rows-2 gap-5">
 						{[1, 2, 3, 4, 3, 4, 5, 5].map((_, index) => (
-							<span class="w-full h-full relative" key={index + "image"}>
+							<span class="w-full h-full relative" key={`${index}image`}>
 								<div class="absolute w-full h-full justify-center p-5 inset-0 items-center bg-white/30 backdrop-blur-[2px] gap-3 opacity-0  flex hover:opacity-100 flex-col">
 									<ButtonForm class="w-full max-w-[12rem] p-2.5 flex items-center justify-center gap-1">
 										See in <SiInstagram />
@@ -227,7 +229,6 @@ export default component$(() => {
 					</div>
 				</section>
 			</main>
-
 		</>
 	);
 });
