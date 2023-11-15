@@ -6,7 +6,8 @@ import type {
 	VerificationToken,
 } from "@auth/core/adapters";
 import type { ProviderType } from "@auth/core/providers";
-import Surreal, { ExperimentalSurrealHTTP } from "surrealdb.js";
+import type { ExperimentalSurrealHTTP } from "surrealdb.js";
+import type Surreal from "surrealdb.js";
 
 type Document = Record<string, string | null | undefined> & { id: string };
 export type UserDoc = Document & { email: string };
@@ -261,12 +262,9 @@ export function SurrealDBAdapter<T>(
 
 			const result = await surreal.create("session", doc);
 
-			const session = {
-				...result[0],
-				expires: new Date(result[0]?.expires),
-			};
+			result[0].expires = new Date(result[0].expires);
 
-			return session;
+			return result[0];
 		},
 		async getSessionAndUser(sessionToken: string) {
 			const surreal = await client;
