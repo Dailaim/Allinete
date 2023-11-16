@@ -1,0 +1,309 @@
+export type ConnectionStrategy =  "experimental_http";
+export interface Connection {
+	constructor: Constructor<() => void>;
+
+	strategy: "http";
+	connect: (url: string, options?: ConnectionOptions) => void;
+	ping: () => Promise<void>;
+	use: (opt: { ns: string; db: string }) => MaybePromise<void>;
+
+	// Info method is not available in the HTTP REST API
+	info?: <
+		T extends Record<string, unknown> = Record<string, unknown>,
+	>() => Promise<T | undefined>;
+
+	signup: (vars: ScopeAuth) => Promise<Token>;
+	signin: (vars: AnyAuth) => Promise<Token | void>;
+	authenticate: (token: Token) => MaybePromise<boolean>;
+	invalidate: () => MaybePromise<void>;
+
+	// Let/unset methods are not available in the HTTP REST API
+	let?: (variable: string, value: unknown) => Promise<void>;
+	unset?: (variable: string) => Promise<void>;
+
+	// Live query functions
+	live?: <T extends Record<string, unknown>>(
+		table: string,
+		callback?: (data: LiveQueryResponse<T>) => unknown,
+		diff?: boolean,
+	) => Promise<string>;
+	listenLive?: <T extends Record<string, unknown>>(
+		queryUuid: string,
+		callback: (data: LiveQueryResponse<T>) => unknown,
+	) => Promise<void>;
+	kill?: (queryUuid: string) => Promise<void>;
+
+	query: <T extends RawQueryResult[]>(
+		query: string,
+		vars?: Record<string, unknown>,
+	) => Promise<MapQueryResult<T>>;
+
+	select: <T extends Record<string, unknown>>(
+		thing: string,
+	) => Promise<ActionResult<T>[]>;
+
+	create: <
+		T extends Record<string, unknown>,
+		U extends Record<string, unknown> = T,
+	>(
+		thing: string,
+		data?: U,
+	) => Promise<ActionResult<T, U>[]>;
+
+	// Insert method is not available in the HTTP REST API
+	insert?: <
+		T extends Record<string, unknown>,
+		U extends Record<string, unknown> = T,
+	>(
+		thing: string,
+		data?: U | U[],
+	) => Promise<ActionResult<T, U>[]>;
+
+	update: <
+		T extends Record<string, unknown>,
+		U extends Record<string, unknown> = T,
+	>(
+		thing: string,
+		data?: U,
+	) => Promise<ActionResult<T, U>[]>;
+
+	merge: <
+		T extends Record<string, unknown>,
+		U extends Record<string, unknown> = Partial<T>,
+	>(
+		thing: string,
+		data?: U,
+	) => Promise<ActionResult<T, U>[]>;
+
+	// Patch method is not available in the HTTP REST API
+	patch?: (thing: string, data?: Patch[]) => Promise<Patch[]>;
+
+	delete: <T extends Record<string, unknown>>(
+		thing: string,
+	) => Promise<ActionResult<T>[]>;
+}
+
+export type ConnectionOptions = {
+	prepare?: (connection: Connection) => unknown;
+	auth?: AnyAuth | Token;
+} & (
+	| {
+			ns: string;
+			db: string;
+	  }
+	| {
+			ns?: never;
+			db?: never;
+	  }
+);
+
+export type HTTPConnectionOptions<TFetcher = typeof fetch> =
+	ConnectionOptions & {
+		fetch?: TFetcher;
+	};
+
+export type ActionResult<
+	T extends Record<string, unknown>,
+	U extends Record<string, unknown> = T,
+> = T & U & { id: string };
+
+//////////////////////////////////////////////
+//////////   AUTHENTICATION TYPES   //////////
+//////////////////////////////////////////////
+
+export type SuperUserAuth = {
+	user: string;
+	pass: string;
+};
+
+export type NamespaceAuth = {
+	NS: string;
+	user: string;
+	pass: string;
+};
+
+export type DatabaseAuth = {
+	NS: string;
+	DB: string;
+	user: string;
+	pass: string;
+};
+
+export type ScopeAuth = {
+	NS?: string;
+	DB?: string;
+	SC: string;
+	[T: string]: unknown;
+};
+
+export type AnyAuth = SuperUserAuth | NamespaceAuth | DatabaseAuth | ScopeAuth;
+export type Token = string;
+
+export type HTTPAuthenticationResponse =
+	| {
+			code: 200;
+			details: "Authentication succeeded";
+			token?: string;
+			description?: never;
+			information?: never;
+	  }
+	| {
+			code: 403;
+			details: "Authentication failed";
+			token?: never;
+			description: string;
+			information: string;
+	  };
+
+/////////////////////////////////////
+//////////   QUERY TYPES   //////////
+/////////////////////////////////////
+
+export type Result<T = unknown> = ResultOk<T> | ResultErr;
+export type ResultOk<T> = {
+	result: T;
+	error?: never;
+};
+
+export type ResultErr = {
+	result?: never;
+	error: {
+		code: number;
+		message: string;
+	};
+};
+
+export type QueryResult<T = unknown> = QueryResultOk<T> | QueryResultErr;
+export type QueryResultOk<T> = {
+	status: "OK";
+	time: string;
+	result: T;
+	detail?: never;
+};
+
+export type QueryResultErr = {
+	status: "ERR";
+	time: string;
+	result?: never;
+	detail: string;
+};
+
+export type MapQueryResult<T> = {
+	[K in keyof T]: QueryResult<T[K]>;
+};
+
+export type RawQueryResult =
+	| string
+	| number
+	| symbol
+	| null
+	| RawQueryResult[]
+	| Record<string | number | symbol, unknown>;
+
+export type LiveQueryClosureReason = "SOCKET_CLOSED" | "QUERY_KILLED";
+export type LiveQueryResponse<
+	T extends Record<string, unknown> = Record<string, unknown>,
+> =
+	| {
+			action: "CLOSE";
+			result?: never;
+			detail: LiveQueryClosureReason;
+	  }
+	| {
+			action: "CREATE" | "UPDATE" | "DELETE";
+			result: T;
+			detail?: never;
+	  };
+
+export type UnprocessedLiveQueryResponse<
+	T extends Record<string, unknown> = Record<string, unknown>,
+> = LiveQueryResponse<T> & {
+	id: string;
+};
+
+/////////////////////////////////////
+//////////   PATCH TYPES   //////////
+/////////////////////////////////////
+
+type BasePatch<T = string> = {
+	path: T;
+};
+
+export type AddPatch<T = string, U = unknown> = BasePatch<T> & {
+	op: "add";
+	value: U;
+};
+
+export type RemovePatch<T = string> = BasePatch<T> & {
+	op: "remove";
+};
+
+export type ReplacePatch<T = string, U = unknown> = BasePatch<T> & {
+	op: "replace";
+	value: U;
+};
+
+export type ChangePatch<T = string, U = string> = BasePatch<T> & {
+	op: "change";
+	value: U;
+};
+
+export type CopyPatch<T = string, U = string> = BasePatch<T> & {
+	op: "copy";
+	from: U;
+};
+
+export type MovePatch<T = string, U = string> = BasePatch<T> & {
+	op: "move";
+	from: U;
+};
+
+export type TestPatch<T = string, U = unknown> = BasePatch<T> & {
+	op: "test";
+	value: U;
+};
+
+export type Patch =
+	| AddPatch
+	| RemovePatch
+	| ReplacePatch
+	| ChangePatch
+	| CopyPatch
+	| MovePatch
+	| TestPatch;
+
+///////////////////////////////////
+//////////   WEBSOCKET   //////////
+///////////////////////////////////
+
+export enum WebsocketStatus {
+	OPEN = 0,
+	CLOSED = 1,
+	RECONNECTING = 2,
+}
+
+//////////////////////////////
+//////////   HTTP   //////////
+//////////////////////////////
+
+export type InvalidSQL = {
+	code: 400;
+	details: "Request problems detected";
+	description: "There is a problem with your request. Refer to the documentation for further information.";
+	information: string;
+};
+
+///////////////////////////////
+//////////   OTHER   //////////
+///////////////////////////////
+
+// deno-lint-ignore ban-types
+type Constructor<T> = Function & { prototype: T };
+type MaybePromise<T> = T | Promise<T>;
+
+export type RawSocketMessageResponse =
+	| (Result & { id: number })
+	| RawSocketLiveQueryNotification;
+export type RawSocketLiveQueryNotification = {
+	result: UnprocessedLiveQueryResponse;
+};
