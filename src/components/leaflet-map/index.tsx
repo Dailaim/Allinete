@@ -11,6 +11,10 @@ import type { MapProps } from "~/models/map";
 
 import leafletStyles from "../../../node_modules/leaflet/dist/leaflet.css?inline";
 
+import { getBoundaryBox } from "~/utils/boundary-box";
+
+import { marker, tileLayer } from "leaflet";
+
 export const LeafletMap = component$<
 	MapProps & HtmlHTMLAttributes<HTMLElement>
 >(({ location, ...props }) => {
@@ -19,10 +23,6 @@ export const LeafletMap = component$<
 
 	useVisibleTask$(async ({ track }) => {
 		track(location);
-
-		const { tileLayer, marker } = await import("leaflet");
-
-		const { getBoundaryBox } = await import("../../utils/boundary-box");
 
 		if (mapContainer$.value) {
 			mapContainer$.value.remove();
