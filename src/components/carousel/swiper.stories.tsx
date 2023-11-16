@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "storybook-framework-qwik";
 import Carousel34 from "~/img/res/pexels-anderson-guerra-1115128.jpg?jsx";
-import { SwiperContainer, SwipeSlide, } from "./swiper";
+import { SwipeSlide, SwiperContainer } from "./swiper";
 
-import { Slot, component$, useTask$, useVisibleTask$ } from "@builder.io/qwik";
+import { component$ } from "@builder.io/qwik";
 import Carousel35 from "~/img/res/pexels-anderson-guerra-1115350.jpg?jsx";
 
 import Carousel36 from "~/img/res/pexels-freestocksorg-457704.jpg?jsx";
@@ -24,7 +24,7 @@ const Layout = component$<{} & {}>(({ ...props }) => {
 	);
 });
 
-const meta: Meta<{}> = {
+const meta: Meta<{} & {}> = {
 	component: SwiperContainer,
 	title: "Components/Carousel/swiper",
 };
@@ -37,5 +37,5 @@ export const Default: Story = {
 	args: {},
 	argTypes: {},
 
-	render: ({ text, ...props }) => <Layout {...props} />,
+	render: ({ ...props }) => <Layout {...props} />,
 };
