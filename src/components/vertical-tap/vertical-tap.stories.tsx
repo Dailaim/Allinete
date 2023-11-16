@@ -1,4 +1,3 @@
-import { QwikCityMockProvider } from "@builder.io/qwik-city";
 import type { Meta, StoryObj } from "storybook-framework-qwik";
 import {
 	VerticalMenu,

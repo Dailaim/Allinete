@@ -1,6 +1,5 @@
-import { sign } from "crypto";
+import type { HtmlHTMLAttributes } from "@builder.io/qwik";
 import {
-	HtmlHTMLAttributes,
 	Slot,
 	component$,
 	createContextId,
@@ -9,12 +8,10 @@ import {
 	useId,
 	useSignal,
 	useStore,
-	useStylesScoped$,
 	useTask$,
-	useVisibleTask$,
 } from "@builder.io/qwik";
 import { TbChevronUp } from "@qwikest/icons/tablericons";
-import { animate, glide, stagger } from "motion";
+import { Motion } from "../motion";
 
 export const context = createContextId<VerticalTapContext>("vertical-tap");
 
@@ -23,20 +20,6 @@ export const useVerticalMenu = () => useContext(context);
 export const VerticalMenu = component$<HtmlHTMLAttributes<HTMLDivElement>>(
 	(props) => {
 		useContextProvider(context, useStore({}));
-
-		useVisibleTask$(() => {
-			animate(
-				".expandable-content[data-close]",
-				{
-					opacity: [1, 0],
-					maxHeight: ["1000px", "0px"],
-				},
-				{
-					duration: 0.7,
-					easing: "ease-in-out",
-				},
-			);
-		});
 
 		return (
 			<div {...props}>
@@ -53,61 +36,12 @@ export type VerticalTapProps = {
 
 export const VerticalTap = component$<VerticalTapProps>(
 	({ defaultOpen = false, title }) => {
-		useStylesScoped$(`
-
-    .expandable-content[data-open] {
-            
-      overflow: visible;
-      transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
-      animation: expand 0.2s ease-in-out forwards;
-    }
-    
-    @keyframes expand {
-      0% {
-        max-height: 0;
-        opacity: 0;
-      }
-      100% {
-        max-height: 1000px; 
-        opacity: 1;
-      }
-    }
-
-    @keyframes collapse {
-      0% {
-        max-height: 1000px; 
-        opacity: 1;
-      }
-      100% {
-        max-height: 0;
-        opacity: 0;
-      }
-    }
-
-    `);
-
 		const id = useId();
 		const state = useVerticalMenu();
+		const ref = useSignal<HTMLElement>();
 
 		useTask$(() => {
 			state[id] = defaultOpen;
-		});
-
-		useVisibleTask$(({ track }) => {
-			track(() => state[id]);
-			if (state[id]) return;
-			animate(
-				`.expandable-content[data-id="${id}"]`,
-				{
-					overflow: "hidden",
-					opacity: [1, 0],
-					maxHeight: ["1000px", "0px"],
-				},
-				{
-					duration: 0.2,
-					easing: "ease-in-out",
-				},
-			);
 		});
 
 		return (
@@ -117,7 +51,6 @@ export const VerticalTap = component$<VerticalTapProps>(
 					class="flex pr-5 py-2.5 w-full font-medium text-black items-center justify-between capitalize"
 					onClick$={() => {
 						state[id] = !state[id];
-						console.log(state[id]);
 					}}
 				>
 					{title}
@@ -132,16 +65,25 @@ export const VerticalTap = component$<VerticalTapProps>(
 					/>
 				</button>
 
-				<div
-					data-open={state[id]}
-					data-close={!state[id]}
-					data-id={id}
-					class={["expandable-content"]}
+				<Motion.div
+					ref={ref}
+					initial={{ overflow: "hidden", opacity: 0, maxHeight: "0px" }}
+					animate={{
+						overflow: state[id] ? "visible" : "hidden",
+						opacity: state[id] ? 1 : 0,
+						maxHeight: state[id] ? "10000px" : "0px",
+					}}
+					transition={{
+						duration: 0.2,
+						easing: "ease-in-out",
+						overflow: { duration: 0.3 },
+						maxHeight: { duration: 0.15 },
+					}}
 				>
 					<div class={["gap-2.5 flex flex-col my-2.5"]}>
 						<Slot />
 					</div>
-				</div>
+				</Motion.div>
 			</div>
 		);
 	},
