@@ -13,48 +13,48 @@ export interface IndexProps {
 
 // create function to calculate the off price
 // round the number to 2 decimal places
-function calcOff(price: number, off: number) {
-	const discount = price - off;
-	return Math.round((discount / price) * 100);
-}
+// function calcOff(price: number, off: number) {
+// 	const discount = price - off;
+// 	return Math.round((discount / price) * 100);
+// }
 
-const filters = [
-	{
-		id: "color",
-		name: "Color",
-		options: [
-			{ value: "white", label: "White" },
-			{ value: "beige", label: "Beige" },
-			{ value: "blue", label: "Blue" },
-			{ value: "brown", label: "Brown" },
-			{ value: "green", label: "Green" },
-			{ value: "purple", label: "Purple" },
-		],
-	},
-	{
-		id: "category",
-		name: "Category",
-		options: [
-			{ value: "new-arrivals", label: "All New Arrivals" },
-			{ value: "tees", label: "Tees" },
-			{ value: "crewnecks", label: "Crewnecks" },
-			{ value: "sweatshirts", label: "Sweatshirts" },
-			{ value: "pants-shorts", label: "Pants & Shorts" },
-		],
-	},
-	{
-		id: "sizes",
-		name: "Sizes",
-		options: [
-			{ value: "xs", label: "XS" },
-			{ value: "s", label: "S" },
-			{ value: "m", label: "M" },
-			{ value: "l", label: "L" },
-			{ value: "xl", label: "XL" },
-			{ value: "2xl", label: "2XL" },
-		],
-	},
-];
+// const filters = [
+// 	{
+// 		id: "color",
+// 		name: "Color",
+// 		options: [
+// 			{ value: "white", label: "White" },
+// 			{ value: "beige", label: "Beige" },
+// 			{ value: "blue", label: "Blue" },
+// 			{ value: "brown", label: "Brown" },
+// 			{ value: "green", label: "Green" },
+// 			{ value: "purple", label: "Purple" },
+// 		],
+// 	},
+// 	{
+// 		id: "category",
+// 		name: "Category",
+// 		options: [
+// 			{ value: "new-arrivals", label: "All New Arrivals" },
+// 			{ value: "tees", label: "Tees" },
+// 			{ value: "crewnecks", label: "Crewnecks" },
+// 			{ value: "sweatshirts", label: "Sweatshirts" },
+// 			{ value: "pants-shorts", label: "Pants & Shorts" },
+// 		],
+// 	},
+// 	{
+// 		id: "sizes",
+// 		name: "Sizes",
+// 		options: [
+// 			{ value: "xs", label: "XS" },
+// 			{ value: "s", label: "S" },
+// 			{ value: "m", label: "M" },
+// 			{ value: "l", label: "L" },
+// 			{ value: "xl", label: "XL" },
+// 			{ value: "2xl", label: "2XL" },
+// 		],
+// 	},
+// ];
 const products = [
 	{
 		id: 2,
@@ -196,12 +196,16 @@ export default component$(() => {
 										<InputRadio name="price" label="$25 - $50" />
 										<InputRadio name="price" label="$50 - $100" />
 
-										{/* <InputRadio name="price" label="">
-											<div class="flex  items-center pb-5 gap-2.5">
-												<Input label="$ Min" class="w-4/5" />
-												<Input label="$ Max" class="w-4/5" />
-											</div>
-										</InputRadio> */}
+										{/* <InputRadio
+											name="price"
+											label=""
+											render={
+												<div class="flex  items-center pb-5 gap-2.5">
+													<Input label="$ Min" class="w-4/5" />
+													<Input label="$ Max" class="w-4/5" />
+												</div>
+											}
+										/> */}
 									</VerticalTap>
 								</VerticalMenu>
 								<Button variant="secondary">Apply</Button>
@@ -263,7 +267,7 @@ export default component$(() => {
 					</div>
 
 					<div class="grid grid-cols-1  justify-items-center gap-5 xs:grid-cols-2  md:grid-cols-3  2xl:grid-cols-4">
-						{products.map((product, index) => (
+						{products.map((_, index) => (
 							<Fragment key={`${index}articulo card`}>
 								<Card
 									class="w-auto max-w-xs shadow-sm"
