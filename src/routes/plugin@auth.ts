@@ -3,9 +3,9 @@ import Email from "@auth/core/providers/email";
 
 import GitHub from "@auth/core/providers/github";
 import { serverAuth$ } from "@builder.io/qwik-auth";
-import type { SurrealWebSocket } from "surrealdb.js";
+
 import { SurrealDBAdapter } from "~/libs/surrealdbAuthApdapter";
-import { db } from "~/server/database";
+import { DB } from "~/server/database";
 
 export const { onRequest, useAuthSession, useAuthSignin, useAuthSignout } =
 	serverAuth$(
@@ -31,6 +31,6 @@ export const { onRequest, useAuthSession, useAuthSignin, useAuthSignout } =
 						from: env.get("EMAIL_FROM"),
 					}),
 				],
-				adapter: SurrealDBAdapter(db as unknown as Promise<SurrealWebSocket>),
+				adapter: SurrealDBAdapter(DB(env)),
 			}) as AuthConfig,
 	);
