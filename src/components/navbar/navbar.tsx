@@ -1,20 +1,10 @@
-import { on } from "events";
-import {
-	$,
-	QwikTouchEvent,
-	Signal,
-	component$,
-	useOnWindow,
-	useSignal,
-} from "@builder.io/qwik";
+import type { QwikTouchEvent, Signal } from "@builder.io/qwik";
+import { $, component$, useSignal } from "@builder.io/qwik";
 import { Link } from "@builder.io/qwik-city";
-import { InMenu } from "@qwikest/icons/iconoir";
 import { ButtonText } from "../button";
 import {
 	SVGAccountWithName,
-	SVGCart,
 	SVGCartWithName,
-	SVGMenu,
 	SVGMenuWithName,
 	SVGSearchWithName,
 } from "../icons";
@@ -123,7 +113,7 @@ export const MenuMobile = component$<{
 			onTouchStart$={handleTouchStart}
 			onTouchMove$={handleTouchMove}
 			onTouchEnd$={handleTouchEnd}
-			class="absolute w-screen h-screen bg-white flex flex-col justify-start"
+			class="absolute w-screen h-screen bg-white flex flex-col justify-start lg:hidden"
 			style={{
 				transform: MenuSig.value ? "translateX(0)" : "translateX(-100%)",
 				transition: "transform 0.3s ease-in-out",
