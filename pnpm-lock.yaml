@@ -35,9 +35,6 @@ importers:
       motion:
         specifier: ^10.16.4
         version: 10.16.4
-      nodemailer:
-        specifier: ^6.9.7
-        version: 6.9.7
       surrealdb.js:
         specifier: ^0.9.1
         version: 0.9.1
@@ -50,7 +47,7 @@ importers:
     devDependencies:
       '@auth/core':
         specifier: ^0.13.0
-        version: 0.13.0(nodemailer@6.9.7)
+        version: 0.13.0
       '@biomejs/biome':
         specifier: 1.2.2
         version: 1.2.2
@@ -241,7 +238,7 @@ packages:
       '@jridgewell/trace-mapping': 0.3.20
     dev: true
 
-  /@auth/core@0.13.0(nodemailer@6.9.7):
+  /@auth/core@0.13.0:
     resolution: {integrity: sha512-StjrzUenaKfMr68kmvhiqfY0xvxRvg8wllmem9JAULpPAAAt3uwRUDXICWOP/PfWB4OZ2wQT7rgfm0n42b+Mjg==}
     peerDependencies:
       nodemailer: ^6.8.0
@@ -252,7 +249,6 @@ packages:
       '@panva/hkdf': 1.1.1
       cookie: 0.5.0
       jose: 4.15.4
-      nodemailer: 6.9.7
       oauth4webapi: 2.4.0
       preact: 10.11.3
       preact-render-to-string: 5.2.3(preact@10.11.3)
@@ -1661,7 +1657,7 @@ packages:
     peerDependencies:
       '@auth/core': ^0.13.0
     dependencies:
-      '@auth/core': 0.13.0(nodemailer@6.9.7)
+      '@auth/core': 0.13.0
     dev: true
 
   /@builder.io/qwik-city@1.2.17(@types/node@20.9.0):
@@ -10992,10 +10988,6 @@ packages:
   /node-releases@2.0.13:
     resolution: {integrity: sha512-uYr7J37ae/ORWdZeQ1xxMJe3NtdmqMC/JZK+geofDrkLUApKRHPd18/TxtBOJ4A0/+uUIliorNrfYV6s1b02eQ==}
     dev: true
-
-  /nodemailer@6.9.7:
-    resolution: {integrity: sha512-rUtR77ksqex/eZRLmQ21LKVH5nAAsVicAtAYudK7JgwenEDZ0UIQ1adUGqErz7sMkWYxWTTU1aeP2Jga6WQyJw==}
-    engines: {node: '>=6.0.0'}
 
   /nopt@5.0.0:
     resolution: {integrity: sha512-Tbj67rffqceeLpcRXrT7vKAN8CwfPeIBgM7E6iBkmKLV7bEMwpGgYLGv0jACUsECaa/vuxP0IjEont6umdMgtQ==}
