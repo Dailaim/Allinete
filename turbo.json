@@ -9,15 +9,12 @@
     },
     "lint": {},
     "dev": {
-      "dependsOn": [],
+      "dependsOn": ["^build.lib"],
       "cache": false,
       "persistent": true
     },
     "build.lib": {
       "outputs": ["dist/**", "lib/**"]
     }
-    
-
-
   }
 }
