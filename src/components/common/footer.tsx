@@ -1,5 +1,4 @@
 import { component$ } from "@builder.io/qwik";
-import { SiInstagram } from "@qwikest/icons/simpleicons";
 import { InstagramLink } from "~/utils/conts";
 
 export const Footer = component$(() => {
