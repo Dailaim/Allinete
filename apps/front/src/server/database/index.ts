@@ -9,9 +9,9 @@ export const connect = {
 };
 
 export const DB = server$(async function (env?: EnvGetter) {
-	if (connect.value) {
+/* 	if (connect.value) {
 		return database;
-	}
+	} */
 
 	const getEnv = env?.get ?? this?.env?.get;
 
