@@ -7,7 +7,6 @@
   "private": true,
   "type": "module",
   "main": "./dist/index.mjs",
-  "types": "./lib-types/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/index.mjs",
@@ -15,8 +14,9 @@
       "types": "./lib-types/index.d.ts"
     }
   },
+  "types": "./lib-types/index.d.ts",
   "files": [
-    "lib",
+    "dist",
     "lib-types"
   ],
   "license": "ISC",
