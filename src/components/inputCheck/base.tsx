@@ -1,12 +1,17 @@
-import type { InputHTMLAttributes, JSXNode } from "@builder.io/qwik";
-import { Slot, component$, useId } from "@builder.io/qwik";
+import type {
+	InputHTMLAttributes,
+	JSXChildren,
+	JSXNode,
+} from "@builder.io/qwik";
+import { component$, useId } from "@builder.io/qwik";
 
 type InputCheckProps = InputHTMLAttributes<HTMLInputElement> & {
 	label: string | JSXNode;
+	render?: JSXChildren;
 };
 
 export const InputCheckBase = component$<InputCheckProps>(
-	({ label, type = "checkbox", ...props }) => {
+	({ label, render: Render, type = "checkbox", ...props }) => {
 		const id = useId();
 		return (
 			<div class="relative flex items-center gap-2.5">
@@ -30,7 +35,7 @@ export const InputCheckBase = component$<InputCheckProps>(
 				<div class="text-sm">
 					<label for={props.id || id} class=" text-black capitalize">
 						{label}
-						<Slot />
+						{typeof Render === "function" ? <Render /> : Render}
 					</label>
 				</div>
 			</div>
@@ -39,11 +44,7 @@ export const InputCheckBase = component$<InputCheckProps>(
 );
 
 export const InputRadio = component$<Omit<InputCheckProps, "type">>((props) => {
-	return (
-		<InputCheckBase {...props} type="radio">
-			<Slot />
-		</InputCheckBase>
-	);
+	return <InputCheckBase {...props} type="radio" />;
 });
 
 export const InputCheck = component$<Omit<InputCheckProps, "type">>((props) => {
