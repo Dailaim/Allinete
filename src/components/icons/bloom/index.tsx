@@ -31,6 +31,7 @@ export const SVGBloomRight = component$<SVGProps>((props) => {
 			height="13"
 			viewBox="0 0 51 13"
 			fill="none"
+			{...props}
 		>
 			<path
 				fill-rule="evenodd"
