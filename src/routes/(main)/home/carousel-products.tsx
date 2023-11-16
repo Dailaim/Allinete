@@ -3,11 +3,10 @@ import {
 	component$,
 	useId,
 	useStyles$,
-	useTask$,
 	useVisibleTask$,
 } from "@builder.io/qwik";
 import Swiper from "swiper";
-import { Navigation, Pagination, Virtual } from "swiper/modules";
+import { Navigation, Pagination } from "swiper/modules";
 import {
 	PaginationCss,
 	SwiperContainer,
