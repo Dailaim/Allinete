@@ -1,18 +1,8 @@
 import { server$ } from "@builder.io/qwik-city";
 import type { EnvGetter } from "@builder.io/qwik-city/middleware/request-handler";
-import { Surreal } from "surrealdb.js";
-
-export const database = new Surreal();
-
-export const connect = {
-	value: false,
-};
+import { Surreal } from "surrealdb-http";
 
 export const DB = server$(async function (env?: EnvGetter) {
-/* 	if (connect.value) {
-		return database;
-	} */
-
 	const getEnv = env?.get ?? this?.env?.get;
 
 	if (!getEnv) {
@@ -25,28 +15,18 @@ export const DB = server$(async function (env?: EnvGetter) {
 	const name = getEnv("DB_NAME") ?? "";
 	const namespace = getEnv("DB_NAMESPACE") ?? "";
 
+	const database = new Surreal();
+
 	// Use any of these 3 connect methods to connect to the database
 	// 1.Connect to the database
-	await database.connect(url).catch((err) => {
-		console.error(err, "Error connecting to database");
-	});
-
-	// Signin as a namespace, database, or root user
-	await database
-		.signin({
-			user: user,
+	await database.connect(url, {
+		auth: {
 			pass: pass,
-		})
-		.catch((err) => {
-			console.error(err, "Error signing into database");
-		});
-
-	// Select a specific namespace / database
-	await database.use({ ns: namespace, db: name }).catch((err) => {
-		console.error(err, "Error selecting namespace");
+			user: user,
+		},
+		db: name,
+		ns: namespace,
 	});
-
-	connect.value = true;
 
 	return database;
 });
