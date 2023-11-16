@@ -1,5 +1,5 @@
 import type { AuthConfig } from "@auth/core";
-import Email from "@auth/core/providers/email";
+// import Email from "@auth/core/providers/email";
 
 import GitHub from "@auth/core/providers/github";
 import { serverAuth$ } from "@builder.io/qwik-auth";
@@ -19,7 +19,7 @@ export const { onRequest, useAuthSession, useAuthSignin, useAuthSignout } =
 						clientId: env.get("GITHUB_ID"),
 						clientSecret: env.get("GITHUB_SECRET"),
 					}),
-					Email({
+					/* Email({
 						server: {
 							host: env.get("EMAIL_SERVER_HOST"),
 							port: env.get("EMAIL_SERVER_PORT"),
@@ -29,7 +29,8 @@ export const { onRequest, useAuthSession, useAuthSignin, useAuthSignout } =
 							},
 						},
 						from: env.get("EMAIL_FROM"),
-					}),
+					}), */
+              // "nodemailer": "^6.9.7",
 				],
 				adapter: SurrealDBAdapter(DB(env)),
 			}) as AuthConfig,
