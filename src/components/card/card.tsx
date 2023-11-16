@@ -1,4 +1,5 @@
-import { HtmlHTMLAttributes, type QRL, component$ } from "@builder.io/qwik";
+import type { HtmlHTMLAttributes } from "@builder.io/qwik";
+import { type QRL, component$ } from "@builder.io/qwik";
 
 import { Button } from "../button";
 import { Heart, RatingStar } from "../utils";
