@@ -1,12 +1,9 @@
 /* import { readFileSync } from "fs"; */
-import type { HtmlHTMLAttributes, NoSerialize, Signal } from "@builder.io/qwik";
-import { Slot, component$, useVisibleTask$ } from "@builder.io/qwik";
-
-import { Swiper } from "swiper";
+import type { HtmlHTMLAttributes, NoSerialize } from "@builder.io/qwik";
+import { Slot, component$ } from "@builder.io/qwik";
 
 import type { SwiperOptions as options } from "swiper/types";
 
-import { Navigation, Pagination } from "swiper/modules";
 import NavigationCss from "./navigation.css?inline";
 import PaginationCss from "./pagination.css?inline";
 import SwiperCss from "./swiper.css?inline";
