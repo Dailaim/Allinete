@@ -2,7 +2,7 @@
   "name": "alinette-front",
   "description": "App with Routing built-in ready to create your app",
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=18.0.0"
   },
   "private": true,
   "trustedDependencies": [
