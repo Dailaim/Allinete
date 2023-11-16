@@ -8,7 +8,6 @@ import {
 	SVGEye,
 	SVGGoogleColor,
 	SVGHeart,
-	SVGHeartGlitter,
 	SVGStar,
 	SVGSussesCircle,
 } from "./index";
@@ -24,7 +23,12 @@ const meta: Meta<SVGProps> = {
 	},
 };
 
-type Story = StoryObj<SVGProps>;
+type Story = StoryObj<
+	SVGProps & {
+		glitter?: boolean;
+		underline?: boolean;
+	}
+>;
 
 export default meta;
 
