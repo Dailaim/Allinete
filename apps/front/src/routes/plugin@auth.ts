@@ -32,6 +32,6 @@ export const { onRequest, useAuthSession, useAuthSignin, useAuthSignout } =
 					}), */
               // "nodemailer": "^6.9.7",
 				],
-				adapter: SurrealDBAdapter(DB(env)),
+				adapter: SurrealDBAdapter(DB(env) as any),
 			}) as AuthConfig,
 	);
