@@ -1,12 +1,4 @@
-import {
-	FunctionComponent,
-	ImgHTMLAttributes,
-	JSXNode,
-	Slot,
-	component$,
-	useSignal,
-	useVisibleTask$,
-} from "@builder.io/qwik";
+import { Slot, component$ } from "@builder.io/qwik";
 import { Link } from "@builder.io/qwik-city";
 
 interface CardProps {
@@ -16,7 +8,7 @@ interface CardProps {
 	description: string;
 }
 
-export const OldCard = component$<CardProps>(({ title, link, description }) => {
+export const OldCard = component$<CardProps>(({ title, link }) => {
 	return (
 		<Link
 			href={link}
