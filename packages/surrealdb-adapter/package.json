@@ -1,0 +1,46 @@
+{
+  "name": "@auth/surrealdb-adapter",
+  "version": "0.1.3",
+  "description": "SurrealDB adapter for next-auth.",
+  "homepage": "https://authjs.dev",
+
+  "private": true,
+  "type": "module",
+  "main": "./lib/index.mjs",
+  "types": "./lib-types/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./lib/index.mjs",
+      "require": "./lib/index.cjs",
+      "types": "./lib-types/index.d.ts"
+    }
+  },
+  "files": [
+    "lib",
+    "lib-types"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "next-auth",
+    "next.js",
+    "oauth",
+    "mongodb",
+    "adapter"
+  ],
+
+  "dependencies": {
+    "@auth/core": "0.18.0"
+  },
+  "peerDependencies": {
+    "surrealdb.js": "^0.9.0"
+  },
+  "scripts": {
+    "build.types": "tsc --emitDeclarationOnly",
+    "build.lib": "vite build --mode lib"
+},
+  "devDependencies": {
+    "typescript": "^5.2.2",
+    "vite": "^4.4.11",
+    "vite-tsconfig-paths": "^4.2.1"
+  }
+}
