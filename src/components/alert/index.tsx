@@ -40,7 +40,7 @@ export const Alert = component$<AlertProps>(
 				]}
 			>
 				<div class="flex-shrink-0 flex items-center">
-					{Icon && <Icon class="h-5 w-5" />}
+					<Icon class="h-5 w-5" />
 					<Slot name="icon" />
 				</div>
 				<div class="flex-1 md:flex md:justify-between ">
