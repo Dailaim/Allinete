@@ -4,7 +4,7 @@ import Email from "@auth/core/providers/email";
 import GitHub from "@auth/core/providers/github";
 import { serverAuth$ } from "@builder.io/qwik-auth";
 
-import { SurrealDBAdapter } from "~/libs/surrealdbAuthApdapter";
+import { SurrealDBAdapter } from "@auth/surrealdb-adapter";
 import { DB } from "~/server/database";
 
 export const { onRequest, useAuthSession, useAuthSignin, useAuthSignout } =

@@ -1,5 +1,5 @@
 import { server$ } from "@builder.io/qwik-city";
-import { EnvGetter } from "@builder.io/qwik-city/middleware/request-handler";
+import type { EnvGetter } from "@builder.io/qwik-city/middleware/request-handler";
 import { Surreal } from "surrealdb.js";
 
 export const database = new Surreal();

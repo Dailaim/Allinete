@@ -10,8 +10,8 @@ import {
 	useStore,
 	useTask$,
 } from "@builder.io/qwik";
+import { Motion } from "@motionone/qwik";
 import { TbChevronUp } from "@qwikest/icons/tablericons";
-import { Motion } from "../motion";
 
 export const context = createContextId<VerticalTapContext>("vertical-tap");
 
