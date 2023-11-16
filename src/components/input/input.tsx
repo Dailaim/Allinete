@@ -1,6 +1,6 @@
+import type { InputHTMLAttributes } from "@builder.io/qwik";
 import {
 	type HTMLAttributes,
-	InputHTMLAttributes,
 	component$,
 	useId,
 	useStylesScoped$,
