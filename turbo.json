@@ -9,7 +9,7 @@
     },
     "lint": {},
     "dev": {
-      "dependsOn": ["^build.lib"],
+      "dependsOn": [],
       "cache": false,
       "persistent": true
     },
