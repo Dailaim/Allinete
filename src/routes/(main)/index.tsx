@@ -1,80 +1,73 @@
-import {
-	Fragment,
-	Slot,
-	component$,
-	useSignal,
-	useTask$,
-	useVisibleTask$,
-} from "@builder.io/qwik";
-import { type DocumentHead, server$ } from "@builder.io/qwik-city";
+import { Slot, component$, useVisibleTask$ } from "@builder.io/qwik";
+import { type DocumentHead } from "@builder.io/qwik-city";
 import { SwipeSlide } from "~/components/carousel/swiper";
-import Section32 from "~/img/res/pexels-freestocksorg-318379.jpg?jsx";
-import Section31 from "~/img/res/pexels-kaboompics-com-6161.jpg?jsx";
-import Section33 from "~/img/res/pexels-rdne-stock-project-6724412.jpg?jsx";
+// import Section32 from "~/img/res/pexels-freestocksorg-318379.jpg?jsx";
+// import Section31 from "~/img/res/pexels-kaboompics-com-6161.jpg?jsx";
+// import Section33 from "~/img/res/pexels-rdne-stock-project-6724412.jpg?jsx";
 /* import { Card } from "~/routes/(main)/home/card"; */
 
-import Card1 from "~/img/res/pexels-rdne-stock-project-6724402.jpg?jsx";
+// import Card1 from "~/img/res/pexels-rdne-stock-project-6724402.jpg?jsx";
 
-import Card2 from "~/img/res/pexels-cottonbro-studio-4620852.jpg?jsx";
+// import Card2 from "~/img/res/pexels-cottonbro-studio-4620852.jpg?jsx";
 
-import Card3 from "~/img/res/makeup-3081015.jpg?jsx";
+// import Card3 from "~/img/res/makeup-3081015.jpg?jsx";
 
-import Carousel35 from "~/img/res/pexels-anderson-guerra-1115350.jpg?jsx";
+// import Carousel35 from "~/img/res/pexels-anderson-guerra-1115350.jpg?jsx";
 
-import Carousel36 from "~/img/res/pexels-freestocksorg-457704.jpg?jsx";
+// import Carousel36 from "~/img/res/pexels-freestocksorg-457704.jpg?jsx";
 
-import Carousel37 from "~/img/res/pexels-1749452.jpg?jsx";
+// import Carousel37 from "~/img/res/pexels-1749452.jpg?jsx";
 
 import { Card } from "~/components/card/card";
 
 import { SiInstagram } from "@qwikest/icons/simpleicons";
 import { Button, ButtonForm } from "~/components/button";
 import { Topic } from "~/components/topic/topic";
-import type { LocationsProps } from "~/models/location";
+// import type { LocationsProps } from "~/models/location";
 import { useAuthSession } from "~/routes/plugin@auth";
 import { CarouselProducts } from "./home/carousel-products";
 import { HeroSection } from "./home/hero-section";
 
-const cards = [
-	{
-		Image: Card1,
-		title: "Healthy Skin Solutions",
-		description:
-			"Revitalize your skin with our range of nourishing skincare treatments.",
-	},
-	{
-		Image: Card2,
-		title: "Flawless Makeup Application",
-		description:
-			"Enhance your beauty with our professional makeup services for any occasion.",
-	},
-	{
-		Image: Card3,
-		title: "Perfect Packages",
-		description:
-			"Look stunning on your special day with our customized bridal packages.",
-	},
-];
+// const cards = [
+// 	{
+// 		Image: Card1,
+// 		title: "Healthy Skin Solutions",
+// 		description:
+// 			"Revitalize your skin with our range of nourishing skincare treatments.",
+// 	},
+// 	{
+// 		Image: Card2,
+// 		title: "Flawless Makeup Application",
+// 		description:
+// 			"Enhance your beauty with our professional makeup services for any occasion.",
+// 	},
+// 	{
+// 		Image: Card3,
+// 		title: "Perfect Packages",
+// 		description:
+// 			"Look stunning on your special day with our customized bridal packages.",
+// 	},
+// ];
 
-const services = [
-	{
-		title: "Beauty consultations",
-		description: "Expert advice tailored to your unique needs.",
-		Image: Section31,
-	},
-	{
-		title: "Glamour makeup tutorials",
-		description: "Learn the art of stunning makeup application.",
-		Image: Section32,
-	},
-	{
-		title: "Express facials",
-		description: "Experience a quick and refreshing skincare treatment.",
-		Image: Section33,
-	},
-];
+// const services = [
+// 	{
+// 		title: "Beauty consultations",
+// 		description: "Expert advice tailored to your unique needs.",
+// 		Image: Section31,
+// 	},
+// 	{
+// 		title: "Glamour makeup tutorials",
+// 		description: "Learn the art of stunning makeup application.",
+// 		Image: Section32,
+// 	},
+// 	{
+// 		title: "Express facials",
+// 		description: "Experience a quick and refreshing skincare treatment.",
+// 		Image: Section33,
+// 	},
+// ];
 
-const images = [Carousel35, Carousel36, Carousel37];
+// const images = [Carousel35, Carousel36, Carousel37];
 
 /* const Layout = component$<{} & {}>(({ ...props }) => {
 	return (
@@ -97,19 +90,19 @@ export default component$(() => {
 		console.log("data", data.value);
 	});
 
-	const currentLocation = useSignal<LocationsProps>({
-		name: "Soraluze",
-		point: [43.17478, -2.41172],
-		/**
-		 * Define rectangle with: Southwest lat, South West Lng, North East lat,  North East lng points.
-		 * Very interesting when use to filter in OpenStreetMap API to take POIs
-		 * Example: https://qwik-osm-poc.netlify.app/
-		 */
-		boundaryBox:
-			"43.14658914559456,-2.4765586853027344,43.202923523094725,-2.3467826843261723",
-		zoom: 9,
-		marker: false,
-	});
+	// const currentLocation = useSignal<LocationsProps>({
+	// 	name: "Soraluze",
+	// 	point: [43.17478, -2.41172],
+	// 	/**
+	// 	 * Define rectangle with: Southwest lat, South West Lng, North East lat,  North East lng points.
+	// 	 * Very interesting when use to filter in OpenStreetMap API to take POIs
+	// 	 * Example: https://qwik-osm-poc.netlify.app/
+	// 	 */
+	// 	boundaryBox:
+	// 		"43.14658914559456,-2.4765586853027344,43.202923523094725,-2.3467826843261723",
+	// 	zoom: 9,
+	// 	marker: false,
+	// });
 
 	return (
 		<>
