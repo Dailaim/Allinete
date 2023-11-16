@@ -1,9 +1,9 @@
-import { $, HtmlHTMLAttributes, component$, useSignal } from "@builder.io/qwik";
+import type { HtmlHTMLAttributes } from "@builder.io/qwik";
+import { $, component$, useSignal } from "@builder.io/qwik";
 import type { Meta, StoryObj } from "storybook-framework-qwik";
-import type { HeartProps } from "./heart";
 import { RatingStar } from "./index";
-import { RatingStarProps } from "./ratingStar";
-import { StarRatings } from "./star/starRatings";
+import type { RatingStarProps } from "./ratingStar";
+// import { StarRatings } from "./star/starRatings";
 
 const meta: Meta<RatingStarProps> = {
 	component: RatingStar,
@@ -14,23 +14,23 @@ type Story = StoryObj<RatingStarProps>;
 
 export default meta;
 
-const Layaout = component$<HtmlHTMLAttributes<HTMLElement>>((props) => {
-	const rating = useSignal(0);
-	const changeRating = $((newRating: number) => {
-		rating.value = newRating;
-	});
-	return (
-		<StarRatings
-			rating={rating.value}
-			isSelectable={true}
-			starRatedColor={"blue"}
-			changeRating$={changeRating}
-			numberOfStars={5}
-		/>
-	);
-});
+// const Layaout = component$<HtmlHTMLAttributes<HTMLElement>>((props) => {
+// 	const rating = useSignal(0);
+// 	const changeRating = $((newRating: number) => {
+// 		rating.value = newRating;
+// 	});
+// 	return (
+// 		<StarRatings
+// 			rating={rating.value}
+// 			isSelectable={true}
+// 			starRatedColor={"blue"}
+// 			changeRating$={changeRating}
+// 			numberOfStars={5}
+// 		/>
+// 	);
+// });
 
-const Layaout2 = component$<HtmlHTMLAttributes<HTMLElement>>((props) => {
+const Layaout2 = component$<HtmlHTMLAttributes<HTMLElement>>(() => {
 	const rating = useSignal(3);
 	const changeRating = $((newRating: number) => {
 		rating.value = newRating;

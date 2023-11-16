@@ -1,7 +1,7 @@
 import type { HtmlHTMLAttributes, QRL } from "@builder.io/qwik";
 import { $, component$, useId, useSignal } from "@builder.io/qwik";
 import { SVGStar } from "../icons";
-import { SVGProps } from "../icons/props";
+import type { SVGProps } from "../icons/props";
 
 type Actions = {
 	ratingValue: number;
@@ -58,6 +58,7 @@ export type RatingStarProps = HtmlHTMLAttributes<HTMLElement> & {
 	numberOfStars?: number;
 	changeRating$?: QRL<(rating: number, name?: string) => void> | undefined;
 	StarProps?: Omit<SVGProps, "onClick$" | "onMouseEnter$" | "onMouseLeave$">;
+	defaultRating?: number;
 };
 
 export const RatingStar = component$<RatingStarProps>(
