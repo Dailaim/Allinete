@@ -3,6 +3,7 @@ import {
 	Slot,
 	component$,
 	createContextId,
+	useComputed$,
 	useContext,
 	useContextProvider,
 	useId,
@@ -40,6 +41,7 @@ export const VerticalTap = component$<VerticalTapProps>(
 		const id = useId();
 		const state = useVerticalMenu();
 		const ref = useSignal<HTMLElement>();
+    const interactive = useSignal(false);
 
 		useTask$(() => {
 			state[id] = false;
@@ -49,6 +51,7 @@ export const VerticalTap = component$<VerticalTapProps>(
       state[id] = defaultOpen;
     })
 
+
 		return (
 			<div class="">
 				<button
@@ -56,6 +59,9 @@ export const VerticalTap = component$<VerticalTapProps>(
 					class="flex pr-5 py-2.5 w-full font-medium text-black items-center justify-between capitalize"
 					onClick$={() => {
 						state[id] = !state[id];
+            if (!interactive.value) {
+              interactive.value = true;
+            }
 					}}
 				>
 					{title}
@@ -77,10 +83,14 @@ export const VerticalTap = component$<VerticalTapProps>(
 					animate={{
 						overflow: state[id] ? "visible" : "hidden",
             height: state[id] ? [
-              "0px",
+              0,
               "100px",
               "auto",
-            ] : 0,
+            ] : !interactive.value ? 0 : [
+              "auto",
+              "100px",
+              0,
+            ],
 					}}
 					transition={{
 						duration:  0.2 ,
