@@ -24,12 +24,7 @@
     "build2": "tsc --emitDeclarationOnly && esbuild ./src/index.js --format=esm --minify --bundle --sourcemap --outfile=./dist/index.js",
     "build.lib2": "esbuild ./src/index.js --format=esm --minify --bundle --sourcemap --outfile=./dist/index.js",
     "build.types2": "tsc --emitDeclarationOnly"
-  },
-  
-  "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "types": "./lib-types/index.d.ts"
-    }
   }
+  
+
 }
