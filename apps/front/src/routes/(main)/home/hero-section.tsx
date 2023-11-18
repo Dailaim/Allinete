@@ -5,7 +5,7 @@ import Image from "./presentacion.jpeg?jsx";
 
 export const HeroSection = component$(() => {
 	return (
-		<section class="relative h-[370px] overflow-hidden bg-[#F5E0E5] md:h-[460px]">
+		<section class="relative h-[370px] overflow-hidden bg-[#F5E0E5] md:h-[460px] select-none">
 			<div class="absolute -right-3/4  top-0  h-full overflow-hidden  sm:-right-1/2 md:right-0 ">
 				<Image class="  h-full overflow-hidden object-cover object-center" />
 			</div>
