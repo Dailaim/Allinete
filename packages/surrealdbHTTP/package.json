@@ -1,6 +1,6 @@
 {
 
-  "main": "./src/index.js",
+  "main": "./src/index.ts",
   "name": "surrealdb-http",
   "version": "0.9.1",
   "description": "Javascript driver for SurrealDB",
@@ -13,11 +13,6 @@
     "name": "Tobie Morgan Hitchcock",
     "url": "https://surrealdb.com"
   },
-  "types": "./lib-types/index.d.ts",
-  "files": [
-    "lib",
-    "lib-types"
-  ],
   "devDependencies": {
     "picocolors": "^1.0.0",
     "@types/node": "^18.7.18",
@@ -26,9 +21,9 @@
     "typescript": "^5.2.2"
   },
   "scripts": {
-    "build": "tsc --emitDeclarationOnly && esbuild ./src/index.js --format=esm --minify --bundle --sourcemap --outfile=./dist/index.js",
-    "build.lib": "esbuild ./src/index.js --format=esm --minify --bundle --sourcemap --outfile=./dist/index.js",
-    "build.types": "tsc --emitDeclarationOnly"
+    "build2": "tsc --emitDeclarationOnly && esbuild ./src/index.js --format=esm --minify --bundle --sourcemap --outfile=./dist/index.js",
+    "build.lib2": "esbuild ./src/index.js --format=esm --minify --bundle --sourcemap --outfile=./dist/index.js",
+    "build.types2": "tsc --emitDeclarationOnly"
   },
   
   "exports": {

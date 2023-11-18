@@ -2,28 +2,15 @@
   "name": "@motionone/qwik",
   "version": "0.0.1",
   "description": "Create a reusable Qwik component library",
-  "main": "./lib/index.qwik.mjs",
-  "qwik": "./lib/index.qwik.mjs",
-  "types": "./lib-types/index.d.ts",
-  "exports": {
-    ".": {
-      "import": "./lib/index.qwik.mjs",
-      "require": "./lib/index.qwik.cjs",
-      "types": "./lib-types/index.d.ts"
-    }
-  },
-  "files": [
-    "lib",
-    "lib-types"
-  ],
-
+  "main": "./src/index.ts",
+  "qwik": "./src/index.ts",
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "qwik build",
-    "build.lib": "vite build --mode lib",
-    "build.types": "tsc --emitDeclarationOnly",
-    "dev.lib": "vite --mode ssr",
+    "build2": "qwik build",
+    "build.lib2": "vite build --mode lib",
+    "build.types2": "tsc --emitDeclarationOnly",
+    "dev.lib2": "vite --mode ssr",
     "dev.debug": "node --inspect-brk ./node_modules/vite/bin/vite.js --mode ssr --force",
     "fmt": "prettier --write .",
     "fmt.check": "prettier --check .",

@@ -6,19 +6,7 @@
 
   "private": true,
   "type": "module",
-  "main": "./dist/index.mjs",
-  "exports": {
-    ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs",
-      "types": "./lib-types/index.d.ts"
-    }
-  },
-  "types": "./lib-types/index.d.ts",
-  "files": [
-    "dist",
-    "lib-types"
-  ],
+  "main": "./src/index.ts",
   "license": "ISC",
   "keywords": [
     "next-auth",
@@ -35,9 +23,9 @@
     "surrealdb.js": "^0.9.0"
   },
   "scripts": {
-    "build": "tsc --emitDeclarationOnly && vite build --mode lib",
-    "build.types": "tsc --emitDeclarationOnly",
-    "build.lib": "vite build --mode lib"
+    "build2": "tsc --emitDeclarationOnly && vite build --mode lib",
+    "build.types2": "tsc --emitDeclarationOnly",
+    "build.lib2": "vite build --mode lib"
 },
   "devDependencies": {
     "typescript": "^5.2.2",
