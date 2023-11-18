@@ -13,5 +13,11 @@ export default defineConfig(() => {
 			},
 		},
 		optimizeDeps: { include: ["@auth/core"] },
+    build: {
+      rollupOptions: {
+        external: ["@motionone/dom"],
+      },
+    },
 	};
+  
 });

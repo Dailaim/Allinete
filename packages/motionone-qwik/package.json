@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "description": "Create a reusable Qwik component library",
   "main": "./src/index.ts",
-  "qwik": "./src/index.ts",
   "private": true,
   "type": "module",
   "scripts": {

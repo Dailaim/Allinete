@@ -1,3 +1,4 @@
-export * from "./components/motion";
-export { Motion } from "./components/motion";
-export { useCreateMotion, useMotion } from "./components/motion";
+
+export * from "./components/motion/types";
+export { Motion } from "./components/motion/motion";
+export { useCreateMotion, useMotion } from "./components/motion/primitives";

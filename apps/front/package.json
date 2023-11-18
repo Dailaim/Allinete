@@ -5,7 +5,9 @@
 		"node": ">=18.0.0"
 	},
 	"private": true,
-	"trustedDependencies": ["sharp"],
+	"trustedDependencies": [
+		"sharp"
+	],
 	"scripts": {
 		"build": "qwik build",
 		"build-storybook": "storybook build",
@@ -58,16 +60,16 @@
 		"vercel": "^29.1.1",
 		"vite": "4.4.11",
 		"vite-tsconfig-paths": "4.2.1"
-
 	},
 	"dependencies": {
-    "@motionone/qwik": "workspace:*",
-    "@auth/surrealdb-adapter": "workspace:*",
-    "@modular-forms/qwik": "^0.21.0",
-		"surrealdb-http": "workspace:*",
+		"@auth/surrealdb-adapter": "workspace:*",
+		"@modular-forms/qwik": "^0.21.0",
+		"@motionone/dom": "^10.16.4",
+		"@motionone/types": "^10.16.3",
 		"@qwikest/icons": "^0.0.10",
 		"leaflet": "1.9.4",
 		"motion": "^10.16.4",
+		"surrealdb-http": "workspace:*",
 		"swiper": "^10.3.1",
 		"valibot": "^0.19.0"
 	}
