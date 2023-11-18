@@ -1,5 +1,4 @@
 import { Slot, component$, useVisibleTask$ } from "@builder.io/qwik";
-import { type DocumentHead } from "@builder.io/qwik-city";
 import { SwipeSlide } from "~/components/carousel/swiper";
 // import Section32 from "~/img/res/pexels-freestocksorg-318379.jpg?jsx";
 // import Section31 from "~/img/res/pexels-kaboompics-com-6161.jpg?jsx";
@@ -229,13 +228,3 @@ export default component$(() => {
 export const FragmentSlot = component$(() => {
 	return <Slot />;
 });
-
-export const head: DocumentHead = {
-	title: "Welcome to Qwik",
-	meta: [
-		{
-			name: "description",
-			content: "Qwik site description",
-		},
-	],
-};

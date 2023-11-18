@@ -1,5 +1,6 @@
 import { Slot, component$ } from "@builder.io/qwik";
 import type { RequestHandler } from "@builder.io/qwik-city";
+import { type DocumentHead } from "@builder.io/qwik-city";
 import { Footer } from "~/components/footer";
 import { Navbar } from "~/components/navbar";
 
@@ -23,3 +24,16 @@ export default component$(() => {
 		</>
 	);
 });
+
+
+
+
+export const head: DocumentHead = {
+	title: "Alinette - Tu Destino para la Belleza",
+	meta: [
+		{
+			name: "description",
+			content: "Descubre Alinette, tu tienda de maquillaje y productos de belleza de confianza. Ofrecemos los mejores productos para realzar tu belleza natural. Explora nuestra amplia selección de maquillaje, cuidado de la piel, cuidado del cabello y más, con un compromiso inquebrantable hacia la calidad y la satisfacción del cliente.",
+		},
+	],
+};
