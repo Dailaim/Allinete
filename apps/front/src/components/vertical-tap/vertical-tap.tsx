@@ -3,7 +3,6 @@ import {
 	Slot,
 	component$,
 	createContextId,
-	useComputed$,
 	useContext,
 	useContextProvider,
 	useId,
