@@ -67,17 +67,25 @@ export const VerticalTap = component$<VerticalTapProps>(
 
 				<Motion.div
 					ref={ref}
-					initial={{ overflow: "hidden", opacity: 0, maxHeight: "0px" }}
+					initial={{ overflow: "hidden", 
+          height: 0,
+        }}
 					animate={{
 						overflow: state[id] ? "visible" : "hidden",
-						opacity: state[id] ? 1 : 0,
-						maxHeight: state[id] ? "10000px" : "0px",
+            height: state[id] ? [
+              "0px",
+              "100px",
+              "auto",
+            ] : 0,
 					}}
+
 					transition={{
-						duration: 0.2,
+
+						duration:  0.2 ,
+            height: { duration:  0.15  },
 						easing: "ease-in-out",
-						overflow: { duration: 0.3 },
-						maxHeight: { duration: 0.15 },
+						overflow: { duration: state[id] ? 0.3 : 0  },
+						
 					}}
 				>
 					<div class={["gap-2.5 flex flex-col my-2.5"]}>
