@@ -9,6 +9,7 @@ import {
 	useSignal,
 	useStore,
 	useTask$,
+  useVisibleTask$,
 } from "@builder.io/qwik";
 import { TbChevronUp } from "@qwikest/icons/tablericons";
 import { Motion } from "~/packages/motion";
@@ -41,8 +42,12 @@ export const VerticalTap = component$<VerticalTapProps>(
 		const ref = useSignal<HTMLElement>();
 
 		useTask$(() => {
-			state[id] = defaultOpen;
+			state[id] = false;
 		});
+
+    useVisibleTask$(()=>{
+      state[id] = defaultOpen;
+    })
 
 		return (
 			<div class="">
@@ -59,12 +64,11 @@ export const VerticalTap = component$<VerticalTapProps>(
 							"transition-transform duration-300 text-purple",
 							"w-5 h-5",
 							{
-								"transform rotate-180": !state[id],
+								"transform -rotate-180": !state[id],
 							},
 						]}
 					/>
 				</button>
-
 				<Motion.div
 					ref={ref}
 					initial={{ overflow: "hidden", 
@@ -78,14 +82,11 @@ export const VerticalTap = component$<VerticalTapProps>(
               "auto",
             ] : 0,
 					}}
-
 					transition={{
-
 						duration:  0.2 ,
             height: { duration:  0.15  },
 						easing: "ease-in-out",
 						overflow: { duration: state[id] ? 0.3 : 0  },
-						
 					}}
 				>
 					<div class={["gap-2.5 flex flex-col my-2.5"]}>
