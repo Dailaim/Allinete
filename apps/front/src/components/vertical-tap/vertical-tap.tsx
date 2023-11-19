@@ -44,9 +44,13 @@ export const VerticalTap = component$<VerticalTapProps>(
 		const state = useVerticalMenu();
 		const ref = useSignal<HTMLElement>();
 
+    const animation = [ 0,"100px","auto"]
+
 		useTask$(() => {
 			state[id] = false;
 		});
+
+    const interactive = useSignal(defaultOpen);
 
     useVisibleTask$(()=>{
       state[id] = defaultOpen;
@@ -60,8 +64,8 @@ export const VerticalTap = component$<VerticalTapProps>(
 					class="flex pr-5 py-2.5 w-full font-medium text-black items-center justify-between capitalize"
 					onClick$={() => {
 						state[id] = !state[id];
-            if (!state["interactive"]) {
-              state["interactive"] = true;
+            if (!interactive.value) {
+              interactive.value = true;
             }
 					}}
 				>
@@ -85,17 +89,9 @@ export const VerticalTap = component$<VerticalTapProps>(
 					animate={{
 						overflow: state[id] ? "visible" : "hidden",
             height: state[id] 
-            ? [
-              0,
-              "100px",
-              "auto",
-              ] 
-            : !state["interactive"]  
-              ? [
-                "auto",
-                "100px",
-                0,
-                ]
+            ? animation
+            : interactive.value  
+              ? animation.reverse()
               : 0,
 					}}
 					transition={{
