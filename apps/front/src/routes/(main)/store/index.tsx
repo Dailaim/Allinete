@@ -164,14 +164,14 @@ export default component$(() => {
 
 					<div class="hidden lg:block">
 						<div>
-							<div class="bg-white rounded shadow-sm px-5 pt-2.5 pb-8 flex flex-col gap-5 text-blue-gray">
+{/* 							<div class="bg-white rounded shadow-sm px-5 pt-2.5 pb-8 flex flex-col gap-5 text-blue-gray">
 								<h2 class="text-black text-2xl font-semibold">
 									Double-Cleanse
 								</h2>
 								<p>Cleansing Balms</p>
 								<p>Oil Cleansers</p>
 								<p>Water Cleansers</p>
-							</div>
+							</div> */}
 
 							<div class="bg-white rounded shadow-sm px-5 pt-2.5 pb-8 mt-4 flex flex-col gap-5 text-blue-gray">
 								<h2 class="text-black text-2xl font-semibold">Filters</h2>
@@ -267,7 +267,7 @@ export default component$(() => {
 						</div>
 					</div>
 
-					<div class="grid grid-cols-1  justify-items-center gap-5 xs:grid-cols-2  md:grid-cols-3  2xl:grid-cols-4">
+					<div class="grid grid-cols-1 pt-10 lg-pt-0 justify-items-center gap-5 xs:grid-cols-2  md:grid-cols-3  2xl:grid-cols-4">
 						{products.map((_, index) => (
 							<Fragment key={`${index}articulo card`}>
 								<Card
