@@ -13,7 +13,6 @@ import {
 } from "@builder.io/qwik";
 import { TbChevronUp } from "@qwikest/icons/tablericons";
 import { Motion } from "~/packages/motion";
-import store from "~/routes/(main)/store";
 
 export const context = createContextId<VerticalTapContext>("vertical-tap");
 
