@@ -13,6 +13,7 @@ import {
 } from "@builder.io/qwik";
 import { TbChevronUp } from "@qwikest/icons/tablericons";
 import { Motion } from "~/packages/motion";
+import store from "~/routes/(main)/store";
 
 export const context = createContextId<VerticalTapContext>("vertical-tap");
 
@@ -20,7 +21,9 @@ export const useVerticalMenu = () => useContext(context);
 
 export const VerticalMenu = component$<HtmlHTMLAttributes<HTMLDivElement>>(
 	(props) => {
-		useContextProvider(context, useStore({}));
+		useContextProvider(context, useStore({
+      interactive: false,
+    }));
 
 		return (
 			<div {...props}>
@@ -40,7 +43,6 @@ export const VerticalTap = component$<VerticalTapProps>(
 		const id = useId();
 		const state = useVerticalMenu();
 		const ref = useSignal<HTMLElement>();
-    const interactive = useSignal(false);
 
 		useTask$(() => {
 			state[id] = false;
@@ -58,8 +60,8 @@ export const VerticalTap = component$<VerticalTapProps>(
 					class="flex pr-5 py-2.5 w-full font-medium text-black items-center justify-between capitalize"
 					onClick$={() => {
 						state[id] = !state[id];
-            if (!interactive.value) {
-              interactive.value = true;
+            if (!state["interactive"]) {
+              state["interactive"] = true;
             }
 					}}
 				>
@@ -76,20 +78,25 @@ export const VerticalTap = component$<VerticalTapProps>(
 				</button>
 				<Motion.div
 					ref={ref}
-					initial={{ overflow: "hidden", 
+					initial={{ 
+          overflow: "hidden", 
           height: 0,
         }}
 					animate={{
 						overflow: state[id] ? "visible" : "hidden",
-            height: state[id] ? [
+            height: state[id] 
+            ? [
               0,
               "100px",
               "auto",
-            ] : !interactive.value ? 0 : [
-              "auto",
-              "100px",
-              0,
-            ],
+              ] 
+            : !state["interactive"]  
+              ? [
+                "auto",
+                "100px",
+                0,
+                ]
+              : 0,
 					}}
 					transition={{
 						duration:  0.2 ,
