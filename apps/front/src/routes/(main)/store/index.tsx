@@ -159,19 +159,30 @@ export default component$(() => {
 		<main class="mx-auto relative container px-3 lg:pt-10">
 			<div class="divider" />
 
-      <button class="fixed  drop-shadow-lg right-0 bottom-0 mb-20 me-4 text-white p-4 z-30 bg-purple-400 shadow-lg rounded-full">
-
-        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 18">
-      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m2.133 2.6 5.856 6.9L8 14l4 3 .011-7.5 5.856-6.9a1 1 0 0 0-.804-1.6H2.937a1 1 0 0 0-.804 1.6Z"/>
-    </svg>
-      </button>
+			<button class="fixed  drop-shadow-lg right-0 bottom-0 mb-20 me-4 text-white p-4 z-30 bg-purple-400 shadow-lg rounded-full">
+				<svg
+					class="w-6 h-6 text-gray-800 dark:text-white"
+					aria-hidden="true"
+					xmlns="http://www.w3.org/2000/svg"
+					fill="none"
+					viewBox="0 0 20 18"
+				>
+					<path
+						stroke="currentColor"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="2"
+						d="m2.133 2.6 5.856 6.9L8 14l4 3 .011-7.5 5.856-6.9a1 1 0 0 0-.804-1.6H2.937a1 1 0 0 0-.804 1.6Z"
+					/>
+				</svg>
+			</button>
 			<div class="pb-24  lg:grid lg:grid-cols-3 lg:gap-x-8 xl:grid-cols-4">
 				<aside>
 					<h2 class="sr-only">Filters</h2>
 
 					<div class="hidden lg:block">
 						<div>
-{/* 							<div class="bg-white rounded shadow-sm px-5 pt-2.5 pb-8 flex flex-col gap-5 text-blue-gray">
+							{/* 							<div class="bg-white rounded shadow-sm px-5 pt-2.5 pb-8 flex flex-col gap-5 text-blue-gray">
 								<h2 class="text-black text-2xl font-semibold">
 									Double-Cleanse
 								</h2>
@@ -292,8 +303,7 @@ export default component$(() => {
 	);
 });
 
-
-	/* <div
+/* <div
 								key={product.id}
 								class="group relative flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white"
 							>
@@ -324,4 +334,3 @@ export default component$(() => {
 									</div>
 								</div>
 							</div> */
-

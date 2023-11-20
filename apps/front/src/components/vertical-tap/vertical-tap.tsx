@@ -9,7 +9,7 @@ import {
 	useSignal,
 	useStore,
 	useTask$,
-  useVisibleTask$,
+	useVisibleTask$,
 } from "@builder.io/qwik";
 import { TbChevronUp } from "@qwikest/icons/tablericons";
 import { Motion } from "~/packages/motion";
@@ -20,9 +20,12 @@ export const useVerticalMenu = () => useContext(context);
 
 export const VerticalMenu = component$<HtmlHTMLAttributes<HTMLDivElement>>(
 	(props) => {
-		useContextProvider(context, useStore({
-      interactive: false,
-    }));
+		useContextProvider(
+			context,
+			useStore({
+				interactive: false,
+			}),
+		);
 
 		return (
 			<div {...props}>
@@ -43,18 +46,17 @@ export const VerticalTap = component$<VerticalTapProps>(
 		const state = useVerticalMenu();
 		const ref = useSignal<HTMLElement>();
 
-    const animation = [ 0,"100px","auto"]
+		const animation = [0, "100px", "auto"];
 
 		useTask$(() => {
 			state[id] = false;
 		});
 
-    const interactive = useSignal(defaultOpen);
+		const interactive = useSignal(defaultOpen);
 
-    useVisibleTask$(()=>{
-      state[id] = defaultOpen;
-    })
-
+		useVisibleTask$(() => {
+			state[id] = defaultOpen;
+		});
 
 		return (
 			<div class="">
@@ -63,9 +65,9 @@ export const VerticalTap = component$<VerticalTapProps>(
 					class="flex pr-5 py-2.5 w-full font-medium text-black items-center justify-between capitalize"
 					onClick$={() => {
 						state[id] = !state[id];
-            if (!interactive.value) {
-              interactive.value = true;
-            }
+						if (!interactive.value) {
+							interactive.value = true;
+						}
 					}}
 				>
 					{title}
@@ -81,23 +83,23 @@ export const VerticalTap = component$<VerticalTapProps>(
 				</button>
 				<Motion.div
 					ref={ref}
-					initial={{ 
-          overflow: "hidden", 
-          height: 0,
-        }}
+					initial={{
+						overflow: "hidden",
+						height: 0,
+					}}
 					animate={{
 						overflow: state[id] ? "visible" : "hidden",
-            height: state[id] 
-            ? animation
-            : interactive.value  
-              ? animation.reverse()
-              : 0,
+						height: state[id]
+							? animation
+							: interactive.value
+							? animation.reverse()
+							: 0,
 					}}
 					transition={{
-						duration:  0.2 ,
-            height: { duration:  0.15  },
+						duration: 0.2,
+						height: { duration: 0.15 },
 						easing: "ease-in-out",
-						overflow: { duration: state[id] ? 0.3 : 0  },
+						overflow: { duration: state[id] ? 0.3 : 0 },
 					}}
 				>
 					<div class={["gap-2.5 flex flex-col my-2.5"]}>

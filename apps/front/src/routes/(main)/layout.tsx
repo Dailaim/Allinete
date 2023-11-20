@@ -19,24 +19,22 @@ export const onGet: RequestHandler = async ({ cacheControl }) => {
 export default component$(() => {
 	return (
 		<>
-    <Providers >
-			<Navbar />
-			<Slot />
-			<Footer />
-    </Providers>
+			<Providers>
+				<Navbar />
+				<Slot />
+				<Footer />
+			</Providers>
 		</>
 	);
 });
-
-
-
 
 export const head: DocumentHead = {
 	title: "Alinette - Tu Destino para la Belleza",
 	meta: [
 		{
 			name: "description",
-			content: "Descubre Alinette, tu tienda de maquillaje y productos de belleza de confianza. Ofrecemos los mejores productos para realzar tu belleza natural. Explora nuestra amplia selección de maquillaje, cuidado de la piel, cuidado del cabello y más, con un compromiso inquebrantable hacia la calidad y la satisfacción del cliente.",
+			content:
+				"Descubre Alinette, tu tienda de maquillaje y productos de belleza de confianza. Ofrecemos los mejores productos para realzar tu belleza natural. Explora nuestra amplia selección de maquillaje, cuidado de la piel, cuidado del cabello y más, con un compromiso inquebrantable hacia la calidad y la satisfacción del cliente.",
 		},
 	],
 };

@@ -1,15 +1,14 @@
-import { $, type QwikTouchEvent, useSignal } from '@builder.io/qwik';
-import type { navbarContext } from './index';
+import { $, type QwikTouchEvent, useSignal } from "@builder.io/qwik";
+import type { navbarContext } from "./index";
 
 export const useMenuTouch = (store: navbarContext) => {
-
 	const startX = useSignal<number | null>(null);
 
-	const handleTouchStart = $(function(e: QwikTouchEvent<HTMLElement>) {
+	const handleTouchStart = $(function (e: QwikTouchEvent<HTMLElement>) {
 		startX.value = e.touches[0].clientX;
 	});
 
-	const handleTouchMove = $(function(e: QwikTouchEvent<HTMLElement>)  {
+	const handleTouchMove = $(function (e: QwikTouchEvent<HTMLElement>) {
 		if (!startX.value) return;
 
 		const currentX = e.touches[0].clientX;
@@ -37,9 +36,13 @@ export const useMenuTouch = (store: navbarContext) => {
 		}
 	});
 
-	const handleTouchEnd = $(function ()  {
+	const handleTouchEnd = $(function () {
 		startX.value = null;
 	});
 
-	return { start : handleTouchStart, move: handleTouchMove, end: handleTouchEnd };
+	return {
+		start: handleTouchStart,
+		move: handleTouchMove,
+		end: handleTouchEnd,
+	};
 };

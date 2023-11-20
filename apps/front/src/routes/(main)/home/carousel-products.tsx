@@ -3,7 +3,6 @@ import {
 	component$,
 	useId,
 	useStyles$,
-	useTask$,
 	useVisibleTask$,
 } from "@builder.io/qwik";
 import Swiper from "swiper";
@@ -21,7 +20,7 @@ export const CarouselProducts = component$(() => {
 	const id = useId();
 
 	useVisibleTask$(() => {
-		 new Swiper(`.${id}`, {
+		new Swiper(`.${id}`, {
 			modules: [Pagination, Navigation],
 			autoplay: true,
 			loop: true,
@@ -31,15 +30,14 @@ export const CarouselProducts = component$(() => {
 				nextEl: `.swiper-button-next-${id}`,
 				prevEl: `.swiper-button-prev-${id}`,
 			},
-      centeredSlides: true,
+			centeredSlides: true,
 			pagination: {
 				el: `.swiper-pagination-${id}`,
 				clickable: true,
 			},
-      speed: 300,
+			speed: 300,
 			breakpoints: {
 				300: {
-          
 					slidesPerView: 1.2,
 					spaceBetween: 10,
 				},
@@ -69,7 +67,7 @@ export const CarouselProducts = component$(() => {
 					slidesPerView: 3.2,
 					spaceBetween: 10,
 				},
-        1250: {
+				1250: {
 					slidesPerView: 3.7,
 					spaceBetween: 10,
 				},
@@ -78,25 +76,22 @@ export const CarouselProducts = component$(() => {
 					slidesPerView: 4,
 					spaceBetween: 10,
 				},
-        1500: {
+				1500: {
 					slidesPerView: 4.6,
 					spaceBetween: 10,
 				},
 			},
 		});
-
-
 	});
 
 	return (
 		<span class="relative">
-      <div class="absolute top-0 -right-6 z-10 w-12 blur h-full bg-off-white" />
-      <div class="absolute top-0 -left-6 z-10 w-12 blur h-full bg-off-white" />
+			<div class="absolute top-0 -right-6 z-10 w-12 blur h-full bg-off-white" />
+			<div class="absolute top-0 -left-6 z-10 w-12 blur h-full bg-off-white" />
 			<SwiperContainer preFix={id} class="overflow-hidden relative">
 				<Slot />
 
 				<Decorators q:slot="decorators">
-					
 					<SVGCircleArrowLeft
 						class={[
 							`swiper-button-prev-${id}`,
