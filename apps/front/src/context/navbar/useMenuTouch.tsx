@@ -6,10 +6,7 @@ export const useMenuTouch = (store: navbarContext) => {
 	const startX = useSignal<number | null>(null);
 
 	const handleTouchStart = $(function(e: QwikTouchEvent<HTMLElement>) {
-    
-
 		startX.value = e.touches[0].clientX;
-    console.log('touch start', startX.value)
 	});
 
 	const handleTouchMove = $(function(e: QwikTouchEvent<HTMLElement>)  {
@@ -17,10 +14,7 @@ export const useMenuTouch = (store: navbarContext) => {
 
 		const currentX = e.touches[0].clientX;
 
-    console.log('touch move', currentX)
 		const deltaX = currentX - startX.value;
-
-    console.log('touch move delta', deltaX)
 
 		if (deltaX > 50) {
 			if (store.openCart) {
