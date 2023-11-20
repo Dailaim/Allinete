@@ -3,6 +3,7 @@ import type { RequestHandler } from "@builder.io/qwik-city";
 import { type DocumentHead } from "@builder.io/qwik-city";
 import { Footer } from "~/components/footer";
 import { Navbar } from "~/components/navbar";
+import { Providers } from "~/context";
 
 export const onGet: RequestHandler = async ({ cacheControl }) => {
 	// Control caching for this request for best performance and to reduce hosting costs:
@@ -18,9 +19,11 @@ export const onGet: RequestHandler = async ({ cacheControl }) => {
 export default component$(() => {
 	return (
 		<>
+    <Providers >
 			<Navbar />
 			<Slot />
 			<Footer />
+    </Providers>
 		</>
 	);
 });
