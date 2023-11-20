@@ -1,6 +1,7 @@
-import type { QwikTouchEvent, Signal } from "@builder.io/qwik";
-import { $, component$, useSignal, useVisibleTask$ } from "@builder.io/qwik";
+
+import {  component$,  useVisibleTask$ } from "@builder.io/qwik";
 import { Link } from "@builder.io/qwik-city";
+import { useNavbarContext } from "~/context/navbar";
 import { Motion } from "~/packages/motion";
 import { ButtonText } from "../button";
 import {
@@ -14,139 +15,88 @@ export const Navbar = component$(() => {
 	return (
 		<header class="bg-white sticky top-0 z-50 shadow-sm select-none ">
 			<NavbarMobile />
-
 			<NavbarDesktop />
 		</header>
 	);
 });
 
-const useMenuTouch = (
-	MenuLeft?: Signal<boolean>,
-	MenuRight?: Signal<boolean>,
-) => {
-	const startX = useSignal<number | null>(null);
 
-	const handleTouchStart = $((e: QwikTouchEvent<HTMLElement>) => {
-		startX.value = e.touches[0].clientX;
-	});
 
-	const handleTouchMove = $((e: QwikTouchEvent<HTMLElement>) => {
-		if (!startX.value) return;
-
-		const currentX = e.touches[0].clientX;
-		const deltaX = currentX - startX.value;
-
-		if (deltaX > 50) {
-			if (MenuRight?.value) {
-				MenuRight.value = false;
-				return;
-			}
-
-			if (!MenuLeft) return;
-			MenuLeft.value = true;
-		}
-
-		if (deltaX < -50) {
-			if (MenuLeft?.value) {
-				MenuLeft.value = false;
-				return;
-			}
-
-			if (!MenuRight) return;
-			MenuRight.value = true;
-		}
-	});
-
-	const handleTouchEnd = $(() => {
-		startX.value = null;
-	});
-
-	return { handleTouchStart, handleTouchMove, handleTouchEnd };
-};
 
 export const NavbarMobile = component$(() => {
-	const MenuSig = useSignal(false);
-
-	const CartSig = useSignal(false);
+  const store = useNavbarContext()
 
   useVisibleTask$(({track})=>{
-    track(()=>MenuSig.value)
-    track(()=>CartSig.value)
+    track(()=> store.isOpen)
+    console.log(store.isOpen)
 
-    if (MenuSig.value || CartSig.value) {
+    if (store.isOpen) {
       document.body.style.overflow = "hidden";
       document.body.style.height = "100vh";
     }
 
-    if (!MenuSig.value && !CartSig.value) {
+    if (!store.isOpen) {
       document.body.style.overflow = "auto";
       document.body.style.height = "auto";
     }
 
   })
 
-	const { handleTouchStart, handleTouchMove, handleTouchEnd } = useMenuTouch(
-		MenuSig,
-		CartSig,
-	);
-
 	return (
     <>
-    <span class="overflow-x-hidden ">
-			<MenuMobile MenuSig={MenuSig} />
-      <CartMobile MenuSig={CartSig} />
-    </span>
-			<div
-				onTouchStart$={handleTouchStart}
-				onTouchMove$={handleTouchMove}
-				onTouchEnd$={handleTouchEnd}
-				class="lg:hidden flex overflow-x-hidden max-w-[100vw] px-5 py-2.5 fixed bottom-0 w-full bg-white shadow-md shadow-black sh select-none"
-			>
-				<div class="container mx-auto items-center justify-around w-full flex">
-					<SVGMenuWithName
-						class=""
-						onClick$={() => {
-              if (CartSig.value) {
-                CartSig.value = false;
+      <span class="overflow-x-hidden ">
+        <MenuMobile  />
+        <CartMobile  />
+      </span>
+      <div
+        onTouchStart$={(e)=> {
+          store.isTouchNavbar = true;
+          store.touchHandler.start(e)
+        }}
+        onTouchMove$={store.touchHandler.move}
+        onTouchEnd$={(e)=> {store.touchHandler.end(e); store.isTouchNavbar = false;}}
+        class="sh fixed bottom-0 flex w-full drop-shadow-2xl max-w-[100vw] select-none overflow-x-hidden bg-white px-5 py-2.5 shadow-md shadow-black lg:hidden"
+      >
+        <div class="container mx-auto flex w-full items-center justify-around">
+          <SVGMenuWithName
+            class=""
+            onClick$={() => {
+              if (store.openCart) {
+                store.openCart = false;
               }
-              MenuSig.value = !MenuSig.value;
-              
-						}}
-					/>
+              store.openMenu = !store.openMenu;
+            }}
+          />
 
-					<Link href="/" class="text-2xl font-medium text-pink">
-						Alinette
-					</Link>
-					<span>
-						<SVGCartWithName
+          <Link href="/" class="text-2xl font-medium text-pink">
+            Alinette
+          </Link>
+          <span>
+            <SVGCartWithName
               onClick$={() => {
-              if (MenuSig.value) {
-                MenuSig.value = false;
-              }
-                CartSig.value = !CartSig.value;
-              }
-              }
-            class=" hover:text-pink" />
-					</span>
-				</div>
-			</div>
-     
-		</>
-	);
+                if (store.openMenu) {
+                  store.openMenu = false;
+                }
+                store.openCart = !store.openCart
+              }}
+              class=" hover:text-pink"
+            />
+          </span>
+        </div>
+      </div>
+    </>
+  );
 });
 
-export const CartMobile = component$<{
-	MenuSig: Signal<boolean>;
-}>(({ MenuSig }) => {
-	const { handleTouchStart, handleTouchMove, handleTouchEnd } =
-		useMenuTouch(undefined, MenuSig);
+export const CartMobile = component$(() => {
+	const store = useNavbarContext();
 
 
 	return (
     <Motion.div
-      onTouchStart$={handleTouchStart}
-      onTouchMove$={handleTouchMove}
-      onTouchEnd$={handleTouchEnd}
+      onTouchStart$={store.touchHandler.start}
+      onTouchMove$={store.touchHandler.move}
+      onTouchEnd$={store.touchHandler.end}
       class={{
         "fixed -z-10 flex h-screen w-screen flex-col justify-start bg-white lg:hidden":
           true,
@@ -156,7 +106,7 @@ export const CartMobile = component$<{
 
       }}
       animate={{
-        transform: MenuSig.value ? "translateX(0)" : "translateX(100%)",
+        transform: store.openCart ? "translateX(0)" : "translateX(100%)",
 
       }}
     >
@@ -166,7 +116,7 @@ export const CartMobile = component$<{
         <div
           class="cursor-pointer pl-10 "
           onClick$={() => {
-            MenuSig.value = false;
+            store.openCart = false;
           }}
         >
           <svg
@@ -196,7 +146,7 @@ export const CartMobile = component$<{
       </div>
       <div
         onClick$={() => {
-          MenuSig.value = false;
+          store.openCart = false;
         }}
         class="flex  w-full flex-col justify-start gap-5 px-5 py-6 uppercase"
       >
@@ -213,17 +163,16 @@ export const CartMobile = component$<{
   );
 });
 
-export const MenuMobile = component$<{
-	MenuSig: Signal<boolean>;
-}>(({ MenuSig }) => {
-	const { handleTouchStart, handleTouchMove, handleTouchEnd } =
-		useMenuTouch(MenuSig);
+export const MenuMobile = component$(() => {
+
+  const store = useNavbarContext();
+
 
 	return (
 		<Motion.div
-			onTouchStart$={handleTouchStart}
-			onTouchMove$={handleTouchMove}
-			onTouchEnd$={handleTouchEnd}
+    onTouchStart$={store.touchHandler.start}
+    onTouchMove$={store.touchHandler.move}
+    onTouchEnd$={store.touchHandler.end}
 			class="fixed w-screen h-screen bg-white flex flex-col justify-start lg:hidden"
 
       initial={{
@@ -231,7 +180,7 @@ export const MenuMobile = component$<{
       }}
 
 			animate={{
-				transform: MenuSig.value ? ["translateX(-100%)","translateX(0)"] : "translateX(-100%)",
+				transform: store.openMenu ? ["translateX(-100%)","translateX(0)"] : "translateX(-100%)",
 			}}
 
 		>
@@ -241,7 +190,7 @@ export const MenuMobile = component$<{
 				<div
 					class="cursor-pointer pl-10 "
 					onClick$={() => {
-						MenuSig.value = false;
+						store.openMenu = false;
 					}}
 				>
 					<svg
@@ -271,7 +220,7 @@ export const MenuMobile = component$<{
 			</div>
 			<div
 				onClick$={() => {
-					MenuSig.value = false;
+					store.openMenu = false;
 				}}
 				class="w-full  flex flex-col justify-start px-5 py-6 uppercase gap-5"
 			>
