@@ -1,5 +1,5 @@
 import type { JSXNode, QRL, QwikTouchEvent} from "@builder.io/qwik";
-import { Slot, component$, createContextId, useComputed$, useContext, useContextProvider, useSignal, useStore, useTask$, useVisibleTask$ } from "@builder.io/qwik";
+import { Slot, component$, createContextId, useContext, useContextProvider, useStore, useTask$, useVisibleTask$ } from "@builder.io/qwik";
 import { useMenuTouch } from "./useMenuTouch";
 
 export type navbarContext = {
