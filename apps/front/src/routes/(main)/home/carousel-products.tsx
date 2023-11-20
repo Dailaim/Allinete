@@ -3,6 +3,7 @@ import {
 	component$,
 	useId,
 	useStyles$,
+	useTask$,
 	useVisibleTask$,
 } from "@builder.io/qwik";
 import Swiper from "swiper";
@@ -20,26 +21,25 @@ export const CarouselProducts = component$(() => {
 	const id = useId();
 
 	useVisibleTask$(() => {
-		new Swiper(`.${id}`, {
+		 new Swiper(`.${id}`, {
 			modules: [Pagination, Navigation],
 			autoplay: true,
 			loop: true,
+
 			autoHeight: true,
 			navigation: {
 				nextEl: `.swiper-button-next-${id}`,
 				prevEl: `.swiper-button-prev-${id}`,
 			},
       centeredSlides: true,
-      
-
-
 			pagination: {
 				el: `.swiper-pagination-${id}`,
 				clickable: true,
 			},
-
+      speed: 300,
 			breakpoints: {
 				300: {
+          
 					slidesPerView: 1.2,
 					spaceBetween: 10,
 				},
@@ -84,6 +84,8 @@ export const CarouselProducts = component$(() => {
 				},
 			},
 		});
+
+
 	});
 
 	return (
