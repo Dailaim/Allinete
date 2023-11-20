@@ -1,5 +1,5 @@
 {
-  "name": "allinette",
+  "name": "alinette",
   "version": "1.0.0",
   "description": "",
   "scripts": {
@@ -14,5 +14,4 @@
     "@changesets/cli": "^2.26.2",
     "turbo": "^1.10.16"
   }
-  
 }
