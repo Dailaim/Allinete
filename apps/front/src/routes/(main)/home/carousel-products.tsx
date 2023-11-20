@@ -29,6 +29,9 @@ export const CarouselProducts = component$(() => {
 				nextEl: `.swiper-button-next-${id}`,
 				prevEl: `.swiper-button-prev-${id}`,
 			},
+      centeredSlides: true,
+      
+
 
 			pagination: {
 				el: `.swiper-pagination-${id}`,
@@ -66,9 +69,17 @@ export const CarouselProducts = component$(() => {
 					slidesPerView: 3.2,
 					spaceBetween: 10,
 				},
+        1250: {
+					slidesPerView: 3.7,
+					spaceBetween: 10,
+				},
 
 				1400: {
 					slidesPerView: 4,
+					spaceBetween: 10,
+				},
+        1500: {
+					slidesPerView: 4.6,
 					spaceBetween: 10,
 				},
 			},
@@ -76,12 +87,14 @@ export const CarouselProducts = component$(() => {
 	});
 
 	return (
-		<>
+		<span class="relative">
+      <div class="absolute top-0 -right-6 z-10 w-12 blur h-full bg-off-white" />
+      <div class="absolute top-0 -left-6 z-10 w-12 blur h-full bg-off-white" />
 			<SwiperContainer preFix={id} class="overflow-hidden relative">
 				<Slot />
 
 				<Decorators q:slot="decorators">
-					<div class="absolute top-0 -right-4 z-10 w-12 blur h-full bg-off-white" />
+					
 					<SVGCircleArrowLeft
 						class={[
 							`swiper-button-prev-${id}`,
@@ -104,7 +117,7 @@ export const CarouselProducts = component$(() => {
 					/>
 				</Decorators>
 			</SwiperContainer>
-		</>
+		</span>
 	);
 });
 
