@@ -5,9 +5,7 @@
 		"node": ">=18.0.0"
 	},
 	"private": true,
-	"trustedDependencies": [
-		"sharp"
-	],
+	"trustedDependencies": ["sharp"],
 	"scripts": {
 		"build": "qwik build",
 		"build-storybook": "storybook build",
