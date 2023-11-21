@@ -9,9 +9,11 @@
 		"rules": {
 			"recommended": true,
 			"suspicious": {
-				"noExplicitAny": "off",
-				"noEmptyInterface": "off",
-				
+				"noExplicitAny": "warn",
+				"noEmptyInterface": "off"
+			},
+			"a11y": {
+				"noSvgWithoutTitle": "off"
 			}
 		},
 		"ignore": ["./node_modules/**", "./dist/**"]
