@@ -1,4 +1,4 @@
-import { $, Fragment, component$, useVisibleTask$ } from "@builder.io/qwik";
+import { Fragment, component$ } from "@builder.io/qwik";
 import { Button } from "~/components/button";
 import { Card } from "~/components/card/card";
 import { Input } from "~/components/input";
@@ -8,7 +8,6 @@ import {
 	VerticalMenu,
 	VerticalTap,
 } from "~/components/vertical-tap/vertical-tap";
-import { useNavbarContext } from "~/context/navbar";
 
 export interface IndexProps {
 	count: number;
@@ -157,37 +156,11 @@ const products = [
 ];
 
 export default component$(() => {
-	const NavContext = useNavbarContext();
-
-	useVisibleTask$(({ cleanup }) => {
-		NavContext.customsBottoms = $(() => <>hola</>);
-		cleanup(() => {
-			NavContext.customsBottoms = null;
-		});
-	});
-
 	return (
-		<main class=" mx-auto container px-3 lg:pt-10">
+		<main class=" mx-auto container px-3 lg:pt-10 relative">
 			<div class="divider" />
 
-			<div class="fixed right-0 bottom-20 w-full drop-shadow-2xl  select-none z-30 lg:hidden  ">
-				<div class="mx-auto container grid grid-rows-1 grid-cols-2  gap-2 px-4  xs:px-0">
-					<button
-						class="rounded relative border py-2.5 border-blue-gray bg-purple bg-opacity-70 text-off-white capitalize"
-						type="button"
-					>
-						By order
-					</button>
-					<button
-						class="rounded border py-2.5  bg-purple bg-opacity-70 border-blue-gray text-off-white capitalize"
-						type="button"
-					>
-						filters
-					</button>
-				</div>
-			</div>
-
-			<div class="pb-24  lg:grid lg:grid-cols-3 lg:gap-x-8 xl:grid-cols-4">
+			<div class=" lg:grid lg:grid-cols-3 lg:gap-x-8 xl:grid-cols-4">
 				<aside>
 					<h2 class="sr-only">Filters</h2>
 
@@ -309,6 +282,23 @@ export default component$(() => {
 						))}
 					</div>
 				</section>
+			</div>
+
+			<div class="sticky right-0 py-5 bottom-14 w-full drop-shadow-2xl  select-none z-30 lg:hidden  ">
+				<div class="mx-auto container grid grid-rows-1 grid-cols-2  gap-2 px-4  xs:px-0">
+					<button
+						class="rounded relative border drop-shadow-lg shadow-lg py-2.5 border-blue-gray bg-blue-gray bg-opacity-80 text-off-white capitalize"
+						type="button"
+					>
+						By order
+					</button>
+					<button
+						class="rounded border py-2.5 drop-shadow-lg shadow-lg bg-blue-gray bg-opacity-80 border-blue-gray text-off-white capitalize"
+						type="button"
+					>
+						filters
+					</button>
+				</div>
 			</div>
 		</main>
 	);
