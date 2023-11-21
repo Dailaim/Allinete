@@ -1,12 +1,20 @@
-import { Fragment, component$ } from "@builder.io/qwik";
+import {
+	$,
+	Fragment,
+	component$,
+	useTask$,
+	useVisibleTask$,
+} from "@builder.io/qwik";
 import { Button } from "~/components/button";
 import { Card } from "~/components/card/card";
+import { Input } from "~/components/input";
 import { InputCheck, InputRadio } from "~/components/inputCheck";
 
 import {
 	VerticalMenu,
 	VerticalTap,
 } from "~/components/vertical-tap/vertical-tap";
+import { useNavbarContext } from "~/context/navbar";
 
 export interface IndexProps {
 	count: number;
@@ -155,27 +163,36 @@ const products = [
 ];
 
 export default component$(() => {
+	const NavContext = useNavbarContext();
+
+	useVisibleTask$(({ cleanup }) => {
+		NavContext.customsBottoms = $(() => <>hola</>);
+		cleanup(() => {
+			NavContext.customsBottoms = null;
+		});
+	});
+
 	return (
-		<main class="mx-auto relative container px-3 lg:pt-10">
+		<main class=" mx-auto container px-3 lg:pt-10">
 			<div class="divider" />
 
-			<button class="fixed  drop-shadow-lg right-0 bottom-0 mb-20 me-4 text-white p-4 z-30 bg-purple-400 shadow-lg rounded-full">
-				<svg
-					class="w-6 h-6 text-gray-800 dark:text-white"
-					aria-hidden="true"
-					xmlns="http://www.w3.org/2000/svg"
-					fill="none"
-					viewBox="0 0 20 18"
-				>
-					<path
-						stroke="currentColor"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						stroke-width="2"
-						d="m2.133 2.6 5.856 6.9L8 14l4 3 .011-7.5 5.856-6.9a1 1 0 0 0-.804-1.6H2.937a1 1 0 0 0-.804 1.6Z"
-					/>
-				</svg>
-			</button>
+			<div class="fixed right-0 bottom-20 w-full drop-shadow-2xl  select-none z-30 lg:hidden  ">
+				<div class="mx-auto container grid grid-rows-1 grid-cols-2  gap-2 px-4  xs:px-0">
+					<button
+						class="rounded relative border py-2.5 border-blue-gray bg-purple bg-opacity-70 text-off-white capitalize"
+						type="button"
+					>
+						By order
+					</button>
+					<button
+						class="rounded border py-2.5  bg-purple bg-opacity-70 border-blue-gray text-off-white capitalize"
+						type="button"
+					>
+						filters
+					</button>
+				</div>
+			</div>
+
 			<div class="pb-24  lg:grid lg:grid-cols-3 lg:gap-x-8 xl:grid-cols-4">
 				<aside>
 					<h2 class="sr-only">Filters</h2>
@@ -215,7 +232,7 @@ export default component$(() => {
 										<InputRadio name="price" label="$25 - $50" />
 										<InputRadio name="price" label="$50 - $100" />
 
-										{/* <InputRadio
+										<InputRadio
 											name="price"
 											label=""
 											render={
@@ -224,7 +241,7 @@ export default component$(() => {
 													<Input label="$ Max" class="w-4/5" />
 												</div>
 											}
-										/> */}
+										/>
 									</VerticalTap>
 								</VerticalMenu>
 								<Button variant="secondary">Apply</Button>
