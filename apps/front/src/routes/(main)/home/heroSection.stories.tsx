@@ -2,7 +2,9 @@ import { QwikCityMockProvider } from "@builder.io/qwik-city";
 import type { Meta, StoryObj } from "storybook-framework-qwik";
 import { HeroSection } from "./hero-section";
 
-const meta: Meta<{}> = {
+const meta: Meta<{
+	text: string;
+}> = {
 	component: HeroSection,
 	title: "Pages/Home/HeroSection",
 };
