@@ -9,7 +9,9 @@
 		"rules": {
 			"recommended": true,
 			"suspicious": {
-				"noExplicitAny": "off"
+				"noExplicitAny": "off",
+				"noEmptyInterface": "off",
+				
 			}
 		},
 		"ignore": ["./node_modules/**", "./dist/**"]

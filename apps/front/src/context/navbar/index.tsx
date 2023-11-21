@@ -1,9 +1,4 @@
-import type {
-	JSXChildren,
-	JSXNode,
-	QRL,
-	QwikTouchEvent,
-} from "@builder.io/qwik";
+import type { JSXChildren, QRL, QwikTouchEvent } from "@builder.io/qwik";
 import {
 	Slot,
 	component$,
