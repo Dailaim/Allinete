@@ -1,4 +1,9 @@
-import type { JSXNode, QRL, QwikTouchEvent } from "@builder.io/qwik";
+import type {
+	JSXChildren,
+	JSXNode,
+	QRL,
+	QwikTouchEvent,
+} from "@builder.io/qwik";
 import {
 	Slot,
 	component$,
@@ -12,7 +17,7 @@ import {
 import { useMenuTouch } from "./useMenuTouch";
 
 export type navbarContext = {
-	customsBottoms?: QRL<() => JSXNode> | null;
+	customsBottoms?: QRL<JSXChildren> | null;
 	openMenu: boolean;
 	openCart: boolean;
 	openSearch: boolean;
@@ -69,7 +74,6 @@ export const NavbarProvider = component$(() => {
 
 	useVisibleTask$(({ track }) => {
 		track(() => store.isOpen);
-		console.log(store.isOpen);
 
 		if (store.isOpen) {
 			document.body.style.overflow = "hidden";

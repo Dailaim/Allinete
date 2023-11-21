@@ -23,19 +23,6 @@ export const Navbar = component$(() => {
 export const NavbarMobile = component$(() => {
 	const store = useNavbarContext();
 
-	useVisibleTask$(({ track }) => {
-		track(() => store.isOpen);
-
-		if (store.isOpen) {
-			document.body.style.overflow = "hidden";
-			document.body.style.height = "100vh";
-			return;
-		}
-
-		document.body.style.overflow = "auto";
-		document.body.style.height = "auto";
-	});
-
 	return (
 		<>
 			<span class="overflow-x-hidden ">
@@ -52,7 +39,7 @@ export const NavbarMobile = component$(() => {
 					store.touchHandler.end(e);
 					store.isTouchNavbar = false;
 				}}
-				class="sh fixed bottom-0 flex w-full drop-shadow-2xl max-w-[100vw] select-none overflow-x-hidden bg-white px-5 py-2.5 shadow-md shadow-black lg:hidden"
+				class=" fixed bottom-0 flex w-full drop-shadow-2xl max-w-[100vw] select-none overflow-x-hidden bg-white px-5 py-2.5 shadow-md shadow-black lg:hidden"
 			>
 				<div class="container mx-auto flex w-full items-center justify-around">
 					<SVGMenuWithName
@@ -65,6 +52,7 @@ export const NavbarMobile = component$(() => {
 						}}
 					/>
 					<NavbarAlinetteName />
+
 					<span>
 						<SVGCartWithName
 							onClick$={() => {
