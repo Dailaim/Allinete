@@ -1,41 +1,35 @@
 import type { MotionState } from "@motionone/dom";
 import { createMotionState, createStyles, style } from "@motionone/dom";
 
-import type { QRL } from "@builder.io/qwik";
+import type { NoSerialize, QRL, Signal } from "@builder.io/qwik";
 import {
 	$,
 	noSerialize,
 	useContext,
-	useStore,
+	useSignal,
 	useTask$,
 	useVisibleTask$,
 } from "@builder.io/qwik";
-import type { PresenceContextState } from "./presence";
-import { PresenceContext } from "./presence";
-import type { MotionStateQ, Options } from "./types";
 
-export const onCompleteExit = (el: Element, fn: VoidFunction) =>
-	el.addEventListener("motioncomplete", fn);
+import { PresenceContext } from "./presence";
+import type { Options } from "./types";
+
+export const onCompleteExit = (fn: VoidFunction, el?: Element) =>
+	el?.addEventListener("motioncomplete", fn);
 
 /** @internal */
 export function useCreateAndBindMotionState(
-	el: QRL<() => Element>,
+	target: Signal<Element | undefined>,
 	options: QRL<() => Options>,
-	presenceState?: PresenceContextState,
-	parentState?: MotionStateQ,
+	presenceState?: Signal<boolean>,
+	parentState?: Signal<NoSerialize<MotionState | undefined>>,
 ) {
-	const state = useStore<MotionStateQ>({} as MotionStateQ);
+	const state = useSignal<NoSerialize<MotionState | undefined>>();
 
 	const init = $(async () => {
-		const motion = createMotionState(
-			await options(),
-			parentState?.isMounted ? (parentState as MotionState) : undefined,
+		state.value = noSerialize(
+			createMotionState(await options(), parentState?.value),
 		);
-
-		Object.keys(motion).forEach((key) => {
-			// @ts-ignore
-			state[key] = noSerialize(motion[key]);
-		});
 	});
 
 	useTask$(async () => {
@@ -47,16 +41,17 @@ export function useCreateAndBindMotionState(
 	});
 
 	useVisibleTask$(async ({ cleanup, track }) => {
-		track(() => state.mount);
-		if (!state.mount) return;
+		track(() => state.value);
+		if (!target.value) return;
+		if (!state.value) return;
 
-		const unmount = state.mount(await el());
-		state.update?.(await options());
+		const unmount = state.value.mount(target.value);
+		state.value.update(await options());
 
 		cleanup(async () => {
-			if (presenceState && (await options()).exit) {
-				state.setActive?.("exit", true);
-				onCompleteExit(await el(), unmount);
+			if (presenceState?.value && (await options()).exit) {
+				state.value?.setActive("exit", true);
+				onCompleteExit(unmount, target.value);
 			} else unmount();
 		});
 	});
@@ -65,14 +60,14 @@ export function useCreateAndBindMotionState(
 		async ({ track }) => {
 			track(options);
 
-			state.update?.(await options());
+			state.value?.update(await options());
 		},
 		{
 			strategy: "intersection-observer",
 		},
 	);
 
-	return [state, createStyles(state.getTarget?.())] as const;
+	return [state, createStyles(state.value?.getTarget())] as const;
 }
 
 /**
@@ -84,19 +79,23 @@ export function useCreateAndBindMotionState(
  * @returns Object to access MotionState
  */
 export function useCreateMotion(
-	target: Element,
+	target: Signal<Element | undefined>,
 	options: QRL<() => Options>,
-	presenceState?: PresenceContextState,
-): MotionStateQ {
+	presenceState?: Signal<boolean>,
+) {
 	const [state, styles] = useCreateAndBindMotionState(
-		$(() => target),
+		target,
 		options,
 		presenceState,
 	);
 
-	for (const key in styles) {
-		style.set(target, key, styles[key]);
-	}
+	useTask$(({ track }) => {
+		track(() => state.value);
+		if (!target.value) return;
+		for (const key in styles) {
+			style.set(target.value, key, styles[key]);
+		}
+	});
 
 	return state;
 }
@@ -107,6 +106,9 @@ export function useCreateMotion(
  * @param el Target Element to bind to.
  * @param props Options to effect the animation.
  */
-export function useMotion(el: Element, props: QRL<() => Options>) {
-	useCreateMotion(el, props, useContext(PresenceContext));
+export function useMotion(
+	el: Signal<Element | undefined>,
+	props: QRL<() => Options>,
+) {
+	return useCreateMotion(el, props, useContext(PresenceContext));
 }

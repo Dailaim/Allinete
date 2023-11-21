@@ -1,17 +1,20 @@
 import {
+	$,
+	Signal,
 	Slot,
 	component$,
 	createContextId,
+	isSignal,
 	useContextProvider,
+	useSignal,
 	useStore,
+	useVisibleTask$,
 } from "@builder.io/qwik";
 import { ParentContext } from "./motion";
-import type { MotionStateQ } from "./types";
 
-export type PresenceContextState = {
-	initial?: boolean | null;
-};
-export const PresenceContext = createContextId<PresenceContextState>(
+import { useCSSTransition } from "./useCSSTransition";
+
+export const PresenceContext = createContextId<Signal<boolean>>(
 	"presence-context-state",
 );
 
@@ -37,14 +40,33 @@ export const PresenceContext = createContextId<PresenceContextState>(
  */
 export const Presence = component$<{
 	initial?: boolean;
+	show: Signal<boolean> | boolean;
 	exitBeforeEnter?: boolean;
 }>((props) => {
-	const store = useStore({
-		initial: props.initial !== false,
+	const initialSig = useSignal(props.initial ?? false);
+
+	useContextProvider(PresenceContext, initialSig);
+	useContextProvider(ParentContext, useSignal(undefined));
+
+	const { shouldMount, stage } = useCSSTransition(
+		$(() => {
+			return typeof props.show === "boolean" ? props.show : props.show.value;
+		}),
+		{
+			timeout: 300,
+			transitionOnAppear: false,
+		},
+	);
+
+	useVisibleTask$(() => {
+		initialSig.value = true;
 	});
 
-	useContextProvider(PresenceContext, store);
-	useContextProvider(ParentContext, {} as MotionStateQ);
+	return (
+		<span>
+			<Slot />
+		</span>
+	);
 
 	// const render = (
 	//   <>
@@ -66,5 +88,4 @@ export const Presence = component$<{
 	// )
 
 	// initial.value = true
-	return <Slot />;
 });

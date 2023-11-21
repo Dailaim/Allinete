@@ -2,10 +2,9 @@ import type {
 	MotionComponentProps,
 	MotionProxy,
 	MotionProxyComponent,
-	MotionStateQ,
 } from "./types";
 
-import type { CSSProperties, Signal } from "@builder.io/qwik";
+import type { CSSProperties, NoSerialize, Signal } from "@builder.io/qwik";
 import {
 	$,
 	Slot,
@@ -13,10 +12,13 @@ import {
 	component$,
 	createContextId,
 	createElement,
+	useContext,
 	useContextProvider,
 	useSignal,
 } from "@builder.io/qwik";
 
+import type { MotionState } from "motion";
+import { PresenceContext } from "./presence";
 import { useCreateAndBindMotionState } from "./primitives";
 
 const OPTION_KEYS = [
@@ -45,7 +47,8 @@ const ATTR_KEYS = [
 	"onViewLeave",
 ] as const;
 
-export const ParentContext = createContextId<MotionStateQ>("motion-state");
+export const ParentContext =
+	createContextId<Signal<NoSerialize<MotionState | undefined>>>("motion-state");
 
 /** @internal */
 const MotionComponent = component$<
@@ -56,7 +59,7 @@ const MotionComponent = component$<
 	}
 >(
 	({
-		tag: TAG,
+		tag,
 		initial,
 		animate,
 		inView,
@@ -71,12 +74,12 @@ const MotionComponent = component$<
 	}) => {
 		const ress = _restProps(props, [...ATTR_KEYS, ...OPTION_KEYS]);
 
-		if (!TAG) throw new Error("tag required");
+		if (!tag) throw new Error("tag required");
 
 		const element = useSignal<HTMLElement>();
 
 		const [state, style2] = useCreateAndBindMotionState(
-			$(() => element.value as HTMLElement),
+			element,
 			$(() => ({
 				animate,
 				inView,
@@ -88,11 +91,13 @@ const MotionComponent = component$<
 				exit,
 				initial,
 			})),
+			useContext(PresenceContext),
+			useContext(ParentContext),
 		);
 
 		useContextProvider(ParentContext, state);
 
-		return createElement(TAG, {
+		return createElement(tag, {
 			ref: element,
 			onMotionStart: props.onMotionStart,
 			onMotionComplete: props.onMotionComplete,
@@ -144,3 +149,9 @@ export const Motion = new Proxy(MotionComponent, {
 		(props) =>
 			<MotionComponent {...props} tag={tag} />,
 }) as unknown as MotionProxy;
+
+export const MotionProvider = component$(() => {
+	useContextProvider(ParentContext, useSignal(undefined));
+	useContextProvider(PresenceContext, useSignal(false));
+	return <Slot />;
+});

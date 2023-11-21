@@ -1,12 +1,10 @@
-import type { NoSerialize, PropFunction } from "@builder.io/qwik";
+import type { PropFunction } from "@builder.io/qwik";
 import { type CSSProperties, type Component } from "@builder.io/qwik";
 
 import type { JSX } from "@builder.io/qwik/jsx-runtime";
 import type {
 	InViewOptions,
-	MotionKeyframes,
 	MotionKeyframesDefinition,
-	MotionStateContext,
 	ValueKeyframesDefinition,
 } from "@motionone/dom";
 import type {
@@ -89,25 +87,5 @@ declare module "@builder.io/qwik" {
 		}
 	}
 }
-
-export type NoSerializeValue<T extends {}> = Record<
-	keyof T,
-	NoSerialize<T[keyof T]>
->;
-
-export interface MotionStateQ {
-	update: NoSerialize<(options: Options) => void>;
-	getDepth: NoSerialize<() => number>;
-	getTarget: NoSerialize<() => MotionKeyframes>;
-	getOptions: NoSerialize<() => Options>;
-	getContext: NoSerialize<() => MotionStateContext>;
-	setActive: NoSerialize<
-		(type: keyof MotionStateContext, isActive: boolean) => void
-	>;
-	mount: NoSerialize<(element: Element) => () => void>;
-	isMounted: NoSerialize<() => boolean>;
-	animateUpdates: NoSerialize<() => Generator<void>>;
-}
-
 // export only here so the `JSX` import won't be shaken off the tree:
 export type E = JSX.Element;
