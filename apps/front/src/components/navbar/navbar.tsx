@@ -1,4 +1,4 @@
-import { component$, useVisibleTask$ } from "@builder.io/qwik";
+import { component$ } from "@builder.io/qwik";
 import { Link } from "@builder.io/qwik-city";
 import { useNavbarContext } from "~/context/navbar";
 import { Motion } from "~/packages/motion";

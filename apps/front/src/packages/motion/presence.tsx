@@ -1,13 +1,12 @@
+import type { Signal } from "@builder.io/qwik";
 import {
 	$,
-	Signal,
 	Slot,
 	component$,
 	createContextId,
 	isSignal,
 	useContextProvider,
 	useSignal,
-	useStore,
 	useVisibleTask$,
 } from "@builder.io/qwik";
 import { ParentContext } from "./motion";
