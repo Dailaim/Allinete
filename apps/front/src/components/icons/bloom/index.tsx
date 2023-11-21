@@ -3,7 +3,6 @@ import type { SVGProps } from "../props";
 
 export const SVGBloomLeft = component$<SVGProps>((props) => {
 	return (
-		// biome-ignore lint/a11y/noSvgWithoutTitle: <explanation>
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
 			width="51"
@@ -24,7 +23,6 @@ export const SVGBloomLeft = component$<SVGProps>((props) => {
 
 export const SVGBloomRight = component$<SVGProps>((props) => {
 	return (
-		// biome-ignore lint/a11y/noSvgWithoutTitle: <explanation>
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
 			width="51"

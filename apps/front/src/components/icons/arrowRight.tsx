@@ -2,7 +2,6 @@ import { component$ } from "@builder.io/qwik";
 
 export const SVGArrowRight = component$((props) => {
 	return (
-		// biome-ignore lint/a11y/noSvgWithoutTitle: <explanation>
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
 			width="12"

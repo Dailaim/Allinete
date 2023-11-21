@@ -3,7 +3,6 @@ import type { SVGProps } from "../props";
 
 export const SVGEyeOpen = component$<SVGProps>((props) => {
 	return (
-		// biome-ignore lint/a11y/noSvgWithoutTitle: <explanation>
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
 			width="20"
@@ -36,7 +35,6 @@ export const SVGEyeOpen = component$<SVGProps>((props) => {
 
 export const SVGEyeClose = component$<SVGProps>((props) => {
 	return (
-		// biome-ignore lint/a11y/noSvgWithoutTitle: <explanation>
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
 			width="20"
