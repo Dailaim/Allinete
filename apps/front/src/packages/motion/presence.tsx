@@ -50,7 +50,9 @@ export const Presence = component$<{
 
 	const { shouldMount, stage } = useCSSTransition(
 		$(() => {
-			return typeof props.show === "boolean" ? props.show : props.show.value;
+			if (isSignal(props.show)) return props.show.value;
+			if (typeof props.show === "boolean") return props.show;
+			return true;
 		}),
 		{
 			timeout: 300,
@@ -63,8 +65,12 @@ export const Presence = component$<{
 	});
 
 	return (
-		<span>
-			<Slot />
+		<span
+			style={{
+				opacity: stage.value === "idle" ? 0 : 1,
+			}}
+		>
+			{shouldMount.value && <Slot />}
 		</span>
 	);
 
