@@ -22,10 +22,11 @@ import { Card } from "~/components/card/card";
 import { SiInstagram } from "@qwikest/icons/simpleicons";
 import { Button, ButtonForm } from "~/components/button";
 import { Topic } from "~/components/topic/topic";
+import { Motion } from "~/packages/motion";
 // import type { LocationsProps } from "~/models/location";
 import { useAuthSession } from "~/routes/plugin@auth";
-import { CarouselProducts } from "./home/carousel-products";
-import { HeroSection } from "./home/hero-section";
+import { CarouselProducts } from "./carousel-products";
+import { HeroSection } from "./hero-section";
 
 // const cards = [
 // 	{
@@ -110,15 +111,34 @@ export default component$(() => {
 			<main class="flex flex-col gap-16 mt-16 lg:gap-20 lg:mt-20">
 				<section class="container mx-auto  px-6 2xl:px-0">
 					<Topic title="New Arrivals" subTitle="see all" class="mb-7" />
+
 					<CarouselProducts>
 						{[1, 2, 3, 4, 5, 5, 6, 6, 6, 6].map((_, index) => (
 							<SwipeSlide key={`Card-${index}-1`}>
-								<Card
-									class="w-auto max-w-xs "
-									name="All-Around Safe Block Essence Sun SPF45+"
-									description="All Around Safe Block Sun Milk SPF50+/PA+++"
-									image="https://cdn.builder.io/api/v1/image/assets/TEMP/f2594f36-3e5a-4ae9-9521-e00524c7e7a4?apiKey=2abb4ac878e0419aae6d537936d6d30b&width=800"
-								/>
+								<Motion.div
+									initial={{
+										opacity: 0,
+									}}
+									inView={{
+										opacity: 1,
+									}}
+									exit={{
+										opacity: 0,
+									}}
+									transition={{
+										duration: 0.3,
+										delay: 0.1,
+										easing: "ease-in-out",
+									}}
+									key={`Card-${index}-1`}
+								>
+									<Card
+										class="w-auto max-w-xs "
+										name="All-Around Safe Block Essence Sun SPF45+"
+										description="All Around Safe Block Sun Milk SPF50+/PA+++"
+										image="https://cdn.builder.io/api/v1/image/assets/TEMP/f2594f36-3e5a-4ae9-9521-e00524c7e7a4?apiKey=2abb4ac878e0419aae6d537936d6d30b&width=800"
+									/>
+								</Motion.div>
 							</SwipeSlide>
 						))}
 					</CarouselProducts>
@@ -143,7 +163,7 @@ export default component$(() => {
 
 				<section>
 					<div class="flex flex-col">
-						<div class="bg-pink-300  self-stretch flex w-full flex-col  pt-8 px-5 max-md:max-w-full">
+						<div class="bg-pink-50  self-stretch flex w-full flex-col  pt-8 px-5 max-md:max-w-full">
 							<div class="self-center z-[1] ml-0 mb-0 w-[863px] max-w-full max-md:mb-2.5">
 								<div class="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
 									<div class="flex flex-col items-stretch justify-center w-[48%] max-md:w-full max-md:ml-0">

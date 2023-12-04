@@ -50,6 +50,12 @@ const ATTR_KEYS = [
 export const ParentContext =
 	createContextId<Signal<NoSerialize<MotionState | undefined>>>("motion-state");
 
+const useElement = (target?: Signal<Element | undefined>) => {
+	if (target) return target;
+	const element = useSignal<Element | undefined>();
+	return element;
+};
+
 /** @internal */
 const MotionComponent = component$<
 	MotionComponentProps & {
@@ -69,6 +75,7 @@ const MotionComponent = component$<
 		variants,
 		transition,
 		exit,
+		ref: Targer,
 		style,
 		...props
 	}) => {
@@ -76,7 +83,7 @@ const MotionComponent = component$<
 
 		if (!tag) throw new Error("tag required");
 
-		const element = useSignal<HTMLElement>();
+		const element = useElement(Targer);
 
 		const [state, style2] = useCreateAndBindMotionState(
 			element,

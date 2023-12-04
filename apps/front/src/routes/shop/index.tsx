@@ -1,4 +1,15 @@
-import { Fragment, component$ } from "@builder.io/qwik";
+import type { QwikTouchEvent } from "@builder.io/qwik";
+import { $ } from "@builder.io/qwik";
+import {
+	Fragment,
+	component$,
+	createContextId,
+	useContext,
+	useContextProvider,
+	useSignal,
+	useStore,
+	useVisibleTask$,
+} from "@builder.io/qwik";
 import { Button } from "~/components/button";
 import { Card } from "~/components/card/card";
 import { Input } from "~/components/input";
@@ -8,6 +19,9 @@ import {
 	VerticalMenu,
 	VerticalTap,
 } from "~/components/vertical-tap/vertical-tap";
+import { useScrollContext } from "~/context/scroll";
+import { Motion } from "~/packages/motion";
+import { useCSSTransition } from "~/packages/motion/useCSSTransition";
 
 export interface IndexProps {
 	count: number;
@@ -155,12 +169,37 @@ const products = [
 	// More products...
 ];
 
+type FilterMenuMobileStore = {
+	open: boolean;
+	Type: "filter" | "sort";
+};
+
+const FilterMenuMobileContext =
+	createContextId<FilterMenuMobileStore>("filter-menu-mobile");
+
 export default component$(() => {
+	const FilterMenuMobileStore = useStore<FilterMenuMobileStore>({
+		open: false,
+		Type: "filter",
+	});
+	const { shouldMount } = useCSSTransition(FilterMenuMobileStore, "open", {
+		timeout: 300,
+	});
+
+	const scroll = useScrollContext();
+
+	useVisibleTask$(({ track }) => {
+		track(() => FilterMenuMobileStore.open);
+		scroll.value = !FilterMenuMobileStore.open;
+	});
+
+	useContextProvider(FilterMenuMobileContext, FilterMenuMobileStore);
+
 	return (
-		<main class=" mx-auto container px-3 lg:pt-10 relative">
+		<main class=" mx-auto container px-3 lg:pt-10 ">
 			<div class="divider" />
 
-			<div class=" lg:grid lg:grid-cols-3 lg:gap-x-8 xl:grid-cols-4">
+			<div class="relative lg:grid lg:grid-cols-3 lg:gap-x-8 xl:grid-cols-4">
 				<aside>
 					<h2 class="sr-only">Filters</h2>
 
@@ -175,7 +214,7 @@ export default component$(() => {
 								<p>Water Cleansers</p>
 							</div> */}
 
-							<div class="bg-white rounded shadow-sm px-5 pt-2.5 pb-8 mt-4 flex flex-col gap-5 text-blue-gray">
+							<div class="bg-white rounded shadow-sm px-5  pb-8 flex flex-col gap-5 text-blue-gray">
 								<h2 class="text-black text-2xl font-semibold">Filters</h2>
 								<VerticalMenu class="divide-y divide-gray text-sm">
 									<VerticalTap title="Product Type">
@@ -269,10 +308,14 @@ export default component$(() => {
 						</div>
 					</div>
 
-					<div class="grid grid-cols-1 pt-10 lg-pt-0 justify-items-center gap-5 xs:grid-cols-2  md:grid-cols-3  2xl:grid-cols-4">
+					<div class="grid grid-cols-1 pt-10 lg:pt-0 justify-items-center gap-5 xs:grid-cols-2  md:grid-cols-3  2xl:grid-cols-4">
 						{products.map((_, index) => (
 							<Fragment key={`${index}articulo card`}>
 								<Card
+									Action$={() => {
+										console.log("click");
+									}}
+									href="/shop/product"
 									class="w-auto max-w-xs shadow-sm"
 									name="All-Around Safe Block Essence Sun SPF45+"
 									description="All Around Safe Block Sun Milk SPF50+/PA+++"
@@ -282,25 +325,181 @@ export default component$(() => {
 						))}
 					</div>
 				</section>
+				<FilterButtons />
 			</div>
-
-			<div class="sticky right-0 py-5 bottom-14 w-full drop-shadow-2xl  select-none z-30 lg:hidden  ">
-				<div class="mx-auto container grid grid-rows-1 grid-cols-2  gap-2 px-4  xs:px-0">
-					<button
-						class="rounded relative border drop-shadow-lg shadow-lg py-2.5 border-blue-gray bg-blue-gray bg-opacity-80 text-off-white capitalize"
-						type="button"
-					>
-						By order
-					</button>
-					<button
-						class="rounded border py-2.5 drop-shadow-lg shadow-lg bg-blue-gray bg-opacity-80 border-blue-gray text-off-white capitalize"
-						type="button"
-					>
-						filters
-					</button>
-				</div>
-			</div>
+			{(shouldMount.value || FilterMenuMobileStore.open) && <FiltersMobile />}
 		</main>
+	);
+});
+
+const FiltersMobile = component$(() => {
+	const FilterMenuMobileStore = useContext(FilterMenuMobileContext);
+
+	const height = useSignal(40);
+
+	const startY = useSignal<number | null>(null);
+
+	const handleTouchStart = $(function (e: QwikTouchEvent<HTMLElement>) {
+		startY.value = e.touches[0].clientY;
+	});
+
+	const handleTouchMove = $(function (e: QwikTouchEvent<HTMLElement>) {
+		if (!startY.value) return;
+
+		const currentY = e.touches[0].clientY;
+
+		const deltaY = currentY - startY.value;
+
+		if (deltaY < -50) {
+			height.value = 100;
+		}
+
+		if (deltaY > 50) {
+			if (height.value === 40) FilterMenuMobileStore.open = false;
+			height.value = 40;
+		}
+	});
+
+	const handleTouchEnd = $(function () {
+		startY.value = null;
+	});
+
+	return (
+		<Motion.div
+			initial={{
+				opacity: 0,
+			}}
+			animate={{
+				opacity: FilterMenuMobileStore.open ? 1 : 0,
+			}}
+			onClick$={() => {
+				FilterMenuMobileStore.open = false;
+			}}
+			class="fixed w-[100vw] h-[100vh] inset-0 bg-blue-gray  z-40 bg-opacity-25"
+		>
+			<div class="w-full h-full flex flex-col-reverse">
+				<Motion.div
+					onTouchStart$={handleTouchStart}
+					onTouchMove$={handleTouchMove}
+					onTouchEnd$={handleTouchEnd}
+					onMouseUp$={() => {
+						console.log("mouse up");
+					}}
+					initial={{
+						opacity: 0,
+						translateY: "100%",
+					}}
+					animate={{
+						opacity: FilterMenuMobileStore.open ? 1 : 0,
+						translateY: FilterMenuMobileStore.open ? "0%" : "100%",
+					}}
+					transition={{
+						duration: 0.4,
+						easing: "ease-in-out",
+					}}
+					preventdefault:click
+					onClick$={(e) => {
+						e.stopPropagation();
+					}}
+					class="bg-white h-full w-full max-w-xl mx-auto rounded-t-2xl  overflow-y-visible"
+				>
+					<div
+						preventdefault:click
+						class="flex justify-between items-center px-4 py-2.5 border-b border-gray-200"
+					>
+						<h2 class="text-2xl font-semibold text-blue-gray">Filters</h2>
+						<button
+							onClick$={() => {
+								FilterMenuMobileStore.open = false;
+							}}
+							class="rounded-full p-1.5 bg-blue-gray bg-opacity-10"
+						>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								class="h-6 w-6 text-blue-gray"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke="currentColor"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="1.5"
+									d="M6 18L18 6M6 6l12 12"
+								/>
+							</svg>
+						</button>
+					</div>
+					<div class="px-4 py-2.5 overflow-auto ">
+						<VerticalMenu class="divide-y divide-gray text-sm">
+							<VerticalTap title="Product Type">
+								<InputCheck label="Cleanser" />
+								<InputCheck label="Toner" />
+								<InputCheck label="Serum" />
+								<InputCheck label="Moisturizer" />
+							</VerticalTap>
+							<VerticalTap title="Ingredient Type">
+								<InputCheck label="Cleanser" />
+								<InputCheck label="Toner" />
+								<InputCheck label="Serum" />
+							</VerticalTap>
+							<VerticalTap title="skin type" defaultOpen>
+								<InputCheck label="Cleanser" />
+								<InputCheck label="Toner" />
+								<InputCheck label="Serum" />
+							</VerticalTap>
+							<VerticalTap title="price range" defaultOpen>
+								<InputRadio name="price" label="Under $25" />
+								<InputRadio name="price" label="$25 - $50" />
+								<InputRadio name="price" label="$50 - $100" />
+
+								<InputRadio
+									name="price"
+									label=""
+									render={
+										<div class="flex  items-center pb-5 gap-2.5">
+											<Input label="$ Min" class="w-4/5" />
+											<Input label="$ Max" class="w-4/5" />
+										</div>
+									}
+								/>
+							</VerticalTap>
+						</VerticalMenu>
+						<Button variant="secondary">Apply</Button>
+					</div>
+				</Motion.div>
+			</div>
+		</Motion.div>
+	);
+});
+
+const FilterButtons = component$(() => {
+	const FilterMenuMobileStore = useContext(FilterMenuMobileContext);
+	return (
+		<Motion.div class="sticky right-0 bottom-16 w-full bg-white select-none z-30 my-10 lg:hidden  ">
+			<div class="mx-auto border divide-x rounded-t rounded-x container grid grid-rows-1 grid-cols-2  px-4  xs:px-0">
+				<button
+					onClick$={() => {
+						FilterMenuMobileStore.open = true;
+						FilterMenuMobileStore.Type = "filter";
+					}}
+					class=" py-2.5 text-black capitalize"
+					type="button"
+				>
+					By order
+				</button>
+				<button
+					onClick$={() => {
+						FilterMenuMobileStore.open = true;
+						FilterMenuMobileStore.Type = "sort";
+					}}
+					class="  py-2.5  text-black capitalize"
+					type="button"
+				>
+					filters
+				</button>
+			</div>
+		</Motion.div>
 	);
 });
 

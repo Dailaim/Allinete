@@ -56,16 +56,11 @@ export function useCreateAndBindMotionState(
 		});
 	});
 
-	useVisibleTask$(
-		async ({ track }) => {
-			track(options);
+	useVisibleTask$(async ({ track }) => {
+		track(options);
 
-			state.value?.update(await options());
-		},
-		{
-			strategy: "intersection-observer",
-		},
-	);
+		state.value?.update(await options());
+	});
 
 	return [state, createStyles(state.value?.getTarget())] as const;
 }

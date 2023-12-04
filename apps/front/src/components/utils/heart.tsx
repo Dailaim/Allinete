@@ -17,7 +17,7 @@ export const Heart = component$<HeartProps>(
 						"hover:text-pink",
 						//@ts-ignore
 						{
-							"text-purple": !props.glitter,
+							"text-purple-300": !props.glitter,
 							"text-black": props.glitter,
 						},
 						//@ts-ignore

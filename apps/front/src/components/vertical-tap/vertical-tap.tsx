@@ -1,8 +1,9 @@
-import type { HtmlHTMLAttributes } from "@builder.io/qwik";
+import type { HtmlHTMLAttributes, NoSerialize } from "@builder.io/qwik";
 import {
 	Slot,
 	component$,
 	createContextId,
+	noSerialize,
 	useContext,
 	useContextProvider,
 	useId,
@@ -12,7 +13,10 @@ import {
 	useVisibleTask$,
 } from "@builder.io/qwik";
 import { TbChevronUp } from "@qwikest/icons/tablericons";
+import type { MotionState} from "motion";
+import { createMotionState, stagger } from "motion";
 import { Motion } from "~/packages/motion";
+import { ParentContext } from "~/packages/motion/motion";
 
 export const context = createContextId<VerticalTapContext>("vertical-tap");
 
@@ -20,6 +24,19 @@ export const useVerticalMenu = () => useContext(context);
 
 export const VerticalMenu = component$<HtmlHTMLAttributes<HTMLDivElement>>(
 	(props) => {
+		const state = useSignal<NoSerialize<MotionState>>();
+		useVisibleTask$(() => {
+			state.value = noSerialize(
+				createMotionState({
+					transition: {
+						delay: stagger(0.1),
+					},
+				}),
+			);
+		});
+
+		useContextProvider(ParentContext, state);
+
 		useContextProvider(
 			context,
 			useStore({
@@ -82,6 +99,7 @@ export const VerticalTap = component$<VerticalTapProps>(
 					/>
 				</button>
 				<Motion.div
+					class="tap"
 					ref={ref}
 					initial={{
 						overflow: "hidden",

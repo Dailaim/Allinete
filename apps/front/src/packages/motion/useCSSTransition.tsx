@@ -1,12 +1,15 @@
-import { useSignal, useTask$, useVisibleTask$ } from "@builder.io/qwik";
-import type { QRL } from "@builder.io/qwik";
+import { useSignal,  useVisibleTask$ } from "@builder.io/qwik";
+// import type { QRL } from "@builder.io/qwik";
 
 export type Stage = "enterFrom" | "enterTo" | "leaveFrom" | "leaveTo" | "idle";
 
-export function useCSSTransition(
-	value: QRL<() => boolean>,
+export function useCSSTransition<T extends object>(
+	store: T,
+	value: keyof T,
 	{ timeout = 0, transitionOnAppear = false },
 ) {
+	if (typeof store[value] !== "boolean")
+		new Error("useCSSTransition only works with boolean values");
 	// the stage of transition - 'from' | 'enter' | 'leave'
 	const stage = useSignal<Stage>(transitionOnAppear ? "enterFrom" : "idle");
 
@@ -14,16 +17,13 @@ export function useCSSTransition(
 
 	// the timer for should mount
 	const timer = useSignal<Canceller>({});
-	const shouldMount = useSignal(false);
-
-	useTask$(async () => {
-		shouldMount.value = await value();
-	});
+	const shouldMount = useSignal<boolean>(store[value] as boolean);
 
 	useVisibleTask$(async function handleStateChange({ track }) {
-		track(() => value);
+		track(() => store[value]);
+		console.log("value", value);
 		clearAnimationFrameTimeout(timer.value);
-		const val = await value();
+		const val = store[value];
 		// when true - trans from to enter
 		// when false - trans enter to leave, unmount after timeout
 

@@ -4,8 +4,8 @@ import type { AuthConfig } from "@auth/core";
 import GitHub from "@auth/core/providers/github";
 import { serverAuth$ } from "@builder.io/qwik-auth";
 
-import { SurrealDBAdapter } from "@auth/surrealdb-adapter";
-import { DB } from "~/server/database";
+// import { SurrealDBAdapter } from "@auth/surrealdb-adapter";
+// import { DB } from "~/server/database";
 
 export const { onRequest, useAuthSession, useAuthSignin, useAuthSignout } =
 	serverAuth$(
@@ -32,6 +32,6 @@ export const { onRequest, useAuthSession, useAuthSignin, useAuthSignout } =
 					}), */
 					// "nodemailer": "^6.9.7",
 				],
-				adapter: SurrealDBAdapter(DB(env) as any),
+				/* adapter: SurrealDBAdapter(DB(env) as any), */
 			}) as AuthConfig,
 	);

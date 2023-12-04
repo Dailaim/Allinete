@@ -1,13 +1,17 @@
-import type { HtmlHTMLAttributes } from "@builder.io/qwik";
+import type {
+	HtmlHTMLAttributes,
+	PropFunction,
+} from "@builder.io/qwik";
 import { type QRL, component$ } from "@builder.io/qwik";
 
+import { useNavigate } from "@builder.io/qwik-city";
 import { Button } from "../button";
 import { Heart, RatingStar } from "../utils";
 
 export type CardProps = {
 	isWishlist?: boolean;
 	toggleWishlist?: QRL<() => void>;
-	Action?: QRL<() => void>;
+	Action$?: PropFunction<() => void>;
 	rating?: number;
 	userRating?: number;
 	setUserRating?: QRL<(rating: number) => void>;
@@ -20,6 +24,7 @@ export type CardProps = {
 	offerPercentage?: number;
 	isOffer?: boolean;
 	class?: HtmlHTMLAttributes<HTMLDivElement>["class"];
+	href?: string;
 	/* 	offerText?: string;
 	offerExpiry?: string; */
 };
@@ -28,14 +33,29 @@ export type CardProps = {
 // Create varian Out of Stock
 
 export const Card = component$<CardProps>((props) => {
+	const nav = useNavigate();
 	return (
 		<div
+			role="link"
+			onClick$={() => {
+				if (props.href) {
+					nav(props.href);
+				}
+			}}
+			aria-labelledby={`card-${props.name}`}
+			href={props.href ?? "#"}
 			class={[
 				"group w-72 font-montserrat  justify-center items-center bg-white flex gap-2.5 flex-col rounded overflow-hidden relative",
 				//@ts-ignore
 				props.class,
 			]}
 		>
+			{props.href && (
+				<a href={props.href} class="sr-only">
+					{props.name}
+				</a>
+			)}
+
 			<span class="w-full h-full">
 				<img
 					alt={props.name}
@@ -92,7 +112,15 @@ export const Card = component$<CardProps>((props) => {
 					</div>
 				</div>
 
-				<Button onClick$={props.Action} class="w-full" variant="secondary">
+				<Button
+					onClick$={(e) => {
+						e.stopPropagation();
+						props.Action$?.();
+					}}
+					type="button"
+					class="w-full"
+					variant="secondary"
+				>
 					Agregar al Carrito{" "}
 				</Button>
 			</div>

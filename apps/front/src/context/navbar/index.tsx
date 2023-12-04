@@ -1,4 +1,4 @@
-import type { JSXChildren, QRL, QwikTouchEvent } from "@builder.io/qwik";
+import type { QRL, QwikTouchEvent } from "@builder.io/qwik";
 import {
 	Slot,
 	component$,
@@ -9,10 +9,10 @@ import {
 	useTask$,
 	useVisibleTask$,
 } from "@builder.io/qwik";
+import { useScrollContext } from "../scroll";
 import { useMenuTouch } from "./useMenuTouch";
 
 export type navbarContext = {
-	customsBottoms?: QRL<JSXChildren> | null;
 	openMenu: boolean;
 	openCart: boolean;
 	openSearch: boolean;
@@ -35,7 +35,6 @@ export const useNavbarContext = () => {
 export const NavbarProvider = component$(() => {
 	const store = useStore<navbarContext>(
 		{
-			customsBottoms: null,
 			openMenu: false,
 			openCart: false,
 			openSearch: false,
@@ -51,34 +50,20 @@ export const NavbarProvider = component$(() => {
 
 	const touchHandlers = useMenuTouch(store);
 
+	const scroll = useScrollContext();
+
 	useTask$(() => {
 		store.touchHandler = touchHandlers;
 	});
 
 	useVisibleTask$(({ track }) => {
-		track(
-			() =>
-				store.openMenu ||
-				store.openCart ||
-				store.openSearch ||
-				store.openCustoms,
-		);
-		store.isOpen =
-			store.openMenu || store.openCart || store.openSearch || store.openCustoms;
-	});
+		track(() => store.openMenu || store.openCart || store.openSearch);
 
-	useVisibleTask$(({ track }) => {
-		track(() => store.isOpen);
+		const result = store.openMenu || store.openCart || store.openSearch;
 
-		if (store.isOpen) {
-			document.body.style.overflow = "hidden";
-			document.body.style.height = "100vh";
-		}
+		store.isOpen = result;
 
-		if (!store.isOpen) {
-			document.body.style.overflow = "auto";
-			document.body.style.height = "auto";
-		}
+		scroll.value = !result;
 	});
 
 	useContextProvider(navbarContext, store);
