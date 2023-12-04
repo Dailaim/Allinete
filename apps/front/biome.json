@@ -9,8 +9,12 @@
 		"rules": {
 			"recommended": true,
 			"suspicious": {
-				"noExplicitAny": "warn",
-				"noEmptyInterface": "off"
+				"noExplicitAny": "off",
+				"noEmptyInterface": "off",
+				"noConsoleLog": "warn"
+			},
+			"security": {
+				"noDangerouslySetInnerHtml": "off"
 			},
 			"a11y": {
 				"noSvgWithoutTitle": "off"
@@ -18,7 +22,11 @@
 		},
 		"ignore": ["./node_modules/**", "./dist/**"]
 	},
+
 	"formatter": {
-		"enabled": true
+		"enabled": true,
+		"indentStyle": "tab",
+		"indentSize": 2,
+		"lineWidth": 80
 	}
 }
