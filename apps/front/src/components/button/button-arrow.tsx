@@ -1,7 +1,7 @@
 import { Slot, component$ } from "@builder.io/qwik";
 import { SVGArrowRight } from "../icons";
-import type { ButtonTextProps } from "./buttonText";
-import { ButtonText } from "./buttonText";
+import type { ButtonTextProps } from "./button-text";
+import { ButtonText } from "./button-text";
 
 export type ButtonProps = ButtonTextProps;
 

@@ -1,5 +1,5 @@
 export { Button } from "./button";
-export { ButtonGoogle, ButtonGoogleSignIn } from "./buttonGoogle";
-export { ButtonText } from "./buttonText";
-export { ButtonForm } from "./buttonForm";
-export { ButtonArrow } from "./buttonArrow";
+export { ButtonGoogle, ButtonGoogleSignIn } from "./button-google";
+export { ButtonText } from "./button-text";
+export { ButtonForm } from "./button-form";
+export { ButtonArrow } from "./button-arrow";

@@ -1,7 +1,7 @@
 import { type HtmlHTMLAttributes, component$ } from "@builder.io/qwik";
 import { SVGGoogleColor } from "~/components/icons";
 import { useAuthSignin } from "~/routes/plugin@auth";
-import { ButtonText } from "./buttonText";
+import { ButtonText } from "./button-text";
 
 export interface ButtonProps extends HtmlHTMLAttributes<HTMLButtonElement> {
 	text?: string;

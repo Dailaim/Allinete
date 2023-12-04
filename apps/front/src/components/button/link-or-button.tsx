@@ -1,12 +1,9 @@
-import { type HtmlHTMLAttributes, Slot, component$ } from "@builder.io/qwik";
+import { type ButtonHTMLAttributes, Slot, component$ } from "@builder.io/qwik";
 import { Link, type LinkProps } from "@builder.io/qwik-city";
 
-export type LinkOrButton = (
-	| HtmlHTMLAttributes<HTMLButtonElement>
-	| LinkProps
-) & {
-	isLink?: boolean;
-};
+export type LinkOrButton =
+	| (ButtonHTMLAttributes<HTMLButtonElement> & { isLink?: false })
+	| (LinkProps & { isLink: true });
 
 export const LinkOrButton = component$<LinkOrButton>(({ isLink, ...props }) => {
 	if (isLink) {
@@ -18,7 +15,7 @@ export const LinkOrButton = component$<LinkOrButton>(({ isLink, ...props }) => {
 	}
 	return (
 		// biome-ignore lint/a11y/useButtonType: <explanation>
-		<button {...(props as HtmlHTMLAttributes<HTMLButtonElement>)}>
+		<button {...(props as ButtonHTMLAttributes<HTMLButtonElement>)}>
 			<Slot />
 		</button>
 	);

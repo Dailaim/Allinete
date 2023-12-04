@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "storybook-framework-qwik";
-import { ButtonArrow, type ButtonProps } from "./buttonArrow";
+import { ButtonArrow, type ButtonProps } from "./button-arrow";
 
 const meta: Meta<ButtonProps> = {
 	component: ButtonArrow,

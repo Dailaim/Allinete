@@ -1,5 +1,5 @@
 import { Slot, component$ } from "@builder.io/qwik";
-import { LinkOrButton } from "./LinkOrButton";
+import { LinkOrButton } from "./link-or-button";
 
 export const variants = {
 	primary: "bg-pink text-white",
