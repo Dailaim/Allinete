@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "storybook-framework-qwik";
 import Carousel34 from "~/img/res/pexels-anderson-guerra-1115128.jpg?jsx";
+import type { SwiperProps } from "./swiper";
 import { SwipeSlide, SwiperContainer } from "./swiper";
 
 import { component$ } from "@builder.io/qwik";
@@ -24,12 +25,12 @@ const Layout = component$<{} & {}>(({ ...props }) => {
 	);
 });
 
-const meta: Meta<{} & {}> = {
+const meta: Meta<SwiperProps> = {
 	component: SwiperContainer,
 	title: "Components/Carousel/swiper",
 };
 
-type Story = StoryObj<{} & {}>;
+type Story = StoryObj<SwiperProps>;
 
 export default meta;
 

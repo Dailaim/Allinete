@@ -37,6 +37,7 @@ export type KeyframesDefinition = MotionKeyframesDefinition & {
 };
 
 export type Variant = KeyframesDefinition & {
+	translateY?: ValueKeyframesDefinition;
 	transition?: AnimationOptionsWithOverrides;
 };
 

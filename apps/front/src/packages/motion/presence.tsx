@@ -1,17 +1,15 @@
 import type { Signal } from "@builder.io/qwik";
 import {
-	$,
 	Slot,
 	component$,
 	createContextId,
-	isSignal,
 	useContextProvider,
 	useSignal,
 	useVisibleTask$,
 } from "@builder.io/qwik";
 import { ParentContext } from "./motion";
 
-import { useCSSTransition } from "./useCSSTransition";
+// import { useCSSTransition } from "./useCSSTransition";
 
 export const PresenceContext = createContextId<Signal<boolean>>(
 	"presence-context-state",
@@ -47,17 +45,20 @@ export const Presence = component$<{
 	useContextProvider(PresenceContext, initialSig);
 	useContextProvider(ParentContext, useSignal(undefined));
 
-	const { shouldMount, stage } = useCSSTransition(
-		$(() => {
-			if (isSignal(props.show)) return props.show.value;
-			if (typeof props.show === "boolean") return props.show;
-			return true;
-		}),
-		{
-			timeout: 300,
-			transitionOnAppear: false,
-		},
-	);
+	// const { shouldMount, stage } = useCSSTransition(
+	// 	$(() => {
+	// 		if (isSignal(props.show)) return props.show.value;
+	// 		if (typeof props.show === "boolean") return props.show;
+	// 		return true;
+	// 	}),
+	// 	{
+	// 		timeout: 300,
+	// 		transitionOnAppear: false,
+	// 	},
+	// );
+
+	const shouldMount = useSignal(true);
+	const stage = useSignal("idle");
 
 	useVisibleTask$(() => {
 		initialSig.value = true;

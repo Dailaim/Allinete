@@ -39,7 +39,7 @@ import SwiperCss from "./swiper.css?inline";
 
 export { NavigationCss, PaginationCss, SwiperCss };
 
-interface SwiperProps extends HtmlHTMLAttributes<HTMLDivElement> {
+export interface SwiperProps extends HtmlHTMLAttributes<HTMLDivElement> {
 	modules?: {
 		navigation?: boolean;
 		pagination?: boolean;
