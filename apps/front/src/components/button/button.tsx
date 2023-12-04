@@ -17,12 +17,12 @@ export const Button = component$<ButtonProps>(
 			<LinkOrButton
 				{...props}
 				class={[
-					"rounded focus:border-t-2 text-sm capitalize border-black p-2.5 inline-flex justify-center items-center box-border",
+					"rounded text-sm capitalize p-2.5 inline-flex justify-center items-center ",
 					//TODO: fix this
 					// " hover:bg-gradient-to-r hover:from-neutral-800 hover:via-neutral-700 hover:to-zinc-800 hover:text-white",
 
 					"hover:bg-black hover:text-white",
-					"focus:bg-pink focus:text-white focus:border-l-2 focus:border-r-0 focus:border-b-0",
+					"focus:bg-pink focus:text-white",
 
 					"transition-all duration-200 ease-in-out",
 					variants[variant],
