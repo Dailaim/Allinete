@@ -6,6 +6,7 @@ import {
 } from "@builder.io/qwik-city";
 import { RouterHead } from "./components/router-head/router-head";
 
+import { Providers } from "./context";
 import "./global.css";
 
 export default component$(() => {
@@ -24,8 +25,10 @@ export default component$(() => {
 				<RouterHead />
 			</head>
 			<body /* class="font-mulish font-light" */ lang="en">
-				<RouterOutlet />
-				<ServiceWorkerRegister />
+				<Providers>
+					<RouterOutlet />
+					<ServiceWorkerRegister />
+				</Providers>
 			</body>
 		</QwikCityProvider>
 	);
