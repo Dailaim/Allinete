@@ -1,1 +1,3 @@
-console.log("Hello via Bun!");
+export { PrismaClient as prismaAuth } from '@prisma/client'
+
+export { PrismaClient as prismaAuthEdge } from '@prisma/client/edge'
