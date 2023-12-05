@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: alinette
+      POSTGRES_USER: alinette
+      POSTGRES_PASSWORD: alinette
+    ports:
+      - "5432:5432"
