@@ -1,9 +1,9 @@
 {
-  "name": "auth",
+  "name": "@modules/auth",
   "version": "1.0.50",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "bun run --watch src/index.ts"
+    "dev": "bun run --watch src/init.ts"
   },
   "dependencies": {
     "elysia": "latest",
