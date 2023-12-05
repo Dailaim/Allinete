@@ -66,7 +66,6 @@
 		"vite-tsconfig-paths": "4.2.1"
 	},
 	"dependencies": {
-		"@auth/surrealdb-adapter": "workspace:*",
 		"@modular-forms/qwik": "^0.21.2",
 		"@motionone/dom": "^10.16.4",
 		"@motionone/types": "^10.16.3",
@@ -77,7 +76,6 @@
 		"leaflet": "1.9.4",
 		"marked": "^11.0.0",
 		"motion": "^10.16.4",
-		"surrealdb-http": "workspace:*",
 		"swiper": "11.0.5",
 		"valibot": "^0.19.0"
 	}
