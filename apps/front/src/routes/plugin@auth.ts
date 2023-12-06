@@ -1,37 +1,26 @@
 import type { AuthConfig } from "@auth/core";
-// import Email from "@auth/core/providers/email";
 
 import GitHub from "@auth/core/providers/github";
 import { serverAuth$ } from "@builder.io/qwik-auth";
 
-// import { SurrealDBAdapter } from "@auth/surrealdb-adapter";
-// import { DB } from "~/server/database";
+import { prismaAuth } from "@database/auth"
+import { PrismaAdapter} from "@auth/prisma-adapter"
+
 
 export const { onRequest, useAuthSession, useAuthSignin, useAuthSignout } =
 	serverAuth$(
 		({ env }) =>
 			({
+				debug: true,
 				secret: env.get("AUTH_SECRET"),
 				trustHost: true,
-
 				providers: [
 					GitHub({
 						clientId: env.get("GITHUB_ID"),
 						clientSecret: env.get("GITHUB_SECRET"),
 					}),
-					/* Email({
-						server: {
-							host: env.get("EMAIL_SERVER_HOST"),
-							port: env.get("EMAIL_SERVER_PORT"),
-							auth: {
-								user: env.get("EMAIL_SERVER_USER"),
-								pass: env.get("EMAIL_SERVER_PASSWORD"),
-							},
-						},
-						from: env.get("EMAIL_FROM"),
-					}), */
-					// "nodemailer": "^6.9.7",
 				],
+				adapter: PrismaAdapter(new prismaAuth()),
 				/* adapter: SurrealDBAdapter(DB(env) as any), */
 			}) as AuthConfig,
 	);
