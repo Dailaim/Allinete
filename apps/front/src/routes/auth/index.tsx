@@ -1,5 +1,5 @@
 import { component$, useSignal } from "@builder.io/qwik";
-import { Form, server$ } from "@builder.io/qwik-city";
+import { Form } from "@builder.io/qwik-city";
 import { useAuthSignin } from "~/routes/plugin@auth";
 import wretch from "wretch"
 
@@ -25,8 +25,12 @@ export default component$(() => {
 					console.log(error)
 					return "unauthorized"
 				})
+				.json().catch((error)=>{
+					console.log(error)
+					return "error"
+				})
 
-				.text()
+				response.value = response.value["message"] ?? ""
 
 				console.log(response.value)
 			}}>
