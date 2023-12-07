@@ -6,6 +6,9 @@
     "dev": "bun run --watch src/init.ts"
   },
   "dependencies": {
+    "@database/auth": "workspace:*",
+    "@elysiajs/cors": "latest",
+    "@elysiajs/cookie": "latest",
     "elysia": "latest"
   },
   "devDependencies": {

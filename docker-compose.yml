@@ -9,3 +9,14 @@ services:
       POSTGRES_PASSWORD: alinette
     ports:
       - "5432:5432"
+    volumes:
+      - alinette-data:/var/lib/postgresql/data
+
+volumes:
+  alinette-data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /mnt/d/database/alinette
+
