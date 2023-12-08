@@ -1,50 +1,74 @@
-import { component$, useSignal } from "@builder.io/qwik";
-import { Form } from "@builder.io/qwik-city";
+import { $, component$, useSignal } from "@builder.io/qwik";
+import wretch from "wretch";
 import { useAuthSignin } from "~/routes/plugin@auth";
-import wretch from "wretch"
 
+const authFetch = wretch("http://localhost:3000/").options({
+	credentials: "include",
+});
+
+const Login = $(async () => {
+  await authFetch
+    .url("signin")
+    .post({
+      email: "leo",
+      password: "leo",
+    })
+    .unauthorized(() => {
+      return "unauthorized";
+    })
+    .json((r) => r.message);
+})
+
+const Logout = $(async () => {
+  await authFetch
+    .url("signout")
+    .post()
+    .unauthorized(() => {
+      return "unauthorized";
+    })
+    .json((r) => r.message);
+})
+
+const register = $(async () => {
+  await authFetch
+    .url("signup")
+    .post({
+      email: "leo",
+      password: "leo",
+      name: "leo",
+    })
+})
 
 export default component$(() => {
 	const signIn = useAuthSignin();
 
-	const response  = useSignal("")
+	const response = useSignal("");
 
 	return (
 		<>
-		<div class="h-60">
-			{response.value}
-		</div>
-			<button type="button" onClick$={async ()=>{
-				response.value = await wretch().options({
-					credentials: 'include',
-				})
-				.url("http://localhost:3000/signin").post({
-				email: "leo",
-				password: "leo"
-				}).unauthorized((error)=>{
-					console.log(error)
-					return "unauthorized"
-				})
-				.json().catch((error)=>{
-					console.log(error)
-					return "error"
-				})
+			<div class="h-60">{response.value}</div>
+			<form>
+				<button
+					type="button"
+					onClick$={}
+				>
+					Sign In
+				</button>
+			</form>
 
-				response.value = response.value["message"] ?? ""
-
-				console.log(response.value)
-			}}>
-				Sign In
+			<button
+				type="button"
+				onClick$={() => {
+					signIn.submit({
+						providerId: "github",
+						options: {
+							callbackUrl: "https://localhost:5173/store",
+						},
+					});
+				}}
+			>
+				Sign In with Github
 			</button>
-			<Form action={signIn}>
-				<input type="hidden" name="providerId" value="github" />
-				<input
-					type="hidden"
-					name="options.callbackUrl"
-					value="https://localhost:5173/store"
-				/>
-				<button type="submit">Sign In</button>
-			</Form>
 		</>
 	);
 });
