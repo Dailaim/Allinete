@@ -1,12 +1,32 @@
+import { prismaAuth } from "@database/auth";
 import { Elysia, t } from "elysia";
 import { AccessToken } from "../const";
 
 export const checkAuth = new Elysia().post(
 	"/signin",
-	({ cookie, set }) => {
+	async ({ cookie, set }) => {
 		const Token = cookie[AccessToken];
 
-		if (!Token) {
+		if (!Token.get()) {
+			set.status = 401;
+			return {
+				error: "Unauthorized",
+			};
+		}
+
+		const ctx = new prismaAuth();
+		const sess = await ctx.session.findUnique({
+			where: {
+				sessionToken: Token.get(),
+				AND: {
+					expires: {
+						gt: new Date(),
+					},
+				},
+			},
+		});
+
+		if (!sess) {
 			set.status = 401;
 			return {
 				error: "Unauthorized",
@@ -20,7 +40,7 @@ export const checkAuth = new Elysia().post(
 	},
 	{
 		cookie: t.Cookie({
-			[AccessToken]: t.Optional(t.String()),  
+			[AccessToken]: t.Optional(t.String()),
 		}),
 	},
 );
