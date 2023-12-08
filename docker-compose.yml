@@ -7,16 +7,20 @@ services:
       POSTGRES_DB: alinette
       POSTGRES_USER: alinette
       POSTGRES_PASSWORD: alinette
+      PGDATA: /data/postgres
+
     ports:
       - "5432:5432"
+
     volumes:
-      - alinette-data:/var/lib/postgresql/data
+      - postgres:/data/postgres
+    networks:
+      - postgres
 
 volumes:
-  alinette-data:
+  postgres:
     driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: /mnt/d/database/alinette
 
+networks:
+  postgres:
+    driver: bridge
