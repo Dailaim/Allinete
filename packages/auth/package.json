@@ -1,21 +1,22 @@
 {
-  "name": "@database/auth",
-  "module": "index.ts",
+	"name": "@database/auth",
+	"module": "index.ts",
 	"main": "index.js",
 	"type": "module",
 	"scripts": {
-		"migrate" : "prisma migrate dev --name init --preview-feature",
+		"migrate": "prisma migrate dev --name init --preview-feature",
 		"generate": "prisma generate",
-		"studio": "prisma studio"
+		"studio": "prisma studio",
+		"prisma": "prisma"
 	},
-  "devDependencies": {
-    "bun-types": "latest",
-    "prisma": "^5.6.0"
-  },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
-  },
-  "dependencies": {
-    "@prisma/client": "^5.6.0"
-  }
+	"devDependencies": {
+		"bun-types": "latest",
+		"prisma": "^5.6.0"
+	},
+	"peerDependencies": {
+		"typescript": "^5.0.0"
+	},
+	"dependencies": {
+		"@prisma/client": "^5.6.0"
+	}
 }
