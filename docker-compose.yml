@@ -20,8 +20,11 @@ services:
 volumes:
   postgres:
     driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /mnt/d/database/alinette
 
 networks:
   postgres:
     driver: bridge
-
