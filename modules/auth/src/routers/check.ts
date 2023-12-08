@@ -3,7 +3,7 @@ import { Elysia, t } from "elysia";
 import { AccessToken } from "../const";
 
 export const checkAuth = new Elysia().post(
-	"/signin",
+	"/check",
 	async ({ cookie, set }) => {
 		const Token = cookie[AccessToken];
 
