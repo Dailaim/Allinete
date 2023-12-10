@@ -17,7 +17,6 @@ import { Slot, component$ } from "@builder.io/qwik";
 import Swiper from "swiper";
 import type {
 	AutoplayOptions,
-
 	PaginationOptions,
 	ZoomOptions,
 } from "swiper/types";
