@@ -53,7 +53,6 @@ export const offsetValue = (rating: number): string => {
 interface StarRatingsProps {
 	numberOfStars?: number;
 	changeRating$?: PropFunction<(rating: number, name?: string) => void>;
-
 	starHoverColor?: string;
 	starRatedColor?: string;
 	starEmptyColor?: string;
