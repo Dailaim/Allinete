@@ -1,7 +1,4 @@
-import type {
-	HtmlHTMLAttributes,
-	PropFunction,
-} from "@builder.io/qwik";
+import type { HtmlHTMLAttributes, PropFunction } from "@builder.io/qwik";
 import { type QRL, component$ } from "@builder.io/qwik";
 
 import { useNavigate } from "@builder.io/qwik-city";
