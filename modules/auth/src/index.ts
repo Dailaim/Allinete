@@ -1,6 +1,8 @@
 import cors from "@elysiajs/cors";
-import { Elysia, t } from "elysia";
+import { Elysia } from "elysia";
 import { checkAuth } from "./routers/check";
+import { signIn } from "./routers/signin";
+import { signUp } from "./routers/signup";
 
 export const authApp = new Elysia()
 	.use(
@@ -36,4 +38,6 @@ export const authApp = new Elysia()
 			],
 		}),
 	)
-	.use(checkAuth);
+	.use(checkAuth)
+	.use(signIn)
+	.use(signUp);

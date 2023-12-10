@@ -1,17 +1,22 @@
 import { prismaAuth } from "@database/auth";
-import { Elysia, t } from "elysia";
+import { Elysia, InternalServerError, t } from "elysia";
+import { emailParser, nameParser, passwordParser } from "../parsers";
 
-export const checkAuth = new Elysia().post(
+export const signUp = new Elysia().post(
 	"/signup",
 	async ({ body, set }) => {
-		if (!body.email || !body.password || !body.name) {
-			set.status = 401;
-			return {
-				error: "Unauthorized",
-			};
-		}
-
 		const ctx = new prismaAuth();
+
+		const noUser = await ctx.user.findUnique({
+			where: {
+				email: body.email,
+			},
+		});
+
+		if (noUser) {
+			set.status = 409;
+			throw new Error("User already exists");
+		}
 
 		const user = await ctx.user.create({
 			data: {
@@ -21,11 +26,8 @@ export const checkAuth = new Elysia().post(
 			},
 		});
 
-		if (!user || !user.password) {
-			set.status = 401;
-			return {
-				error: "Unauthorized",
-			};
+		if (!user) {
+			throw new InternalServerError("Failed to create user");
 		}
 
 		return {
@@ -39,17 +41,9 @@ export const checkAuth = new Elysia().post(
 	},
 	{
 		body: t.Object({
-			email: t.String(),
-			name: t.String(),
-			password: t.String(),
+			email: emailParser,
+			name: nameParser,
+			password: passwordParser,
 		}),
-		// response: t.Object({
-		// 	message: t.String(),
-		// 	user: t.Optional(t.Object({
-		// 		id: t.String(),
-		// 		email: t.String(),
-		// 		name: t.String(),
-		// 	})),
-		// }),
 	},
 );
