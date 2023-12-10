@@ -26,7 +26,7 @@ const Login = $((type: "signin" | "signup", user: User) => {
 	return authFetch
 		.url(type)
 		.post(user)
-		.unauthorized((e) => {
+		.unauthorized(() => {
 			return null;
 		})
 		.json((r) => r.user as Promise<User>);

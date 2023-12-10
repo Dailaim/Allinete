@@ -1,4 +1,4 @@
-import { $, component$, useSignal } from "@builder.io/qwik";
+import { component$, useSignal } from "@builder.io/qwik";
 import { Form } from "@builder.io/qwik-city";
 import wretch from "wretch";
 import { useAuthSignin } from "~/routes/plugin@auth";
