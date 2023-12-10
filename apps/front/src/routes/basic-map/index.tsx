@@ -1,13 +1,17 @@
-import { component$, useSignal, useStyles$ } from "@builder.io/qwik";
+import {
+	component$,
+	useSignal,
+	// useStyles$
+} from "@builder.io/qwik";
 
 // Leaflet map styles
-import leafletStyles from "../../../node_modules/leaflet/dist/leaflet.css?inline";
+// import leafletStyles from "../../../node_modules/leaflet/dist/leaflet.css?inline";
 
 import { LeafletMap } from "~/components/leaflet-map";
 import type { LocationsProps } from "~/models/location";
 
 export default component$(() => {
-	useStyles$(leafletStyles);
+	// useStyles$(leafletStyles);
 	const currentLocation = useSignal<LocationsProps>({
 		name: "Soraluze",
 		point: [43.17478, -2.41172],
