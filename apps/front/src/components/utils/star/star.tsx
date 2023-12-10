@@ -60,10 +60,10 @@ export const Star = component$<StarProps>(
 			props.hoverMode && props.isHovered
 				? props.starHoverColor
 				: props.isPartiallyFullStar
-				? `url('${props.gradientPathName}#${props.fillId}')`
-				: props.isStarred
-				? props.starRatedColor
-				: props.starEmptyColor;
+				  ? `url('${props.gradientPathName}#${props.fillId}')`
+				  : props.isStarred
+					  ? props.starRatedColor
+					  : props.starEmptyColor;
 
 		pathStyle.fill = fill;
 

@@ -13,7 +13,7 @@ import {
 	useVisibleTask$,
 } from "@builder.io/qwik";
 import { TbChevronUp } from "@qwikest/icons/tablericons";
-import type { MotionState} from "motion";
+import type { MotionState } from "motion";
 import { createMotionState, stagger } from "motion";
 import { Motion } from "~/packages/motion";
 import { ParentContext } from "~/packages/motion/motion";
@@ -110,8 +110,8 @@ export const VerticalTap = component$<VerticalTapProps>(
 						height: state[id]
 							? animation
 							: interactive.value
-							? animation.reverse()
-							: 0,
+							  ? animation.reverse()
+							  : 0,
 					}}
 					transition={{
 						duration: 0.2,

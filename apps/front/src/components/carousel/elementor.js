@@ -129,14 +129,14 @@
 				(a = s.WebKitCSSMatrix
 					? n.m41
 					: 16 === i.length
-					? parseFloat(i[12])
-					: parseFloat(i[4])),
+					  ? parseFloat(i[12])
+					  : parseFloat(i[4])),
 			"y" === t &&
 				(a = s.WebKitCSSMatrix
 					? n.m42
 					: 16 === i.length
-					? parseFloat(i[13])
-					: parseFloat(i[5])),
+					  ? parseFloat(i[13])
+					  : parseFloat(i[5])),
 			a || 0
 		);
 	}
@@ -171,8 +171,8 @@
 								? (e[i] = a[i])
 								: p(e[i], a[i])
 							: !d(e[i]) && d(a[i])
-							? ((e[i] = {}), a[i].__swiper__ ? (e[i] = a[i]) : p(e[i], a[i]))
-							: (e[i] = a[i]));
+							  ? ((e[i] = {}), a[i].__swiper__ ? (e[i] = a[i]) : p(e[i], a[i]))
+							  : (e[i] = a[i]));
 				}
 			}
 		}
@@ -436,17 +436,17 @@
 			return !s.eventsListeners || s.destroyed
 				? s
 				: s.eventsListeners
-				? (e.split(" ").forEach((e) => {
-						void 0 === t
-							? (s.eventsListeners[e] = [])
-							: s.eventsListeners[e] &&
-							  s.eventsListeners[e].forEach((i, a) => {
-									(i === t || (i.__emitterProxy && i.__emitterProxy === t)) &&
-										s.eventsListeners[e].splice(a, 1);
-							  });
-				  }),
-				  s)
-				: s;
+				  ? (e.split(" ").forEach((e) => {
+							void 0 === t
+								? (s.eventsListeners[e] = [])
+								: s.eventsListeners[e] &&
+								  s.eventsListeners[e].forEach((i, a) => {
+										(i === t || (i.__emitterProxy && i.__emitterProxy === t)) &&
+											s.eventsListeners[e].splice(a, 1);
+								  });
+					  }),
+					  s)
+				  : s;
 		},
 		emit() {
 			const e = this;
@@ -1031,11 +1031,11 @@
 				t.virtual && a.virtual.enabled && a.loop
 					? p(d)
 					: t.slides[d]
-					? parseInt(
-							t.slides[d].getAttribute("data-swiper-slide-index") || d,
-							10,
-					  )
-					: d),
+					  ? parseInt(
+								t.slides[d].getAttribute("data-swiper-slide-index") || d,
+								10,
+						  )
+					  : d),
 				Object.assign(t, {
 					previousSnapIndex: l,
 					snapIndex: o,
@@ -1492,14 +1492,14 @@
 							  }))
 							: e.slideTo(r)
 						: r > e.slides.length - i
-						? (e.loopFix(),
-						  (r = e.getSlideIndex(
-								h(s, `${l}[data-swiper-slide-index="${a}"]`)[0],
-						  )),
-						  n(() => {
-								e.slideTo(r);
-						  }))
-						: e.slideTo(r);
+						  ? (e.loopFix(),
+							  (r = e.getSlideIndex(
+									h(s, `${l}[data-swiper-slide-index="${a}"]`)[0],
+							  )),
+							  n(() => {
+									e.slideTo(r);
+							  }))
+						  : e.slideTo(r);
 			} else e.slideTo(r);
 		},
 	};
@@ -2106,8 +2106,8 @@
 					(b > 1 - a.longSwipesRatio
 						? t.slideTo(f + y)
 						: null !== w && b < 0 && Math.abs(b) > a.longSwipesRatio
-						? t.slideTo(w)
-						: t.slideTo(f));
+						  ? t.slideTo(w)
+						  : t.slideTo(f));
 		} else {
 			if (!a.shortSwipes) return void t.slideTo(t.activeIndex);
 			t.navigation &&
@@ -2464,8 +2464,8 @@
 							(m
 								? (e.loopDestroy(), e.loopCreate(t), e.updateSlides())
 								: !h && g
-								? (e.loopCreate(t), e.updateSlides())
-								: h && !g && e.loopDestroy()),
+								  ? (e.loopCreate(t), e.updateSlides())
+								  : h && !g && e.loopDestroy()),
 						e.emit("breakpoint", l);
 				},
 				getBreakpoint: function (e, t, s) {
@@ -3017,7 +3017,10 @@
 	function ee(e) {
 		return (
 			void 0 === e && (e = ""),
-			`.${e.trim().replace(/([\.:!+\/])/g, "\\$1").replace(/ /g, ".")}`
+			`.${e
+				.trim()
+				.replace(/([\.:!+\/])/g, "\\$1")
+				.replace(/ /g, ".")}`
 		);
 	}
 	function te(e) {
@@ -4181,8 +4184,8 @@
 									? Math.floor(t.realIndex / t.params.slidesPerGroup)
 									: t.realIndex))
 						: void 0 !== t.snapIndex
-						? ((i = t.snapIndex), (r = t.previousSnapIndex))
-						: ((r = t.previousIndex || 0), (i = t.activeIndex || 0)),
+						  ? ((i = t.snapIndex), (r = t.previousSnapIndex))
+						  : ((r = t.previousIndex || 0), (i = t.activeIndex || 0)),
 					"bullets" === s.type &&
 						t.pagination.bullets &&
 						t.pagination.bullets.length > 0)
@@ -4284,8 +4287,8 @@
 								? "vertical"
 								: "horizontal"
 							: t.isHorizontal()
-							? "horizontal"
-							: "vertical";
+							  ? "horizontal"
+							  : "vertical";
 						const r = (i + 1) / m;
 						let n = 1,
 							l = 1;
@@ -4529,8 +4532,8 @@
 					? ((o = -o),
 					  o > 0 ? ((l = d - o), (o = 0)) : -o + d > p && (l = p + o))
 					: o < 0
-					? ((l = d + o), (o = 0))
-					: o + d > p && (l = p - o),
+					  ? ((l = d + o), (o = 0))
+					  : o + d > p && (l = p - o),
 					t.isHorizontal()
 						? ((i.style.transform = `translate3d(${o}px, 0, 0)`),
 						  (i.style.width = `${l}px`))
@@ -4784,8 +4787,8 @@
 						(n || l
 							? ((n = n || "0"), (l = l || "0"))
 							: t.isHorizontal()
-							? ((n = r), (l = "0"))
-							: ((l = r), (n = "0")),
+							  ? ((n = r), (l = "0"))
+							  : ((l = r), (n = "0")),
 						(n =
 							n.indexOf("%") >= 0
 								? parseInt(n, 10) * s * a + "%"
@@ -6015,9 +6018,9 @@
 										: a.params.autoplay.stopOnLastSlide ||
 										  (a.slideTo(a.slides.length - 1, n, !0, !0), l("autoplay"))
 									: !a.isEnd || a.params.loop || a.params.rewind
-									? (a.slideNext(n, !0, !0), l("autoplay"))
-									: a.params.autoplay.stopOnLastSlide ||
-									  (a.slideTo(0, n, !0, !0), l("autoplay")),
+									  ? (a.slideNext(n, !0, !0), l("autoplay"))
+									  : a.params.autoplay.stopOnLastSlide ||
+										  (a.slideTo(0, n, !0, !0), l("autoplay")),
 								a.params.cssMode &&
 									((w = new Date().getTime()),
 									requestAnimationFrame(() => {
@@ -6421,8 +6424,8 @@
 												s < i
 													? r.speed
 													: s < 2 * i
-													? 1.5 * r.speed
-													: 2.5 * r.speed;
+													  ? 1.5 * r.speed
+													  : 2.5 * r.speed;
 										}
 									} else if (r.freeMode.sticky) return void t.slideToClosest();
 									r.freeMode.momentumBounce && m
@@ -6445,17 +6448,17 @@
 													}, 0));
 										  }))
 										: t.velocity
-										? (i("_freeModeNoMomentumRelease"),
-										  t.updateProgress(c),
-										  t.setTransition(e),
-										  t.setTranslate(c),
-										  t.transitionStart(!0, t.swipeDirection),
-										  t.animating ||
-												((t.animating = !0),
-												y(n, () => {
-													t && !t.destroyed && t.transitionEnd();
-												})))
-										: t.updateProgress(c),
+										  ? (i("_freeModeNoMomentumRelease"),
+											  t.updateProgress(c),
+											  t.setTransition(e),
+											  t.setTranslate(c),
+											  t.transitionStart(!0, t.swipeDirection),
+											  t.animating ||
+													((t.animating = !0),
+													y(n, () => {
+														t && !t.destroyed && t.transitionEnd();
+													})))
+										  : t.updateProgress(c),
 										t.updateActiveIndex(),
 										t.updateSlidesClasses();
 								} else {
@@ -6697,10 +6700,10 @@
 						s % 4 == 0
 							? ((m = 4 * -n * o), (g = 0))
 							: (s - 1) % 4 == 0
-							? ((m = 0), (g = 4 * -n * o))
-							: (s - 2) % 4 == 0
-							? ((m = o + 4 * n * o), (g = o))
-							: (s - 3) % 4 == 0 && ((m = -o), (g = 3 * o + 4 * o * n)),
+							  ? ((m = 0), (g = 4 * -n * o))
+							  : (s - 2) % 4 == 0
+								  ? ((m = o + 4 * n * o), (g = o))
+								  : (s - 3) % 4 == 0 && ((m = -o), (g = 3 * o + 4 * o * n)),
 							l && (m = -m),
 							c || ((f = m), (m = 0));
 						const v = `rotateX(${c ? 0 : -r}deg) rotateY(${
@@ -7119,8 +7122,8 @@
 									c < 0
 										? `calc(${m}px ${i ? "-" : "+"} (${w * Math.abs(c)}%))`
 										: c > 0
-										? `calc(${m}px ${i ? "-" : "+"} (-${w * Math.abs(c)}%))`
-										: `${m}px`),
+										  ? `calc(${m}px ${i ? "-" : "+"} (-${w * Math.abs(c)}%))`
+										  : `${m}px`),
 								!t.isHorizontal())
 							) {
 								const e = h;
@@ -7293,10 +7296,10 @@
 				void 0 === e[s]
 					? (e[s] = t[s])
 					: ue(t[s]) && ue(e[s]) && Object.keys(t[s]).length > 0
-					? t[s].__swiper__
-						? (e[s] = t[s])
-						: me(e[s], t[s])
-					: (e[s] = t[s]);
+					  ? t[s].__swiper__
+							? (e[s] = t[s])
+							: me(e[s], t[s])
+					  : (e[s] = t[s]);
 			});
 	}
 	function he(e) {
@@ -7657,8 +7660,8 @@
 						(p.loop && !i.loop
 							? (x = !0)
 							: !p.loop && i.loop
-							? (E = !0)
-							: (S = !0)),
+							  ? (E = !0)
+							  : (S = !0)),
 						d.forEach((e) => {
 							if (ue(p[e]) && ue(i[e]))
 								me(p[e], i[e]),
