@@ -1,5 +1,10 @@
-import type { CSSProperties, QRL, Signal } from "@builder.io/qwik";
-import { $, component$, useSignal } from "@builder.io/qwik";
+import type {
+	CSSProperties,
+	PropFunction,
+	QRL,
+	Signal,
+} from "@builder.io/qwik";
+import { component$, useSignal } from "@builder.io/qwik";
 
 import { Star } from "./star";
 
@@ -47,7 +52,8 @@ export const offsetValue = (rating: number): string => {
 
 interface StarRatingsProps {
 	numberOfStars?: number;
-	changeRating$?: QRL<(rating: number, name?: string) => void> | undefined;
+	changeRating$?: PropFunction<(rating: number, name?: string) => void>;
+
 	starHoverColor?: string;
 	starRatedColor?: string;
 	starEmptyColor?: string;
@@ -65,8 +71,8 @@ interface StarRatingsProps {
 export const RenderStars = component$<
 	StarRatingsProps & {
 		highestStarHovered: Signal<number>;
-		unHoverOverStar: QRL<() => void>;
-		hoverOverStar: QRL<(rating: number) => void>;
+		unHoverOverStar$: QRL<() => void>;
+		hoverOverStar$: QRL<(rating: number) => void>;
 	}
 >(
 	({
@@ -74,8 +80,8 @@ export const RenderStars = component$<
 		changeRating$ = undefined,
 		rating,
 		highestStarHovered,
-		unHoverOverStar,
-		hoverOverStar,
+		unHoverOverStar$,
+		hoverOverStar$,
 		name,
 		...props
 	}) => {
@@ -105,9 +111,9 @@ export const RenderStars = component$<
 							fillId={fillId}
 							changeRating$={() => changeRating$?.(starRating, name)}
 							hoverOverStar$={() => {
-								if (changeRating$) hoverOverStar(starRating);
+								if (changeRating$) hoverOverStar$(starRating);
 							}}
-							unHoverOverStar$={changeRating$ ? unHoverOverStar : undefined}
+							unHoverOverStar$={changeRating$ ? unHoverOverStar$ : undefined}
 							isStarred={isStarred}
 							isPartiallyFullStar={isPartiallyFullStar}
 							isHovered={isHovered}
@@ -208,12 +214,12 @@ export const StarRatings = component$<
 					svgIconViewBox={svgIconViewBox}
 					rating={rating}
 					highestStarHovered={highestStarHovered}
-					unHoverOverStar={$((): void => {
+					unHoverOverStar$={() => {
 						highestStarHovered.value = -Infinity;
-					})}
-					hoverOverStar={$((hoveredRating: number): void => {
+					}}
+					hoverOverStar$={(hoveredRating: number): void => {
 						highestStarHovered.value = hoveredRating;
-					})}
+					}}
 					{...props}
 				/>
 			</div>
