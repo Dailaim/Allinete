@@ -1,0 +1,13 @@
+{
+	"name": "@utils/elysia",
+	"type": "module",
+	"devDependencies": {
+		"bun-types": "latest"
+	},
+	"main": "src/index.js",
+	"module": "src/index.js",
+	"peerDependencies": {
+		"typescript": "^5.0.0",
+		"elysia": "latest"
+	}
+}
