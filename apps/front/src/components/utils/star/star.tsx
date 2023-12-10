@@ -1,12 +1,12 @@
-import type { CSSProperties, QRL } from "@builder.io/qwik";
+import type { CSSProperties, PropFunction } from "@builder.io/qwik";
 import { component$ } from "@builder.io/qwik";
 import type { SVGProps } from "~/components/icons/props";
 
 type StarProps = SVGProps & {
 	fillId: string;
-	changeRating$?: QRL<() => void>;
-	hoverOverStar$?: QRL<() => void>;
-	unHoverOverStar$?: QRL<() => void>;
+	changeRating$?: PropFunction<() => void>;
+	hoverOverStar$?: PropFunction<() => void>;
+	unHoverOverStar$?: PropFunction<() => void>;
 	isStarred?: boolean;
 	isSelected?: boolean;
 	isPartiallyFullStar?: boolean;
