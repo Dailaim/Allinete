@@ -1,11 +1,6 @@
 import { component$, useSignal } from "@builder.io/qwik";
 import { Form } from "@builder.io/qwik-city";
-import wretch from "wretch";
 import { useAuthSignin } from "~/routes/plugin@auth";
-
-const authFetch = wretch("http://localhost:3000/").options({
-	credentials: "include",
-});
 
 export default component$(() => {
 	const signIn = useAuthSignin();
