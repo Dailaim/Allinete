@@ -110,10 +110,6 @@ export const SwiperContainer = component$<SwiperProps>(
 		const id = useId();
 		const swiper = useSignal<NoSerialize<Swiper>>();
 
-		useVisibleTask$(() => {
-			console.log("swiper");
-		});
-
 		useVisibleTask$(async ({ track }) => {
 			track(() => [
 				ElementSig.value,
