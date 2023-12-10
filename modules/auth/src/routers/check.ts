@@ -2,7 +2,7 @@ import { prismaAuth } from "@database/auth";
 import { Elysia, NotFoundError, t } from "elysia";
 import { AccessToken } from "../const";
 
-export const checkAuth = new Elysia().onAfterHandle(async ({ cookie }) => {
+export const checkAuth = new Elysia().onBeforeHandle(async ({ cookie }) => {
 	const token = cookie[AccessToken]?.get();
 
 	if (!token) {
