@@ -1,4 +1,4 @@
-import { useSignal,  useVisibleTask$ } from "@builder.io/qwik";
+import { useSignal, useVisibleTask$ } from "@builder.io/qwik";
 // import type { QRL } from "@builder.io/qwik";
 
 export type Stage = "enterFrom" | "enterTo" | "leaveFrom" | "leaveTo" | "idle";
