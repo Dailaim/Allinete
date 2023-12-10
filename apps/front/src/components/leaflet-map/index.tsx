@@ -3,13 +3,13 @@ import {
 	component$,
 	noSerialize,
 	useSignal,
-	useStyles$,
+	// useStyles$,
 	useVisibleTask$,
 } from "@builder.io/qwik";
 import { Map as LFMap } from "leaflet";
 import type { MapProps } from "~/models/map";
 
-import leafletStyles from "../../../node_modules/leaflet/dist/leaflet.css?inline";
+// import leafletStyles from "../../../node_modules/leaflet/dist/leaflet.css?inline";
 
 import { getBoundaryBox } from "~/utils/boundary-box";
 
@@ -18,7 +18,7 @@ import { marker, tileLayer } from "leaflet";
 export const LeafletMap = component$<
 	MapProps & HtmlHTMLAttributes<HTMLElement>
 >(({ location, ...props }) => {
-	useStyles$(leafletStyles);
+	// useStyles$(leafletStyles);
 	const mapContainer$ = useSignal<LFMap>();
 
 	useVisibleTask$(async ({ track }) => {
