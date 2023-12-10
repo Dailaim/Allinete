@@ -39,5 +39,8 @@ module.exports = {
 		"@typescript-eslint/no-unused-vars": ["error"],
 		"@typescript-eslint/consistent-type-imports": "warn",
 		"@typescript-eslint/no-unnecessary-condition": "warn",
+		"no-mixed-spaces-and-tabs": "off",
+
+		"qwik/no-use-visible-task": "off",
 	},
 };
