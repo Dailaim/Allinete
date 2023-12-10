@@ -12,7 +12,8 @@
 	"license": "ISC",
 	"dependencies": {
 		"@changesets/cli": "^2.26.2",
-		"turbo": "^1.10.16"
+		"turbo": "^1.10.16",
+		"@biomejs/biome": "1.4.1"
 	},
 	"workspaces": ["apps/*", "packages/*", "modules/*"]
 }
