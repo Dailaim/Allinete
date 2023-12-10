@@ -27,7 +27,6 @@ const Login = $((type: "signin" | "signup", user: User) => {
 		.url(type)
 		.post(user)
 		.unauthorized((e) => {
-			console.log("error", e);
 			return null;
 		})
 		.json((r) => r.user as Promise<User>);
@@ -53,10 +52,14 @@ export const { onRequest, useAuthSession, useAuthSignin, useAuthSignout } =
 						async authorize(credentials) {
 							const { isRegister, callbackUrl, ...user } =
 								credentials as User & {
-									isRegister: string;
+									callbackUrl: string;
+									isRegister: string | boolean;
 								};
+							callbackUrl;
 							const authUser = (await Login(
-								isRegister === "true" ? "signup" : "signin",
+								isRegister === "true" || isRegister === true
+									? "signup"
+									: "signin",
 								user,
 							).catch(() => {
 								return null;
