@@ -50,7 +50,7 @@ export const Carouse = component$(() => {
 
 	return (
 		<section class="py-8 bg-neutral relative">
-			<swiper-container class="" init="false" ref={swiperSig}>
+			<swiper-container class="" init={false} ref={swiperSig}>
 				{carousel.map((Img, index) => (
 					<swiper-slide class="" key={`item${index}`}>
 						<Img
