@@ -11,7 +11,11 @@ import {
 } from "./index";
 import type { SVGProps, SVGWithNameProps } from "./props";
 
-const meta: Meta<SVGProps> = {
+const meta: Meta<
+	SVGProps & {
+		color: string;
+	}
+> = {
 	component: SVGCart,
 	title: "Components/Icons/header",
 	argTypes: {
@@ -44,7 +48,11 @@ export const Menu: Story = {
 	render: ({ ...props }) => <SVGMenu {...props} />,
 };
 
-type StoryWithName = StoryObj<SVGWithNameProps>;
+type StoryWithName = StoryObj<
+	SVGWithNameProps & {
+		color: string;
+	}
+>;
 
 export const CardWithName: StoryWithName = {
 	args: {

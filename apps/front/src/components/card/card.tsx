@@ -7,11 +7,11 @@ import { Heart, RatingStar } from "../utils";
 
 export type CardProps = {
 	isWishlist?: boolean;
-	toggleWishlist?: QRL<() => void>;
+	toggleWishlist$?: PropFunction<() => void>;
 	Action$?: PropFunction<() => void>;
 	rating?: number;
 	userRating?: number;
-	setUserRating?: QRL<(rating: number) => void>;
+	setUserRating$?: PropFunction<(rating: number) => void>;
 	image?: string;
 	name?: string;
 	price?: number;
@@ -62,7 +62,7 @@ export const Card = component$<CardProps>((props) => {
 			</span>
 			<Heart
 				glitter={props.isWishlist}
-				onClick$={props.toggleWishlist}
+				onClick$={props.toggleWishlist$}
 				class={{
 					"absolute right-0 top-0 mt-5 mr-5 group-hover:block hidden": true,
 					"!block": props.isWishlist,
@@ -85,7 +85,7 @@ export const Card = component$<CardProps>((props) => {
 					<div class="text-sm gap-1 items-center flex">
 						<RatingStar
 							rating={props.userRating ?? 0}
-							changeRating$={props.setUserRating}
+							changeRating$={props.setUserRating$}
 							class="gap-1.5"
 							StarProps={{
 								class: "w-3.5 h-3.5",

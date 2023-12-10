@@ -177,8 +177,6 @@ export const SwiperContainer = component$<SwiperProps>(
 				}),
 			);
 
-			console.log("swiper");
-
 			onSwiper$?.(swiper);
 		});
 

@@ -13,11 +13,11 @@ type Story = StoryObj<CardProps>;
 export default meta;
 
 const Layout = component$<CardProps>(
-	({ setUserRating, toggleWishlist: tw, ...props }) => {
+	({ setUserRating$, toggleWishlist$: tw, ...props }) => {
 		const userRatingSig = useSignal(props.userRating);
 		const changeRating$ = $((num: number) => {
 			userRatingSig.value = num;
-			setUserRating?.(num);
+			setUserRating$?.(num);
 		});
 		const isWishlistSig = useSignal(props.isWishlist);
 		const toggleWishlist$ = $(() => {
@@ -29,9 +29,9 @@ const Layout = component$<CardProps>(
 				<Card
 					{...props}
 					userRating={userRatingSig.value}
-					setUserRating={changeRating$}
+					setUserRating$={changeRating$}
 					isWishlist={isWishlistSig.value}
-					toggleWishlist={toggleWishlist$}
+					toggleWishlist$={toggleWishlist$}
 				/>
 			</div>
 		);

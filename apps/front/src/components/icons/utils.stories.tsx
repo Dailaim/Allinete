@@ -13,7 +13,11 @@ import {
 } from "./index";
 import type { SVGProps } from "./props";
 
-const meta: Meta<SVGProps> = {
+const meta: Meta<
+	SVGProps & {
+		color: string;
+	}
+> = {
 	component: SVGGoogleColor,
 	title: "Components/Icons/utils",
 	argTypes: {
