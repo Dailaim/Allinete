@@ -21,7 +21,7 @@ export function useCSSTransition<T extends object>(
 
 	useVisibleTask$(async function handleStateChange({ track }) {
 		track(() => store[value]);
-		console.log("value", value);
+		// console.log("value", value);
 		clearAnimationFrameTimeout(timer.value);
 		const val = store[value];
 		// when true - trans from to enter

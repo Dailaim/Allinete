@@ -86,7 +86,6 @@ export default component$(() => {
 	const data = useAuthSession();
 
 	useVisibleTask$(() => {
-		/* register(); */
 		console.log("data", data.value);
 	});
 

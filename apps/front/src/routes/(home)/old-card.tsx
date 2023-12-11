@@ -13,9 +13,6 @@ export const OldCard = component$<CardProps>(({ title, link }) => {
 		<Link
 			href={link}
 			class="relative flex-grow flex h-[26rem]  flex-col overflow-hidden rounded-lg p-6 hover:opacity-75 xl:w-auto"
-			onClick$={() => {
-				console.log("clicked");
-			}}
 		>
 			<span aria-hidden="true" class="absolute inset-0">
 				<Slot name="image" />

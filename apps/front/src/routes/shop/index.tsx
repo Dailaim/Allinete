@@ -339,11 +339,11 @@ const FiltersMobile = component$(() => {
 
 	const startY = useSignal<number | null>(null);
 
-	const handleTouchStart = $(function (e: QwikTouchEvent<HTMLElement>) {
+	const handleTouchStart = $((e: QwikTouchEvent<HTMLElement>) => {
 		startY.value = e.touches[0].clientY;
 	});
 
-	const handleTouchMove = $(function (e: QwikTouchEvent<HTMLElement>) {
+	const handleTouchMove = $((e: QwikTouchEvent<HTMLElement>) => {
 		if (!startY.value) return;
 
 		const currentY = e.touches[0].clientY;
@@ -360,7 +360,7 @@ const FiltersMobile = component$(() => {
 		}
 	});
 
-	const handleTouchEnd = $(function () {
+	const handleTouchEnd = $(() => {
 		startY.value = null;
 	});
 
@@ -382,9 +382,6 @@ const FiltersMobile = component$(() => {
 					onTouchStart$={handleTouchStart}
 					onTouchMove$={handleTouchMove}
 					onTouchEnd$={handleTouchEnd}
-					onMouseUp$={() => {
-						console.log("mouse up");
-					}}
 					initial={{
 						opacity: 0,
 						translateY: "100%",
@@ -409,6 +406,7 @@ const FiltersMobile = component$(() => {
 					>
 						<h2 class="text-2xl font-semibold text-blue-gray">Filters</h2>
 						<button
+							type="button"
 							onClick$={() => {
 								FilterMenuMobileStore.open = false;
 							}}
