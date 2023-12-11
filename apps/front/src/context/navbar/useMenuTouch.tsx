@@ -4,11 +4,11 @@ import type { navbarContext } from "./index";
 export const useMenuTouch = (store: navbarContext) => {
 	const startX = useSignal<number | null>(null);
 
-	const handleTouchStart = $(function (e: QwikTouchEvent<HTMLElement>) {
+	const handleTouchStart = $((e: QwikTouchEvent<HTMLElement>) => {
 		startX.value = e.touches[0].clientX;
 	});
 
-	const handleTouchMove = $(function (e: QwikTouchEvent<HTMLElement>) {
+	const handleTouchMove = $((e: QwikTouchEvent<HTMLElement>) => {
 		if (!startX.value) return;
 
 		const currentX = e.touches[0].clientX;
@@ -36,7 +36,7 @@ export const useMenuTouch = (store: navbarContext) => {
 		}
 	});
 
-	const handleTouchEnd = $(function () {
+	const handleTouchEnd = $(() => {
 		startX.value = null;
 	});
 
