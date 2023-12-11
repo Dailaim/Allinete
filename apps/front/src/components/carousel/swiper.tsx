@@ -177,6 +177,7 @@ export const SwiperContainer = component$<SwiperProps>(
 				}),
 			);
 
+			// eslint-disable-next-line qwik/valid-lexical-scope
 			onSwiper$?.(swiper);
 		});
 
