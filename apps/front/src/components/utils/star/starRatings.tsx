@@ -1,9 +1,4 @@
-import type {
-	CSSProperties,
-	PropFunction,
-	QRL,
-	Signal,
-} from "@builder.io/qwik";
+import type { CSSProperties, PropFunction, Signal } from "@builder.io/qwik";
 import { component$, useSignal } from "@builder.io/qwik";
 
 import { Star } from "./star";
@@ -53,7 +48,6 @@ export const offsetValue = (rating: number): string => {
 interface StarRatingsProps {
 	numberOfStars?: number;
 	changeRating$?: PropFunction<(rating: number, name?: string) => void>;
-
 	starHoverColor?: string;
 	starRatedColor?: string;
 	starEmptyColor?: string;
@@ -71,13 +65,13 @@ interface StarRatingsProps {
 export const RenderStars = component$<
 	StarRatingsProps & {
 		highestStarHovered: Signal<number>;
-		unHoverOverStar$: QRL<() => void>;
-		hoverOverStar$: QRL<(rating: number) => void>;
+		unHoverOverStar$: PropFunction<() => void>;
+		hoverOverStar$: PropFunction<(rating: number) => void>;
 	}
 >(
 	({
 		numberOfStars = 5,
-		changeRating$ = undefined,
+		changeRating$,
 		rating,
 		highestStarHovered,
 		unHoverOverStar$,
@@ -109,8 +103,10 @@ export const RenderStars = component$<
 							isSelected={isStarred}
 							key={starRating}
 							fillId={fillId}
+							// eslint-disable-next-line qwik/valid-lexical-scope
 							changeRating$={() => changeRating$?.(starRating, name)}
 							hoverOverStar$={() => {
+								// eslint-disable-next-line qwik/valid-lexical-scope
 								if (changeRating$) hoverOverStar$(starRating);
 							}}
 							unHoverOverStar$={changeRating$ ? unHoverOverStar$ : undefined}
@@ -139,7 +135,7 @@ export const StarRatings = component$<
 		rating = 0,
 		typeOfWidget = "Star",
 		numberOfStars = 5,
-		changeRating$ = undefined,
+		changeRating$,
 		starHoverColor = "rgb(230, 67, 47)",
 		starRatedColor = "rgb(109, 122, 130)",
 		starEmptyColor = "rgb(203, 211, 227)",
@@ -202,6 +198,7 @@ export const StarRatings = component$<
 				</svg>
 				<RenderStars
 					numberOfStars={numberOfStars}
+					// eslint-disable-next-line qwik/valid-lexical-scope
 					changeRating$={changeRating$}
 					starHoverColor={starHoverColor}
 					starRatedColor={starRatedColor}
