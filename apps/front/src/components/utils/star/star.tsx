@@ -71,8 +71,11 @@ export const Star = component$<StarProps>(
 			<div
 				class="star-container"
 				style={props.ignoreInlineStyles ? {} : starContainerStyle}
+				// eslint-disable-next-line qwik/valid-lexical-scope
 				onMouseEnter$={hoverOverStar$}
+				// eslint-disable-next-line qwik/valid-lexical-scope
 				onMouseLeave$={unHoverOverStar$}
+				// eslint-disable-next-line qwik/valid-lexical-scope
 				onClick$={changeRating$}
 			>
 				<svg
