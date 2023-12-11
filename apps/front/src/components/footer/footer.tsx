@@ -8,7 +8,7 @@ export const FooterSections = component$<{
 	return (
 		<div class="text-base font-medium">
 			<h3 class="uppercase text-purple">{title}</h3>
-			<ul role="list" class="mt-2 space-y-1">
+			<ul class="mt-2 space-y-1">
 				<Slot />
 			</ul>
 		</div>
