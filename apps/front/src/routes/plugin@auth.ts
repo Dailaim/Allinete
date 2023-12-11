@@ -3,14 +3,14 @@ import wretch from "wretch";
 
 import GitHub from "@auth/core/providers/github";
 
-import Credentials from "@auth/core/providers/credentials";
+// import Credentials from "@auth/core/providers/credentials";
 
 import { serverAuth$ } from "@builder.io/qwik-auth";
 
-import type { User as AuthUser } from "@auth/core/types";
-import { PrismaAdapter } from "@auth/prisma-adapter";
+// import type { User as AuthUser } from "@auth/core/types";
+// import { PrismaAdapter } from "@auth/prisma-adapter";
 import { $ } from "@builder.io/qwik";
-import { prismaAuth } from "@database/auth";
+// import { prismaAuth } from "@database/auth";
 
 const authFetch = wretch("http://localhost:3000/").options({
 	credentials: "include",
@@ -22,7 +22,7 @@ interface User {
 	password: string;
 }
 
-const Login = $((type: "signin" | "signup", user: User) => {
+export const Login = $((type: "signin" | "signup", user: User) => {
 	return authFetch
 		.url(type)
 		.post(user)
@@ -41,33 +41,33 @@ export const { onRequest, useAuthSession, useAuthSignin, useAuthSignout } =
 				debug: false,
 
 				providers: [
-					Credentials({
-						credentials: {
-							name: { label: "Name", type: "text" },
-							email: { label: "Email", type: "text" },
-							password: { label: "Password", type: "password" },
-							isRegister: { label: "isRegister", type: "checkbox" },
-						},
+					// Credentials({
+					// 	credentials: {
+					// 		name: { label: "Name", type: "text" },
+					// 		email: { label: "Email", type: "text" },
+					// 		password: { label: "Password", type: "password" },
+					// 		isRegister: { label: "isRegister", type: "checkbox" },
+					// 	},
 
-						async authorize(credentials) {
-							const { isRegister, callbackUrl, ...user } =
-								credentials as User & {
-									callbackUrl: string;
-									isRegister: string | boolean;
-								};
-							callbackUrl;
-							const authUser = (await Login(
-								isRegister === "true" || isRegister === true
-									? "signup"
-									: "signin",
-								user,
-							).catch(() => {
-								return null;
-							})) as AuthUser | null;
+					// 	async authorize(credentials) {
+					// 		const { isRegister, callbackUrl, ...user } =
+					// 			credentials as User & {
+					// 				callbackUrl: string;
+					// 				isRegister: string | boolean;
+					// 			};
+					// 		callbackUrl;
+					// 		const authUser = (await Login(
+					// 			isRegister === "true" || isRegister === true
+					// 				? "signup"
+					// 				: "signin",
+					// 			user,
+					// 		).catch(() => {
+					// 			return null;
+					// 		})) as AuthUser | null;
 
-							return authUser;
-						},
-					}),
+					// 		return authUser;
+					// 	},
+					// }),
 
 					GitHub({
 						clientId: env.get("GITHUB_ID"),
@@ -75,7 +75,7 @@ export const { onRequest, useAuthSession, useAuthSignin, useAuthSignout } =
 					}),
 				],
 
-				adapter: PrismaAdapter(new prismaAuth()),
+				// adapter: PrismaAdapter(new prismaAuth()),
 
 				callbacks: {
 					redirect({ url }) {
